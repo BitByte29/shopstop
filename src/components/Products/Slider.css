@@ -1,0 +1,9 @@
+
+
+.carousel .thumb.selected {
+border: 2px solid red;
+}
+/* .carousel .selected {
+border: 2px solid cyan;
+} */
+
