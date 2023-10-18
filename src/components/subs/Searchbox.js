@@ -1,31 +1,39 @@
 import React, { useState } from "react";
 import { FaSearch, FaWindowClose } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   closeSearchBox,
-  updateQueryObj,
+  updateCurrenPage,
+  updateRating,
+  updateToSearch,
 } from "../../App/features/variablesSlice";
 // import { getAllProducts } from "../../App/features/productSlice";
 
 const Searchbox = () => {
-  const [keyword, setKeyword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const loading = useSelector((s) => s.products.loading);
+  const [keyword, setKeyword] = useState(useSelector((s) => s.vars.toSearch));
+
+  //How it started working again?? xD
+  // useEffect(() => {
+  //   console.log("Keyword updated:", keyword);
+  // }, [keyword]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //When ever new item is searched we would make the page and rating  0
+    dispatch(updateToSearch(keyword));
+    dispatch(updateRating());
+    dispatch(updateCurrenPage());
 
-    // const query = `?keyword=${keyword.trim()}`;
-    const h = {
-      keyword,
-    };
-    dispatch(updateQueryObj(h));
     navigate(`/products`);
   };
   const onChange = (e) => {
+    console.log("keyword here:", keyword);
     setKeyword(e.target.value);
+    // dispatch(updateToSearch(e.target.value));
+    console.log("keyword here 2:", keyword);
   };
 
   return (
@@ -41,6 +49,7 @@ const Searchbox = () => {
             <input
               type="text"
               name="value"
+              autoFocus
               id="value"
               onChange={onChange}
               value={keyword}

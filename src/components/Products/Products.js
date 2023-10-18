@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Product from "./Product";
 import { getAllProducts } from "../../App/features/productSlice";
@@ -7,24 +7,27 @@ import ReactStars from "react-rating-stars-component";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const [ratingValue, setRatingValue] = useState(0);
   const products = useSelector((state) => state.products.data.products);
+  const totalPagesHere = useSelector((state) => state.products.data.totalPages);
+  // const [category, setCategory] = useState('')
   const loading = useSelector((state) => state.products.loading);
-  const h = useSelector((state) => state.vars.queryObj);
+  const toSearch = useSelector((state) => state.vars.toSearch);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    console.log(h);
+    const h = {
+      keyword: toSearch,
+      rating: ratingValue,
+      currentPage,
+    };
 
-    // const h = {
-    //   keyword: "acer",
-    // };
-    // dispatch(updateQueryObj(h));
     dispatch(getAllProducts(h));
-  }, [dispatch, h]);
+  }, [dispatch, toSearch, ratingValue, currentPage]);
 
   const options = {
-    edit: false,
+    edit: true,
     activeColor: "tomato",
-    value: 4.3,
     size: 25,
     isHalf: true,
   };
@@ -41,7 +44,12 @@ const Products = () => {
 
             <hr />
             <h2>Ratings</h2>
-            <ReactStars {...options} />
+            <ReactStars
+              {...options}
+              onChange={(val) => setRatingValue(val)}
+              // onClick={setRatingValue}
+            />
+            <p>{ratingValue}+ and up.</p>
 
             <hr />
             <h2>Category</h2>
@@ -60,7 +68,7 @@ const Products = () => {
           </div>
         </div>
 
-        <div className="relative flex flex-col items-start md:w-[75%]">
+        <div className="relative flex flex-col items-start md:w-  [75%]">
           <div className="">Some widgests htmlFor sorting up and down</div>
 
           {loading ? (
@@ -73,6 +81,28 @@ const Products = () => {
                 ))}
             </div>
           )}
+
+          <div className="paginate">
+            {currentPage > 1 && (
+              <button
+                className="pre"
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                Pre
+              </button>
+            )}
+            <p>
+              {currentPage}/{totalPagesHere}
+            </p>
+            {currentPage < totalPagesHere && (
+              <button
+                onClick={() => setCurrentPage(currentPage + 1)}
+                className="next"
+              >
+                Next
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </>

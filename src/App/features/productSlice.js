@@ -4,11 +4,16 @@ import { toast } from "react-toastify";
 
 export const getAllProducts = createAsyncThunk(
   "getAllProducts",
-  async ({ keyword = "" }, { rejectWithValue }) => {
+  async (
+    { keyword = "", rating = 0, currentPage = 1 },
+    { rejectWithValue }
+  ) => {
     try {
       const host = "http://localhost:3001";
-      // console.log(querry);
-      const url = `${host}/api/v1/products?keyword=${keyword}`;
+      let ratingString = rating > 0 ? `rating[gte]=${rating}&` : "";
+      let keywordString = keyword.length > 0 ? `keyword=${keyword}&` : "";
+      let pageString = `page=${currentPage}`;
+      const url = `${host}/api/v1/products?${keywordString}${ratingString}${pageString}`;
       const response = await axios.get(url);
       console.log(url);
       return response.data; // Assuming your data is in response.data
@@ -20,19 +25,37 @@ export const getAllProducts = createAsyncThunk(
     }
   }
 );
+
+//Going to implement after login n sighnup
 export const addReview = createAsyncThunk(
   "addReview",
-  async (id, { rejectWithValue }) => {
+  async (reviewObj, { rejectWithValue }) => {
     try {
       const response = await axios.put(`http://localhost:3001/api/v1/review`);
 
-      // const response = await axios.post(`/api/v1/reviews/${id}`);
-      return response.data; // Assuming your data is in response.data
+      return response.data;
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "An error occurred.";
       // toast.error(errorMessage);
       return rejectWithValue(errorMessage); // Pass the error message to the reducer
+    }
+  }
+);
+export const voteReview = createAsyncThunk(
+  "voteReview",
+  async (anObject, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/api/v1/review/vote`,
+        anObject
+      );
+
+      return response.data; // Assuming your data is in response.data
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -94,6 +117,12 @@ const productSlice = createSlice({
       toast.success(action.payload.message);
     });
     builder.addCase(addReview.rejected, (state, action) => {
+      toast.error(action.payload);
+    });
+    builder.addCase(voteReview.fulfilled, (state, action) => {
+      toast.success(action.payload.message);
+    });
+    builder.addCase(voteReview.rejected, (state, action) => {
       toast.error(action.payload);
     });
   },
