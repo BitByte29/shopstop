@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaThumbsDown, FaThumbsUp, FaUser } from "react-icons/fa";
 
 import ReactStars from "react-rating-stars-component";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { voteReview } from "../../App/features/productSlice";
 
 const Reviews = ({ review, productId }) => {

@@ -4,6 +4,7 @@ import Product from "./Product";
 import { getAllProducts } from "../../App/features/productSlice";
 import Loader from "../subs/Loader";
 import ReactStars from "react-rating-stars-component";
+import { toast } from "react-toastify";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -16,15 +17,18 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const h = {
+    const filters = {
       keyword: toSearch,
       rating: ratingValue,
       currentPage,
     };
 
-    dispatch(getAllProducts(h));
+    dispatch(getAllProducts(filters));
   }, [dispatch, toSearch, ratingValue, currentPage]);
 
+  const resetFilters = () => {
+    setRatingValue(0);
+  };
   const options = {
     edit: true,
     activeColor: "tomato",
@@ -36,7 +40,7 @@ const Products = () => {
     <>
       <div className="flex flex-col  gap-4 md:flex-row md:px-[5vh]">
         <div className="w-full md:w-[25%] ">
-          <div className="sticky px-4 md:px-20 top-20 ">
+          <div className="sticky px-4 py-4 border-2 rounded-lg md:px-14 top-20 ">
             <h2>Price</h2>
             {/* <progress min="20" max="50" value={20} draggable /> */}
             {/* <range min="20" max="50" value={20} draggable /> */}
@@ -44,11 +48,18 @@ const Products = () => {
 
             <hr />
             <h2>Ratings</h2>
-            <ReactStars
-              {...options}
-              onChange={(val) => setRatingValue(val)}
-              // onClick={setRatingValue}
-            />
+            <div>
+              <ReactStars
+                {...options}
+                // key={ratingValue}
+                value={ratingValue}
+                key={ratingValue === 0 ? "rating-key" : null}
+                onChange={(newRating) => {
+                  setRatingValue(newRating);
+                  setCurrentPage(1);
+                }}
+              />
+            </div>
             <p>{ratingValue}+ and up.</p>
 
             <hr />
@@ -64,12 +75,14 @@ const Products = () => {
             <label htmlFor="cam">Camera</label>
             <br />
             <br />
-            <button className="px-3 py-2 bg-cyan-600">Apply</button>
+            <button className="px-3 py-2 bg-cyan-600" onClick={resetFilters}>
+              Clear all filters
+            </button>
           </div>
         </div>
 
-        <div className="relative flex flex-col items-start md:w-  [75%]">
-          <div className="">Some widgests htmlFor sorting up and down</div>
+        <div className="relative flex flex-col items-center  md:w-[75%] border-2">
+          <div className="py-4 mb-4 text-3xl">Available Products</div>
 
           {loading ? (
             <Loader />
@@ -81,28 +94,43 @@ const Products = () => {
                 ))}
             </div>
           )}
-
-          <div className="paginate">
-            {currentPage > 1 && (
-              <button
-                className="pre"
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                Pre
-              </button>
-            )}
-            <p>
-              {currentPage}/{totalPagesHere}
-            </p>
-            {currentPage < totalPagesHere && (
-              <button
-                onClick={() => setCurrentPage(currentPage + 1)}
-                className="next"
-              >
-                Next
-              </button>
-            )}
-          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-center gap-0 py-5">
+        <div className="flex items-center justify-center gap-0 bg-slate-200">
+          {currentPage > 1 ? (
+            <button
+              className="px-3 py-2 hover:bg-slate-400 w-[100px] "
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              {`< Pre`}
+            </button>
+          ) : (
+            <button
+              className="px-3 py-2 hover:bg-slate-400 w-[100px] text-slate-500 cursor-not-allowed"
+              onClick={() => toast("First page reached")}
+            >
+              {`< Pre`}
+            </button>
+          )}
+          <p className="px-3 py-2 font-bold bg-slate-400">
+            {currentPage}/{totalPagesHere}
+          </p>
+          {currentPage < totalPagesHere ? (
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              className="px-3 py-2 hover:bg-slate-400 w-[100px]"
+            >
+              {`Next >`}
+            </button>
+          ) : (
+            <button
+              className="px-3 py-2 hover:bg-slate-400 w-[100px] text-slate-500 cursor-not-allowed"
+              onClick={() => toast("First page reached")}
+            >
+              {`Next >`}
+            </button>
+          )}
         </div>
       </div>
     </>
