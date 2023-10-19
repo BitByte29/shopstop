@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addReview, getProductDetails } from "../../App/features/productSlice";
+import { addReview } from "../../App/features/productSlice";
 import { Link, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import { demo } from "../../assets/index";
@@ -14,13 +14,14 @@ import Reviews from "./Reviews";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
-  const product = useSelector((s) => s.products.details);
+  const products = useSelector((s) => s.products.data.products);
   const { id } = useParams();
+  const product = products.find((ele) => ele._id === id);
 
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
-    dispatch(getProductDetails(id));
-  }, [dispatch, id, product.rating]);
+    // dispatch(getProductDetails(id));
+  }, [dispatch, products]);
 
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
@@ -47,7 +48,7 @@ const ProductPage = () => {
   //Stock, num of reviews, desription, reviews
   return (
     <div className="px-0 lg:px-20 min-h-[100vh]">
-      {product.name ? (
+      {product ? (
         <div className="relative flex flex-col gap-4 px-4 lg:flex-row ">
           <div className="bg-white lg:w-2/6 ">
             <div className="sticky top-[100px] py-0 ">

@@ -4,14 +4,23 @@ import Categories from "./Categories";
 import FeaturedProducts from "./FeaturedProducts";
 import Metadata from "../layout/Metadata";
 // import Loader from "../subs/Loader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../App/features/productSlice";
 
 const Home = () => {
+  const products = useSelector((s) => s.products.data.products);
+  const categories = useSelector((s) => s.vars.categories);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
+    const filters = {
+      keyword: "",
+      rating: 0,
+      currentPage: 1,
+      requestedFrom: "homepage",
+    };
+    dispatch(getAllProducts(filters));
+  }, []);
 
   return (
     <>
@@ -19,7 +28,7 @@ const Home = () => {
       <div className="relative w-full bg-cyan-200 ">
         <SliderComponent />
         <Categories />
-        <FeaturedProducts />
+        <FeaturedProducts products={products} />
         {/* <Loader /> */}
       </div>
     </>

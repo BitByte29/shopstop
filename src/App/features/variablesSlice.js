@@ -5,6 +5,7 @@ const initialState = {
   toSearch: "",
   rating: 0,
   currentPage: 1,
+  categories: [],
 };
 
 export const variableSlice = createSlice({
@@ -26,6 +27,9 @@ export const variableSlice = createSlice({
     updateCurrenPage: (state, _) => {
       state.currentPage = 1;
     },
+    updateCategories: (state, action) => {
+      state.categories = action.payload;
+    },
   },
 });
 
@@ -35,6 +39,7 @@ export const {
   updateToSearch,
   updateCurrenPage,
   updateRating,
+  updateCategories,
 } = variableSlice.actions;
 
 export default variableSlice.reducer;

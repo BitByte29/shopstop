@@ -5,8 +5,28 @@ import { Navbar, Home, Footer, Products, ProductPage } from "./components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getAllProducts } from "./App/features/productSlice";
+import { updateCategories } from "./App/features/variablesSlice";
 
 function App() {
+  const category = [
+    "Mobile",
+    "Laptop",
+    "Computer",
+    "Gaming",
+    "Audio",
+    "TV",
+    "Accessories",
+    "All",
+  ];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllProducts());
+    dispatch(updateCategories(category));
+  }, []);
+
   return (
     <div>
       <Router>

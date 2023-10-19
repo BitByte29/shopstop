@@ -7,3 +7,44 @@ border: 2px solid red;
 border: 2px solid cyan;
 } */
 
+
+.price-slider {
+    @apply flex items-center w-full;
+}
+
+.filter-header{
+    @apply text-xl text-blue-700 pb-2 pt-3
+}
+
+.price-slider .thumb {
+    @apply w-5 h-5 rounded-full bg-blue-700 cursor-grab
+}
+.price-slider .thumb:active:focus{
+    @apply border-none shadow-2xl outline-none shadow-blue-700;
+    box-shadow: 0 0 10px;
+}
+.price-slider .track{
+    
+    height: 3px;
+}
+.price-slider .track-0{
+    background-color: grey;
+    color: black;
+}
+.price-slider .track-1{
+    background-color: blue;
+    color: black;
+}.price-slider .track-2{
+    background-color: grey;
+    color: black;
+}
+/* .price-slider .thumb.active::after{
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-top: -11px;
+    margin-left: -11px;
+    content: "";
+    border-radius: 50%;
+    background-color: rgba(20, 20, 255, 0.5);
+} */

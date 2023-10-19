@@ -5,17 +5,37 @@ import { toast } from "react-toastify";
 export const getAllProducts = createAsyncThunk(
   "getAllProducts",
   async (
-    { keyword = "", rating = 0, currentPage = 1 },
+    {
+      keyword = "",
+      rating = 0,
+      currentPage = 1,
+      requestedFrom = "",
+      priceRange = [0, 125000],
+      category,
+    },
     { rejectWithValue }
   ) => {
     try {
       const host = "http://localhost:3001";
-      let ratingString = rating > 0 ? `rating[gte]=${rating}&` : "";
-      let keywordString = keyword.length > 0 ? `keyword=${keyword}&` : "";
-      let pageString = `page=${currentPage}`;
-      const url = `${host}/api/v1/products?${keywordString}${ratingString}${pageString}`;
-      const response = await axios.get(url);
+      let url = "";
+
+      if (requestedFrom === "homepage") {
+        url = `${host}/api/v1/products?onSale=true&limit=8&page=1`;
+      } else {
+        let ratingString = rating > 0 ? `rating[gte]=${rating}&` : "";
+
+        let categoryString = category !== "All" ? `category=${category}&` : "";
+
+        let keywordString = keyword.length > 0 ? `keyword=${keyword}&` : "";
+
+        let priceRangeString = `price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}&`;
+
+        let pageString = `page=${currentPage}`;
+
+        url = `${host}/api/v1/products?${keywordString}${ratingString}${priceRangeString}${categoryString}${pageString}`;
+      }
       console.log(url);
+      const response = await axios.get(url);
       return response.data; // Assuming your data is in response.data
     } catch (error) {
       const errorMessage =
@@ -59,26 +79,26 @@ export const voteReview = createAsyncThunk(
     }
   }
 );
-export const getProductDetails = createAsyncThunk(
-  "getProductDetails",
-  async (id, { rejectWithValue }) => {
-    try {
-      const host = "http://localhost:3001";
+//Not necessary as product is already fetched and stored in store once we can access from there
+// export const getProductDetails = createAsyncThunk(
+//   "getProductDetails",
+//   async (id, { rejectWithValue }) => {
+//     try {
+//       const host = "http://localhost:3001";
 
-      const response = await axios.get(`${host}/api/v1/product/${id}`);
-      return response.data;
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || "An error occurred.";
-      toast.error(errorMessage);
-      return rejectWithValue(errorMessage);
-    }
-  }
-);
+//       const response = await axios.get(`${host}/api/v1/product/${id}`);
+//       return response.data;
+//     } catch (error) {
+//       const errorMessage =
+//         error.response?.data?.message || "An error occurred.";
+//       toast.error(errorMessage);
+//       return rejectWithValue(errorMessage);
+//     }
+//   }
+// );
 
 const initialState = {
   data: [],
-  details: {},
   loading: false,
   isError: false,
   error: null,
@@ -98,19 +118,7 @@ const productSlice = createSlice({
     builder.addCase(getAllProducts.rejected, (state, action) => {
       state.loading = false; // Set loading to false when an error occurs
       state.isError = true;
-      state.error = action.payload; // Store the error message
-    });
-    builder.addCase(getProductDetails.fulfilled, (state, action) => {
-      state.loading = false;
-      state.details = action.payload;
-    });
-    builder.addCase(getProductDetails.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(getProductDetails.rejected, (state, action) => {
-      state.loading = false; // Set loading to false when an error occurs
-      state.isError = true;
-      state.details = {};
+      toast(action.payload);
       state.error = action.payload; // Store the error message
     });
     builder.addCase(addReview.fulfilled, (state, action) => {
