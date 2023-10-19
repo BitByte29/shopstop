@@ -37,6 +37,7 @@ const Products = () => {
 
   const resetFilters = () => {
     setRatingValue(0);
+    setCategory("All");
     setRange([MIN, MAX]);
     setPrice([MIN, MAX]);
   };

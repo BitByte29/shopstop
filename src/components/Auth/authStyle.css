@@ -1,0 +1,18 @@
+
+
+.auth{
+    @apply flex flex-col items-center justify-center gap-4;
+}
+
+.input-div{
+    @apply flex relative bg-white items-center gap-2 h-10 py-4 ps-4 pr-8
+}
+.input-div input{
+    @apply focus:outline-none
+}
+
+.auth button{
+    @apply bg-white h-10 py-4 px-8 flex items-center justify-center
+}
+
+

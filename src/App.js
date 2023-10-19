@@ -1,7 +1,14 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import { Navbar, Home, Footer, Products, ProductPage } from "./components";
+import {
+  Navbar,
+  Home,
+  Footer,
+  Products,
+  ProductPage,
+  Auth,
+} from "./components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -36,6 +43,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductPage />} />
+            <Route path="/auth" element={<Auth />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </div>

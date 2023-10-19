@@ -54,7 +54,7 @@ const Navbar = () => {
           </li>
 
           <li className="hover:text-red-600">
-            <Link to="/products">
+            <Link to="/auth">
               <FaUser />
             </Link>
           </li>
@@ -102,7 +102,7 @@ const Navbar = () => {
               </li>
 
               <li className="hover:text-red-600">
-                <Link to="/">
+                <Link to="/auth" onClick={() => setMobileNav(false)}>
                   <FaUser className="text-3xl" />
                 </Link>
               </li>
