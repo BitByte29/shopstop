@@ -1,25 +1,97 @@
 import React, { useEffect, useState } from "react";
 import { FaEnvelope, FaKey, FaUser } from "react-icons/fa";
-import { IoIosClose, IoIosEye } from "react-icons/io";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 import "./authStyle.css";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser, registerUser } from "../../App/features/userSlice";
+
 const Auth = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated, accountCreated } = useSelector((s) => s.users);
   const [isLoginPage, setIsLoginPage] = useState(true);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPass, setLoginPass] = useState("");
+  const [pType, setpType] = useState("password");
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [avatar, setAvatar] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState("/user.jpg");
+  const dispatch = useDispatch();
+  //   const [isLoginPage, setIsLoginPage] = useState(
+  //     localStorage.getItem("isLoginPage") === "false" ? false : true
+  //   );
+
+  // Save the state to localStorage whenever it changes
+  //   useEffect(() => {
+  //     localStorage.setItem("isLoginPage", isLoginPage);
+  //   }, [isLoginPage]);
+
+  const loginSubmit = (e) => {
+    e.preventDefault();
+    console.log(loginEmail, loginPass);
+    dispatch(loginUser({ email: loginEmail, password: loginPass }));
+  };
+  const registerSubmit = (e) => {
+    e.preventDefault();
+    const myForm = new FormData();
+    myForm.set("name", user.name);
+    myForm.set("email", user.email);
+    myForm.set("password", user.password);
+    if (avatar) {
+      myForm.set("avatar", avatar);
+    }
+    dispatch(registerUser(myForm));
+    setUser({
+      name: "",
+      email: "",
+      password: "",
+    });
+    setIsLoginPage(true);
+    navigate("/auth");
+  };
+  const registerDataChange = (e) => {
+    console.log("data change");
+    if (e.target.name === "avatar") {
+      const reader = new FileReader();
+      //When files are uploaded they are done in a array as there can be many files so the 0 says the first file
+      //When the avatar is changed we will read the uploaded file using filereader
+      //using the filereader instance (reader) we will read the
+      //ReadAsDataURL makes a url which can be used to view it on browser
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatarPreview(reader.result);
+          setAvatar(reader.result);
+        }
+      };
+    } else {
+      setUser({ ...user, [e.target.name]: e.target.value });
+    }
+  };
   useEffect(() => {
     setIsLoginPage(true);
-  }, []);
+    if (isAuthenticated) {
+      navigate("/account");
+    }
+  }, [dispatch, isAuthenticated, navigate]);
 
   return (
-    <div className="h-[80vh] bg-red-300  flex items-center justify-center">
+    <div className="h-[90vh] flex items-center justify-center">
       <div className="h-[400px] w-[300px] bg-white flex flex-col">
         <div className="flex">
           <button
-            className="py-2  w-[50%]"
+            className="py-2 bg-cyan-500 w-[50%] uppercase font-semibold"
             onClick={() => setIsLoginPage(true)}
           >
             Login
           </button>
           <button
-            className="py-2  bg-yellow-300 w-[50%]"
+            className="py-2  bg-yellow-300 w-[50%] uppercase font-semibold"
             onClick={() => setIsLoginPage(false)}
           >
             Sign up
@@ -30,47 +102,123 @@ const Auth = () => {
         >
           <form
             action=""
-            className={`min-w-full bg-cyan-600 ${
+            className={`min-w-full bg-cyan-500 ${
               isLoginPage ? "" : "-translate-x-[100%]"
             } transition-all auth`}
+            onSubmit={loginSubmit}
           >
             <div className="input-div">
               <FaEnvelope />
-              <input type="text" placeholder="Email" />
+              <input
+                type="text"
+                placeholder="Email"
+                name="email"
+                value={loginEmail}
+                required
+                onChange={(e) => setLoginEmail(e.target.value)}
+              />
             </div>
             <div className="input-div">
               <FaKey />
-              <input type="password" placeholder="Password" />
-              <IoIosEye className="absolute right-4" />
-              <IoIosClose className="hidden" />
+              <input
+                type={pType}
+                placeholder="Password"
+                name="password"
+                value={loginPass}
+                required
+                onChange={(e) => setLoginPass(e.target.value)}
+              />
+              <IoIosEye
+                className={`absolute cursor-pointer right-4 ${
+                  pType === "text" ? "" : "hidden"
+                }`}
+                onClick={() => setpType("password")}
+              />
+              <IoIosEyeOff
+                className={`absolute cursor-pointer right-4 ${
+                  pType === "text" ? "hidden" : ""
+                }`}
+                onClick={() => setpType("text")}
+              />
             </div>
 
-            <button>Login</button>
+            <button type="submit">Login</button>
 
-            <p>
-              Create a accout?{" "}
-              <span onClick={() => setIsLoginPage(true)}>Signup</span>
-            </p>
+            <div className="text-center">
+              <Link to="/password/forgot" className="">
+                Forgot Password?
+              </Link>
+
+              <p>
+                Create a accout?{" "}
+                <span onClick={() => setIsLoginPage(false)}>Signup</span>
+              </p>
+            </div>
           </form>
+
+          {/* _____SignUp____ */}
           <form
             action=""
             className={`min-w-full bg-yellow-300 ${
               isLoginPage ? "" : "-translate-x-[100%]"
             } transition-all auth`}
+            encType="multipart/form-data"
+            onSubmit={registerSubmit}
           >
             <div className="input-div">
               <FaUser />
-              <input type="text" placeholder="Name" autoFocus />
+              <input
+                type="text"
+                placeholder="Name"
+                name="name"
+                required
+                value={user.name}
+                onChange={registerDataChange}
+              />
             </div>
             <div className="input-div">
               <FaEnvelope />
-              <input type="text" placeholder="Email" />
+              <input
+                type="text"
+                placeholder="Email"
+                name="email"
+                required
+                value={user.email}
+                onChange={registerDataChange}
+              />
             </div>
             <div className="input-div">
               <FaKey />
-              <input type="password" placeholder="Password" />
-              <IoIosEye className="absolute right-4" />
-              <IoIosClose className="hidden" />
+              <input
+                type={pType}
+                placeholder="Password"
+                name="password"
+                required
+                value={user.password}
+                onChange={registerDataChange}
+              />
+              <IoIosEye
+                className={`absolute cursor-pointer right-4 ${
+                  pType === "text" ? "" : "hidden"
+                }`}
+                onClick={() => setpType("password")}
+              />
+              <IoIosEyeOff
+                className={`absolute cursor-pointer right-4 ${
+                  pType === "text" ? "hidden" : ""
+                }`}
+                onClick={() => setpType("text")}
+              />
+            </div>
+
+            <div id="registerImage" className="p-0">
+              <img src={avatarPreview} alt="" className="rounded-full" />
+              <input
+                type="file"
+                name="avatar"
+                accept="image/*"
+                onChange={registerDataChange}
+              />
             </div>
 
             <button>Signup</button>

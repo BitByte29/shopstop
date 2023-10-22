@@ -12,10 +12,15 @@ import {
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllProducts } from "./App/features/productSlice";
 import { updateCategories } from "./App/features/variablesSlice";
+import { getUserDetails } from "./App/features/userSlice";
+import Account from "./components/Account/Account";
+import Profile from "./components/Account/Profile";
+import ProtectedRoute from "./components/Route/ProtectedRoute";
+import EditProfile from "./components/Account/EditProfile";
 
 function App() {
   const category = [
@@ -28,25 +33,40 @@ function App() {
     "Accessories",
     "All",
   ];
+
+  const { isAuthenticated, user } = useSelector((s) => s.users);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllProducts());
+    if (isAuthenticated && !user) {
+      dispatch(getUserDetails());
+    }
     dispatch(updateCategories(category));
-  }, []);
+    dispatch(getAllProducts());
+    // eslint-disable-next-line
+  }, [dispatch, isAuthenticated]);
 
   return (
     <div>
       <Router>
         <Navbar />
-        <div className="min-h-[80vh]">
-          <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductPage />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </div>
+        {/* <div className="min-h-[100vh]"> */}
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductPage />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/" element={<Home />} />
+          {/* <ProtectedRoute path="/account" element={<Profile />} /> */}
+          <Route
+            path="/account"
+            element={<ProtectedRoute element={Profile} />}
+          />
+
+          <Route path="/*" element={<div>Page not found</div>} />
+        </Routes>
+        {/* </div> */}
 
         <Footer />
         <ToastContainer

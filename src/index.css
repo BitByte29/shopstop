@@ -3,6 +3,12 @@
 
 @tailwind utilities;
 
+@layer components {
+  .flex-center {
+    @apply flex flex-col items-center justify-center;
+  }
+}
+
 
 *{
     padding: 0;

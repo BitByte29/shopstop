@@ -9,18 +9,20 @@ import {
 } from "react-icons/fa";
 import Searchbox from "../subs/Searchbox";
 import { useDispatch, useSelector } from "react-redux";
+import UserOptions from "./UserOptions";
 import { openSearchBox } from "../../App/features/variablesSlice";
 
-//Logo , Contact, -About, Home, Products, Search, Login, Cart
-//Home might have top 5 popular products //Week deals/
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
   const searchBoxOn = useSelector((s) => s.vars.searchBoxOn);
+  const { loading, isAuthenticated, user } = useSelector(
+    (state) => state.users
+  );
   const dispatch = useDispatch();
 
   return (
     <>
-      <nav className="fixed top-0 left-0 z-30 flex items-center justify-between w-full h-[10vh] px-8 py-4 text-2xl bg-transparent backdrop-blur-md md:text-lg">
+      <nav className="fixed top-0 left-0 z-30 flex items-center justify-around w-full h-[10vh] px-8 py-4 text-2xl  bg-gradient-to-l from-purple-600 via-purple-400 to-purple-600 md:text-lg">
         <Link to="/home" className="text-3xl font-bold cursor-pointer group">
           <span className="bg-lp rounded-s-lg rounded-e-2xl group-hover:bg-transparent">
             Shop
@@ -44,7 +46,7 @@ const Navbar = () => {
             <Link to="/demo">Demo</Link>
           </li>
         </ul>
-        <ul className="items-center justify-around hidden gap-4 text-2xl md:flex">
+        <ul className="flex flex-row items-center justify-around gap-4 text-2xl ">
           <li>
             {searchBoxOn ? (
               <div className="w-[25px]"></div>
@@ -53,11 +55,21 @@ const Navbar = () => {
             )}
           </li>
 
-          <li className="hover:text-red-600">
+          {isAuthenticated && !loading && user ? (
+            <UserOptions user={user} />
+          ) : (
+            <li className="hover:text-red-600">
+              <Link to="/auth">
+                <FaUser />
+              </Link>
+            </li>
+          )}
+
+          {/* <li className="hover:text-red-600">
             <Link to="/auth">
               <FaUser />
             </Link>
-          </li>
+          </li> */}
           <li className="hover:text-red-600">
             <Link to="/products">
               <FaShoppingCart />

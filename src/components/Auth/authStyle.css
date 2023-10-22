@@ -1,7 +1,7 @@
 
 
 .auth{
-    @apply flex flex-col items-center justify-center gap-4;
+    @apply  flex flex-col items-center justify-center gap-4;
 }
 
 .input-div{
@@ -12,7 +12,25 @@
 }
 
 .auth button{
-    @apply bg-white h-10 py-4 px-8 flex items-center justify-center
+    @apply bg-white h-10 py-4 px-8 flex items-center justify-center uppercase font-semibold hover:bg-green-400 transition-all hover:tracking-wider
+}
+
+.auth p span{
+    @apply text-blue-800 underline cursor-pointer
+}
+
+#registerImage {
+    @apply flex w-[80%] gap-3 items-center
+}
+
+#registerImage > img{
+    height: 50px;
+    min-width: 50px;
+}
+
+#registerImage > input::file-selector-button{
+    width:100%;
+    cursor: pointer;
 }
 
 
