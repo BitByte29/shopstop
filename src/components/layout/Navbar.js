@@ -9,8 +9,10 @@ import {
 } from "react-icons/fa";
 import Searchbox from "../subs/Searchbox";
 import { useDispatch, useSelector } from "react-redux";
+
 import UserOptions from "./UserOptions";
 import { openSearchBox } from "../../App/features/variablesSlice";
+import CartIcon from "./CartIcon";
 
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
@@ -64,15 +66,9 @@ const Navbar = () => {
               </Link>
             </li>
           )}
-
-          {/* <li className="hover:text-red-600">
-            <Link to="/auth">
-              <FaUser />
-            </Link>
-          </li> */}
-          <li className="hover:text-red-600">
-            <Link to="/products">
-              <FaShoppingCart />
+          <li className="hover:text-red-600 relative">
+            <Link to="/cart">
+              <CartIcon />
             </Link>
           </li>
         </ul>

@@ -96,6 +96,7 @@ const Products = () => {
               {categories.map((val) => {
                 return (
                   <div
+                    key={val}
                     className={`flex items-center gap-2 cursor-pointer hover:tracking-wider ${
                       category === val ? "font-semibold" : ""
                     }`}

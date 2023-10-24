@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addReview } from "../../App/features/productSlice";
+import { addReview, getProductDetails } from "../../App/features/productSlice";
 import { Link, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import { demo } from "../../assets/index";
@@ -11,20 +11,28 @@ import ReactStars from "react-rating-stars-component";
 import "./Slider.css";
 import Breadcrumb from "../subs/Breadcrums";
 import Reviews from "./Reviews";
+import { addToCart } from "../../App/features/cartSlice";
+import Loader from "../subs/Loader";
+import { toast } from "react-toastify";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
-  const products = useSelector((s) => s.products.data.products);
+  const loading = useSelector((s) => s.products.loading);
   const { id } = useParams();
-  const product = products.find((ele) => ele._id === id);
-
+  const product = useSelector((s) => s.products.product);
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
-    // dispatch(getProductDetails(id));
-  }, [dispatch, products]);
+    dispatch(getProductDetails(id));
+  }, [dispatch, id]);
 
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
+  };
+
+  const handleAddToCart = () => {
+    // console.log("In prod:", id, quantity);
+    toast.success("Item added to cart.");
+    dispatch(addToCart({ id, quantity }));
   };
   const salePrice = (price, percent) => {
     let discount = (percent * price) / 100;
@@ -48,7 +56,9 @@ const ProductPage = () => {
   //Stock, num of reviews, desription, reviews
   return (
     <div className="px-0 lg:px-20 min-h-[100vh]">
-      {product ? (
+      {loading ? (
+        <Loader />
+      ) : product ? (
         <div className="relative flex flex-col gap-4 px-4 lg:flex-row ">
           <div className="bg-white lg:w-2/6 ">
             <div className="sticky top-[100px] py-0 ">
@@ -63,7 +73,7 @@ const ProductPage = () => {
                       className="flex items-center justify-center lg:w-[400px] lg:h-[375px] w-full h-full px-16 py-4"
                     >
                       <img
-                        src={demo}
+                        src={image.url}
                         alt=""
                         className="max-w-[100%] max-h-[100%] rounded-xl"
                       />
@@ -71,7 +81,10 @@ const ProductPage = () => {
                   ))}
               </Carousel>
               <div className="flex items-center justify-between ">
-                <button className="w-[45%] py-4 uppercase bg-cyan-600 flex gap-2 items-center hover:-translate-y-2 transition-all justify-center">
+                <button
+                  onClick={handleAddToCart}
+                  className="w-[45%] py-4 uppercase bg-cyan-600 flex gap-2 items-center hover:-translate-y-2 transition-all justify-center"
+                >
                   <FaShoppingCart /> Add to Cart
                 </button>
                 <button className="w-[45%] py-4 bg-green-600 uppercase hover:-translate-y-2 transition-all ">

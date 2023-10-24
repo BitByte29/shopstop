@@ -17,10 +17,14 @@ import { useEffect } from "react";
 import { getAllProducts } from "./App/features/productSlice";
 import { updateCategories } from "./App/features/variablesSlice";
 import { getUserDetails } from "./App/features/userSlice";
-import Account from "./components/Account/Account";
 import Profile from "./components/Account/Profile";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import EditProfile from "./components/Account/EditProfile";
+import Shipping from "./components/Cart/Shipping";
+import ResetPassword from "./components/Auth/ResetPassword";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import Cart from "./components/Cart/Cart";
+import ConfirmOrder from "./components/Cart/ConfirmOrder";
 
 function App() {
   const category = [
@@ -34,7 +38,7 @@ function App() {
     "All",
   ];
 
-  const { isAuthenticated, user } = useSelector((s) => s.users);
+  const { isAuthenticated, user, loading } = useSelector((s) => s.users);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -44,7 +48,7 @@ function App() {
     dispatch(updateCategories(category));
     dispatch(getAllProducts());
     // eslint-disable-next-line
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch, isAuthenticated, loading]);
 
   return (
     <div>
@@ -56,12 +60,23 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductPage />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/password/reset/:token" element={<ResetPassword />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<Home />} />
-          {/* <ProtectedRoute path="/account" element={<Profile />} /> */}
+          <Route path="/cart" element={<Cart />} />
+
           <Route
-            path="/account"
+            path="/profile"
             element={<ProtectedRoute element={Profile} />}
+          />
+          <Route
+            path="/shipping"
+            element={<ProtectedRoute element={Shipping} />}
+          />
+          <Route
+            path="/confirmorder"
+            element={<ProtectedRoute element={ConfirmOrder} />}
           />
 
           <Route path="/*" element={<div>Page not found</div>} />
@@ -70,9 +85,9 @@ function App() {
 
         <Footer />
         <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
+          position="bottom-left"
+          autoClose={1500}
+          hideProgressBar={true}
           newestOnTop={false}
           closeOnClick
           rtl={false}

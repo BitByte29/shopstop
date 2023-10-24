@@ -21,7 +21,7 @@ const UserOptions = ({ user }) => {
   };
 
   const handleProfileClick = () => {
-    navigate("/account");
+    navigate("/profile");
     handleFABClick();
   };
 
@@ -39,7 +39,7 @@ const UserOptions = ({ user }) => {
 
   let items = [
     {
-      tooltip: "Account",
+      tooltip: "Profile",
       onClick: handleProfileClick,
       icon: <FaUser className="relative" />,
     },

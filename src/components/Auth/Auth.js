@@ -3,8 +3,9 @@ import { FaEnvelope, FaKey, FaUser } from "react-icons/fa";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import "./authStyle.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from "../../App/features/userSlice";
+import ForgotPassword from "./ForgotPassword";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -19,21 +20,14 @@ const Auth = () => {
     password: "",
   });
 
+  const [forgotPasswordPrompt, setforgotPasswordPrompt] = useState(false);
+
   const [avatar, setAvatar] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState("/user.jpg");
   const dispatch = useDispatch();
-  //   const [isLoginPage, setIsLoginPage] = useState(
-  //     localStorage.getItem("isLoginPage") === "false" ? false : true
-  //   );
-
-  // Save the state to localStorage whenever it changes
-  //   useEffect(() => {
-  //     localStorage.setItem("isLoginPage", isLoginPage);
-  //   }, [isLoginPage]);
 
   const loginSubmit = (e) => {
     e.preventDefault();
-    console.log(loginEmail, loginPass);
     dispatch(loginUser({ email: loginEmail, password: loginPass }));
   };
   const registerSubmit = (e) => {
@@ -73,15 +67,20 @@ const Auth = () => {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
+
   useEffect(() => {
     setIsLoginPage(true);
+
     if (isAuthenticated) {
-      navigate("/account");
+      navigate("/profile");
     }
   }, [dispatch, isAuthenticated, navigate]);
 
   return (
     <div className="h-[90vh] flex items-center justify-center">
+      {forgotPasswordPrompt && (
+        <ForgotPassword setforgotPasswordPrompt={setforgotPasswordPrompt} />
+      )}
       <div className="h-[400px] w-[300px] bg-white flex flex-col">
         <div className="flex">
           <button
@@ -142,15 +141,19 @@ const Auth = () => {
               />
             </div>
 
+            {/* <Link to="/forgotpassword">Forgot Password</Link> */}
             <button type="submit">Login</button>
 
             <div className="text-center">
-              <Link to="/password/forgot" className="">
-                Forgot Password?
-              </Link>
+              <span
+                className="text-right text-blue-800 underline cursor-pointer"
+                onClick={() => setforgotPasswordPrompt(true)}
+              >
+                Forget Password?
+              </span>
 
               <p>
-                Create a accout?{" "}
+                Create an account?{" "}
                 <span onClick={() => setIsLoginPage(false)}>Signup</span>
               </p>
             </div>

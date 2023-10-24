@@ -2,6 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const initialState = {
+  data: [],
+  product: null,
+  loading: false,
+  isError: false,
+  error: null,
+};
+
 export const getAllProducts = createAsyncThunk(
   "getAllProducts",
   async (
@@ -80,29 +88,24 @@ export const voteReview = createAsyncThunk(
   }
 );
 //Not necessary as product is already fetched and stored in store once we can access from there
-// export const getProductDetails = createAsyncThunk(
-//   "getProductDetails",
-//   async (id, { rejectWithValue }) => {
-//     try {
-//       const host = "http://localhost:3001";
+//Faced with same problem of state emptying
 
-//       const response = await axios.get(`${host}/api/v1/product/${id}`);
-//       return response.data;
-//     } catch (error) {
-//       const errorMessage =
-//         error.response?.data?.message || "An error occurred.";
-//       toast.error(errorMessage);
-//       return rejectWithValue(errorMessage);
-//     }
-//   }
-// );
+export const getProductDetails = createAsyncThunk(
+  "getProductDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const host = "http://localhost:3001";
 
-const initialState = {
-  data: [],
-  loading: false,
-  isError: false,
-  error: null,
-};
+      const response = await axios.get(`${host}/api/v1/product/${id}`);
+      return response.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
 const productSlice = createSlice({
   name: "Products",
@@ -120,6 +123,19 @@ const productSlice = createSlice({
       state.isError = true;
       toast(action.payload);
       state.error = action.payload; // Store the error message
+    });
+    builder.addCase(getProductDetails.fulfilled, (state, action) => {
+      state.loading = false;
+      state.product = action.payload;
+    });
+    builder.addCase(getProductDetails.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getProductDetails.rejected, (state, action) => {
+      state.product = null;
+      state.loading = false; // Set loading to false when an error occurs
+      state.isError = true;
+      toast(action.payload);
     });
     builder.addCase(addReview.fulfilled, (state, action) => {
       toast.success(action.payload.message);

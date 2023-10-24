@@ -1,0 +1,30 @@
+
+
+form{
+    @apply  flex flex-col items-center justify-center gap-4 border-2 py-4 shadow-lg;
+}
+
+.input-div{
+    @apply flex relative bg-white items-center gap-2 h-10 py-4 ps-4 pr-8
+}
+.input-div input{
+    @apply focus:outline-none 
+}
+
+form button{
+    @apply bg-white h-10 py-4 px-8 flex items-center justify-center uppercase font-semibold hover:bg-green-400 transition-all 
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+
+

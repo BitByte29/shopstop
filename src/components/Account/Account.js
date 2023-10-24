@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../../components/subs/Loader";
 import { Link, useNavigate } from "react-router-dom";
+import "../Auth/authStyle.css";
 
 const Account = () => {
   const { loading, isAuthenticated, user } = useSelector(
