@@ -25,6 +25,7 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import Cart from "./components/Cart/Cart";
 import ConfirmOrder from "./components/Cart/ConfirmOrder";
 import Success from "./components/Cart/Success";
+import Orders from "./components/Account/Orders";
 
 function App() {
   const category = [
@@ -78,6 +79,10 @@ function App() {
           <Route
             path="/confirmorder"
             element={<ProtectedRoute element={ConfirmOrder} />}
+          />
+          <Route
+            path="/myorders"
+            element={<ProtectedRoute element={Orders} />}
           />
 
           <Route path="/*" element={<div>Page not found</div>} />

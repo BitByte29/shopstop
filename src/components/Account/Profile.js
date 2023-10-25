@@ -3,16 +3,11 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import EditProfile from "./EditProfile";
 import EditPassword from "./EditPassword";
-
+import { formatDateFromTimestamp } from "../../utils/functions";
 const Profile = () => {
   const { user } = useSelector((state) => state.users);
   const [modalClose, setModalClose] = useState(true);
   const [passModalClose, setPassModalClose] = useState(true);
-  const formatDateFromTimestamp = (timestamp) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    const date = new Date(timestamp);
-    return date.toLocaleDateString("en-US", options);
-  };
 
   return (
     <>

@@ -49,7 +49,7 @@ const SliderComponent = () => {
           <h2 className="text-xl font-bold md:text-6xl ">Best Prices</h2>
           <p className="border border-y-2 border-white w-[25%]"></p>
           <p className="font-bold">New Arrivals 2023</p>
-          <p className="hidden text-black text-white md:block ">
+          <p className="hidden  text-white md:block ">
             Modern design that stands out.
           </p>
 
