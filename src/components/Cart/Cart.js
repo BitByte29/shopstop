@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";

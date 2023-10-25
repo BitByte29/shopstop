@@ -15,7 +15,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllProducts } from "./App/features/productSlice";
-import { updateCategories } from "./App/features/variablesSlice";
+import { setApiKey, updateCategories } from "./App/features/variablesSlice";
 import { getUserDetails } from "./App/features/userSlice";
 import Profile from "./components/Account/Profile";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
@@ -25,6 +25,8 @@ import ResetPassword from "./components/Auth/ResetPassword";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import Cart from "./components/Cart/Cart";
 import ConfirmOrder from "./components/Cart/ConfirmOrder";
+import axios from "axios";
+import Success from "./components/Cart/Success";
 
 function App() {
   const category = [
@@ -38,10 +40,15 @@ function App() {
     "All",
   ];
 
+  const getStripeApi = async () => {
+    const res = await axios.get("http://localhost:3001/api/v1/stripeapikey");
+    dispatch(setApiKey(res.data.stripeApiKey));
+  };
   const { isAuthenticated, user, loading } = useSelector((s) => s.users);
 
   const dispatch = useDispatch();
   useEffect(() => {
+    getStripeApi();
     if (isAuthenticated && !user) {
       dispatch(getUserDetails());
     }
@@ -65,6 +72,7 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/success" element={<Success />} />
 
           <Route
             path="/profile"

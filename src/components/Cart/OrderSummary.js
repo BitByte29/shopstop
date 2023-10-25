@@ -5,11 +5,11 @@ const OrderSummary = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const gst = 0.18;
   const deliveryCharge = 10;
-  const discount = 5;
+  const discount = 10;
 
   const salePrice = (price, percent) => {
     let discount = (percent * price) / 100;
-    return price - discount;
+    return Math.round(price - discount);
   };
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
@@ -24,7 +24,7 @@ const OrderSummary = () => {
   };
 
   const calculateFinalTotal = (subtotal, gst, deliveryCharge, discount) => {
-    const gstAmount = subtotal * gst;
+    const gstAmount = Math.round(subtotal * gst);
     const totalBeforeDiscount = subtotal + gstAmount + deliveryCharge;
     const finalTotal = totalBeforeDiscount - discount;
     return finalTotal;
@@ -42,7 +42,7 @@ const OrderSummary = () => {
         <p className="flex justify-between">
           <span>GST ({(gst * 100).toFixed(0)}%):</span>
           <span>
-            &#8377; {(calculateTotal() * gst).toLocaleString("hi-IN")}
+            &#8377; {Math.round(calculateTotal() * gst).toLocaleString("hi-IN")}
           </span>
         </p>
         <p className="flex justify-between">

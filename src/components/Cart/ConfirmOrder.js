@@ -6,6 +6,7 @@ import CartItem from "./CartItem";
 import OrderSummary from "./OrderSummary";
 import Shipping from "./Shipping";
 import { FaCheckDouble, FaCheckCircle } from "react-icons/fa";
+import PayButton from "./PayButton";
 
 const ConfirmOrder = () => {
   const { shippingInfo, cartItems, shippingInfoCorrect } = useSelector(
@@ -82,11 +83,16 @@ const ConfirmOrder = () => {
               </div>
             )}
           </div>
-          <div>
+          <div className="border-2">
             <div className="text-3xl  bg-blue-600 p-2 text-white flex gap-2 items-center">
               4. Payment
             </div>
-            <div>fprm here</div>
+            {shippingInfoCorrect && (
+              <div className="py-2">
+                You would be redirected to the payment page-{" "}
+                <PayButton cartItems={cartItems} />
+              </div>
+            )}
           </div>
         </div>
         <div className="w-full md:w-1/3 ">
