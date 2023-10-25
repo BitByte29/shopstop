@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
 const CartIcon = () => {
   const cartSize = useSelector((s) => s.cart.cartSize);
+  useEffect(() => {}, [cartSize]);
+
   return (
     <>
       {" "}

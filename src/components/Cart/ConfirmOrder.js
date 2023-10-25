@@ -55,7 +55,7 @@ const ConfirmOrder = () => {
               )}
             </div>
             {shippingForm && (
-              <div className="py-5 border-2">
+              <div className="py-10 border-2">
                 <Shipping
                   setShippingForm={setShippingForm}
                   shippingForm={shippingForm}

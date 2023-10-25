@@ -6,7 +6,6 @@ const initialState = {
   rating: 0,
   currentPage: 1,
   categories: [],
-  apiKey: "",
 };
 
 export const variableSlice = createSlice({
@@ -31,9 +30,6 @@ export const variableSlice = createSlice({
     updateCategories: (state, action) => {
       state.categories = action.payload;
     },
-    setApiKey: (state, action) => {
-      state.apiKey = action.payload;
-    },
   },
 });
 
@@ -44,7 +40,6 @@ export const {
   updateCurrenPage,
   updateRating,
   updateCategories,
-  setApiKey,
 } = variableSlice.actions;
 
 export default variableSlice.reducer;

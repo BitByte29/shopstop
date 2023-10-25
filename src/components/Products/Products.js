@@ -23,7 +23,7 @@ const Products = () => {
   const [category, setCategory] = useState("All");
   const [price, setPrice] = useState([MIN, MAX]);
   const [range, setRange] = useState([MIN, MAX]);
-
+  const cartSize = useSelector((s) => s.cart.cartSize);
   useEffect(() => {
     const filters = {
       keyword: toSearch,
@@ -33,7 +33,7 @@ const Products = () => {
       category,
     };
     dispatch(getAllProducts(filters));
-  }, [dispatch, toSearch, ratingValue, currentPage, range, category]);
+  }, [dispatch, toSearch, ratingValue, currentPage, range, category, cartSize]);
 
   const resetFilters = () => {
     setRatingValue(0);

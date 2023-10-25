@@ -1,11 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setItemsPrice,
+  setTaxPrice,
+  setTotalPrice,
+} from "../../App/features/orderSlice";
+// itemsPrice,
+//     taxPrice,
+//     shippingPrice,
+//     totalPrice,
 const OrderSummary = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const gst = 0.18;
   const deliveryCharge = 10;
   const discount = 10;
+  const dispatch = useDispatch();
 
   const salePrice = (price, percent) => {
     let discount = (percent * price) / 100;
@@ -24,9 +33,12 @@ const OrderSummary = () => {
   };
 
   const calculateFinalTotal = (subtotal, gst, deliveryCharge, discount) => {
+    dispatch(setItemsPrice(subtotal));
     const gstAmount = Math.round(subtotal * gst);
+    dispatch(setTaxPrice(gstAmount));
     const totalBeforeDiscount = subtotal + gstAmount + deliveryCharge;
     const finalTotal = totalBeforeDiscount - discount;
+    dispatch(setTotalPrice(finalTotal));
     return finalTotal;
   };
   return (

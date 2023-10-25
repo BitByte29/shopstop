@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setShippingInfoCorrect,
@@ -17,15 +17,53 @@ import Cart from "./Cart";
 const Shipping = ({ shippingForm, setShippingForm }) => {
   const shippingInfo = useSelector((s) => s.cart.shippingInfo);
   const dispatch = useDispatch();
+  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [pinCodeError, setPinCodeError] = useState("");
+
+  const validatePhoneNumber = (value) => {
+    if (/^\d{10}$/.test(value)) {
+      setPhoneNumberError(""); // Valid phone number
+      return true;
+    } else {
+      setPhoneNumberError("Please enter 10-digit phone number.");
+      return false;
+    }
+  };
+
+  const validatePinCode = (value) => {
+    if (/^\d{6}$/.test(value)) {
+      setPinCodeError(""); // Valid PIN code
+      return true;
+    } else {
+      setPinCodeError("Please enter a valid 6-digit PIN code.");
+      return false;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setShippingInfoCorrect(true));
-    setShippingForm(!shippingForm);
+    const isPhoneNumberValid = validatePhoneNumber(shippingInfo.phoneNumber);
+    const isPinCodeValid = validatePinCode(shippingInfo.pinCode);
+
+    if (isPhoneNumberValid && isPinCodeValid) {
+      dispatch(setShippingInfoCorrect(true));
+      setShippingForm(!shippingForm);
+    }
   };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(setShippingInfoCorrect(true));
+  //   setShippingForm(!shippingForm);
+  // };
 
   const onChange = (e) => {
     const InfoS = { ...shippingInfo, [e.target.name]: e.target.value };
+    if (e.target.name === "phoneNumber") {
+      validatePhoneNumber(e.target.value);
+    }
+    if (e.target.name === "pinCode") {
+      validatePinCode(e.target.value);
+    }
     console.log(InfoS);
     dispatch(setShippingInfoCorrect(false));
     dispatch(updateShippingInfo(InfoS));
@@ -43,13 +81,14 @@ const Shipping = ({ shippingForm, setShippingForm }) => {
 
             <input
               type="text"
-              value={shippingInfo.Info}
+              value={shippingInfo.address}
               onChange={onChange}
-              name="Info"
-              placeholder="Info Line 1"
+              name="address"
+              placeholder="Address"
+              required
             />
           </div>
-          <div className="input-div">
+          <div className="input-div relative">
             <FaPhone />
             <input
               type="number"
@@ -59,6 +98,11 @@ const Shipping = ({ shippingForm, setShippingForm }) => {
               placeholder="Phone Number"
               required
             />
+            {phoneNumberError.length > 0 && (
+              <p className="text-sm text-red-600 absolute top-full right-0">
+                *{phoneNumberError}
+              </p>
+            )}
           </div>
           <div className="input-div">
             <MdLocationCity />
@@ -69,6 +113,7 @@ const Shipping = ({ shippingForm, setShippingForm }) => {
               value={shippingInfo.city}
               name="city"
               placeholder="City"
+              required
             />
           </div>
           <div className="input-div">
@@ -79,6 +124,7 @@ const Shipping = ({ shippingForm, setShippingForm }) => {
               value={shippingInfo.state}
               name="state"
               placeholder="State"
+              required
             />
           </div>
           <div className="input-div">
@@ -87,11 +133,16 @@ const Shipping = ({ shippingForm, setShippingForm }) => {
             <input
               type="number"
               onChange={onChange}
-              name="pin"
-              value={shippingInfo.pin}
+              name="pinCode"
+              value={shippingInfo.pinCode}
               placeholder="Pincode"
               required
             />
+            {pinCodeError.length > 0 && (
+              <p className="text-sm text-red-600 absolute top-full right-0">
+                *{pinCodeError}
+              </p>
+            )}
           </div>
           <div className="flex justify-center gap-2 flex-col">
             <button type="submit">Confirm Shipping Details</button>

@@ -25,6 +25,7 @@ const PayButton = ({ cartItems }) => {
       })
       .then((res) => {
         if (res.data.redirectUrl) {
+          console.log(res.data.paymentIntentId);
           window.location.href = res.data.redirectUrl;
         } else {
           console.log(res.data);

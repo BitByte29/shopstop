@@ -5,7 +5,7 @@ form{
 }
 
 .input-div{
-    @apply flex relative bg-white items-center gap-2 h-10 py-4 ps-4 pr-8
+    @apply flex relative bg-white items-center gap-2 h-8 py-4 ps-4 pr-8
 }
 .input-div input{
     @apply focus:outline-none 
