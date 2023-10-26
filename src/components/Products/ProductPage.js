@@ -11,6 +11,7 @@ import ReactStars from "react-rating-stars-component";
 import "./Slider.css";
 import Breadcrumb from "../subs/Breadcrums";
 import Reviews from "./Reviews";
+import ReviewList from "./ReviewList.js";
 import { addToCart } from "../../App/features/cartSlice";
 import Loader from "../subs/Loader";
 import { toast } from "react-toastify";
@@ -18,9 +19,19 @@ import { toast } from "react-toastify";
 const ProductPage = () => {
   const dispatch = useDispatch();
   const loading = useSelector((s) => s.products.loading);
+  // const userId = useSelector((s) => s.users.user._id);
   const { id } = useParams();
   const product = useSelector((s) => s.products.product);
   const [quantity, setQuantity] = useState(1);
+
+  const [reviewBox, setReviewBox] = useState(false);
+  // const userReview = product.reviews.find((review) => {
+  //   return review.user.toString() === userId.toString();
+  // });
+  // const [review, setReview] = useState(userReview.comment);
+  // const [ratingValue, setRatingValue] = useState(userReview.rating);
+  const [review, setReview] = useState("");
+  const [ratingValue, setRatingValue] = useState(0);
   useEffect(() => {
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
@@ -30,13 +41,29 @@ const ProductPage = () => {
   };
 
   const handleAddToCart = () => {
-    // console.log("In prod:", id, quantity);
-    toast.success("Item added to cart.");
-    dispatch(addToCart({ id, quantity }));
+    if (product.stock >= quantity) {
+      toast.success("Item added to cart.");
+      dispatch(addToCart({ id, quantity }));
+    } else {
+      toast.warn("Item out of stock");
+      // return;
+    }
   };
   const salePrice = (price, percent) => {
     let discount = (percent * price) / 100;
     return price - discount;
+  };
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    const reviewData = {
+      rating: ratingValue,
+      comment: review,
+      productId: id,
+    };
+    // product.reviews.push(reviewData);
+    console.log(reviewData);
+    dispatch(addReview(reviewData));
+    setReviewBox(false);
   };
 
   const options = {
@@ -165,12 +192,71 @@ const ProductPage = () => {
             <div className="text-xl font-semibold ">
               <button
                 className="flex items-center justify-center gap-2 px-4 py-2 text-lg text-white transition-all bg-cyan-600 hover:-translate-y-1 hover:shadow-lg"
-                onClick={() => dispatch(addReview(id))}
+                onClick={() => setReviewBox(true)}
               >
                 Add a review <FaPlus />
               </button>
+
+              {/* Rating box */}
+              {reviewBox && (
+                <div>
+                  <div className="overlay fixed top-0 left-0 flex-center w-screen h-screen  bg-black/70 cursor-pointer z-30">
+                    <form
+                      action=""
+                      onSubmit={handleReviewSubmit}
+                      className="flex-center z-40 p-4 bg-white rounded-lg min-h-[300px]"
+                    >
+                      <div className="flex w-full flex-col ">
+                        <p>Rate the product</p>
+                        <div className="flex gap-4 py-2">
+                          <ReactStars
+                            {...ratingOptions}
+                            edit={true}
+                            size={30}
+                            value={ratingValue}
+                            onChange={(newRating) => {
+                              setRatingValue(newRating);
+                            }}
+                          />
+                          <span>{ratingValue} star.</span>
+                        </div>
+                      </div>
+
+                      <div className="w-full">
+                        <p>Review</p>
+                        <textarea
+                          name="rating"
+                          className="text-sm px-2 py-2 focus:outline-gray-500"
+                          id=""
+                          cols="50"
+                          rows="5"
+                          placeholder="Enter your review"
+                          required
+                          onChange={(e) => setReview(e.target.value)}
+                        ></textarea>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <button
+                          className="w-1/2 border-2 hover:bg-red-500 hover:-translate-y-[4px]"
+                          onClick={() => setReviewBox(false)}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="bg-green-400 hover:bg-green-500 hover:-translate-y-[4px]"
+                          type="submit"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="text-2xl font-semibold">Reviews</div>
+            {/* <ReviewsList/> */}
             {product.reviews.length > 0 ? (
               <div className="flex flex-col gap-5">
                 {product.reviews.map((review) => {

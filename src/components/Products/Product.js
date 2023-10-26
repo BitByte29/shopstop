@@ -17,8 +17,13 @@ const Product = ({ product }) => {
     return price - discount;
   };
   const handleAddToCart = () => {
-    toast.success("Item added to cart.");
-    dispatch(addToCart({ id: product._id, quantity: 1 }));
+    if (product.stock === 0) {
+      toast.warn("Item out of stock");
+    } else {
+      toast.success("Item added to cart.");
+      dispatch(addToCart({ id: product._id, quantity: 1 }));
+      // return;
+    }
   };
   const options = {
     edit: false,

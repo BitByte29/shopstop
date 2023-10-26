@@ -26,7 +26,7 @@ const UserOptions = ({ user }) => {
   };
 
   const handleOrdersClick = () => {
-    navigate("/orders");
+    navigate("/myorders");
     handleFABClick();
   };
 

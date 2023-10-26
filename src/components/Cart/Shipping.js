@@ -75,7 +75,7 @@ const Shipping = ({ shippingForm, setShippingForm }) => {
         {/* <div className="pb-8">
           <h2 className="text-3xl font-semibold">Add Shipping Details</h2>
         </div> */}
-        <form action="" onSubmit={handleSubmit}>
+        <form className="border-2" action="" onSubmit={handleSubmit}>
           <div className="input-div">
             <FaLocationArrow />
 

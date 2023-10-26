@@ -5,6 +5,7 @@ import ReactStars from "react-rating-stars-component";
 import { useDispatch } from "react-redux";
 // import { toast } from "react-toastify";
 import { voteReview } from "../../App/features/productSlice";
+import { formatDateFromTimestamp } from "../../utils/functions";
 
 const Reviews = ({ review, productId }) => {
   const [likes, setLikes] = useState(review.likes);
@@ -44,7 +45,7 @@ const Reviews = ({ review, productId }) => {
       </div>
       <div className="absolute top-0 right-0 flex items-center justify-between px-4 py-2 ">
         {review.createdAt && (
-          <span>Created At: {review.createdAt.toString()}</span>
+          <span>Created At: {formatDateFromTimestamp(review.createdAt)}</span>
         )}
       </div>
       <div className="flex items-center gap-2">

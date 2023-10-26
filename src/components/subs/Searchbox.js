@@ -37,15 +37,15 @@ const Searchbox = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-full py-2">
+    <div className="relative flex items-center justify-center w-full  py-2">
       <form
         action=""
         method="POST"
         onSubmit={handleSubmit}
-        className="sm:w-[80%] w-[90%] "
+        className="sm:w-[80%] w-[90%] border-none shadow-none "
       >
-        <div className="sticky top-0">
-          <div className="flex items-center w-full gap-3 px-4 py-2 border-2 rounded-full border-cyan-800">
+        <div className="sticky top-0 w-full border-none shadow-none">
+          <div className="flex items-center w-full gap-3 px-4 py-2 border-2 border-gray-500 rounded-full ">
             <input
               type="text"
               name="value"
@@ -55,12 +55,12 @@ const Searchbox = () => {
               value={keyword}
               className="w-full px-1 py-1 outline-none "
             />
-            <button type="submit">
+            <button type="submit" className="btn">
               <FaSearch onClick={handleSubmit} className="text-2xl" />
             </button>
-            <button type="">
+            <button type="" className="btn">
               <FaWindowClose
-                onClick={() => dispatch(closeSearchBox())}
+                onClick={() => dispatch(closeSearchBox(true))}
                 className="text-2xl"
               />
             </button>

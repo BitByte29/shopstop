@@ -57,10 +57,14 @@ export const getAllProducts = createAsyncThunk(
 //Going to implement after login n sighnup
 export const addReview = createAsyncThunk(
   "addReview",
-  async (reviewObj, { rejectWithValue }) => {
+  async (reviewData, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`http://localhost:3001/api/v1/review`);
+      console.log(reviewData);
 
+      const response = await axios.put(
+        `http://localhost:3001/api/v1/review`,
+        reviewData
+      );
       return response.data;
     } catch (error) {
       const errorMessage =

@@ -1,7 +1,7 @@
 
 
 form{
-    @apply  flex flex-col items-center justify-center gap-4 border-2 py-4 shadow-lg;
+    @apply  flex flex-col items-center justify-center gap-4  py-4 shadow-lg;
 }
 
 .input-div{
@@ -11,8 +11,11 @@ form{
     @apply focus:outline-none 
 }
 
-form button{
+.btn{
     @apply bg-white h-10 py-4 px-8 flex items-center justify-center uppercase font-semibold hover:bg-green-400 transition-all 
+}
+form button{
+  @apply hover:bg-green-400 transition-all py-4 px-8 ;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
