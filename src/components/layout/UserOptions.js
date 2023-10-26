@@ -16,7 +16,7 @@ const UserOptions = ({ user }) => {
   };
 
   const handleDashboardClick = () => {
-    navigate("/dashboard");
+    navigate("/admin/dashboard");
     handleFABClick();
   };
 
@@ -66,7 +66,7 @@ const UserOptions = ({ user }) => {
   return (
     <>
       <div
-        className="relative w-12 h-12 rounded-full cursor-pointer"
+        className="relative w-12 h-12 rounded-full cursor-pointer z-50"
         style={{
           backgroundImage: `url(${user.avatar.url})`,
           backgroundSize: "cover",

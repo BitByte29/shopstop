@@ -26,6 +26,7 @@ import Cart from "./components/Cart/Cart";
 import ConfirmOrder from "./components/Cart/ConfirmOrder";
 import Success from "./components/Cart/Success";
 import Orders from "./components/Account/Orders";
+import Dashboard from "./components/Admin/Dashboard";
 
 function App() {
   const category = [
@@ -40,14 +41,20 @@ function App() {
   ];
 
   const { isAuthenticated, user, loading } = useSelector((s) => s.users);
+  const { data } = useSelector((s) => s.products);
+  const { categories } = useSelector((s) => s.vars);
 
   const dispatch = useDispatch();
   useEffect(() => {
     if (isAuthenticated && !user) {
       dispatch(getUserDetails());
     }
-    dispatch(updateCategories(category));
-    dispatch(getAllProducts());
+    if (categories.length === 0) {
+      dispatch(updateCategories(category));
+    }
+    if (!data) {
+      dispatch(getAllProducts());
+    }
     // eslint-disable-next-line
   }, [dispatch, isAuthenticated, loading]);
 
@@ -85,6 +92,11 @@ function App() {
             element={<ProtectedRoute element={Orders} />}
           />
 
+          <Route
+            path="/admin/dashboard"
+            isAdmin={true}
+            element={<ProtectedRoute element={Dashboard} />}
+          />
           <Route path="/*" element={<div>Page not found</div>} />
         </Routes>
         {/* </div> */}

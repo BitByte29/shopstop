@@ -1,0 +1,14 @@
+.admin .count{
+    @apply md:h-32 md:w-32 flex-center rounded-full h-24 w-24 text-xl md:text-2xl;
+}
+
+.admin .sidebar-nav{
+    @apply flex-center py-2 
+}
+.admin .side-links > *{
+    @apply hover:bg-cyan-700;
+}
+
+.admin .side-links .activeSection{
+    @apply bg-cyan-400;
+}

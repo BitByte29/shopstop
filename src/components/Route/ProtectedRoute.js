@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Loader from "../subs/Loader";
 import { toast } from "react-toastify";
 
-const ProtectedRoute = ({ element: Element }) => {
+const ProtectedRoute = ({ element: Element, isAdmin }) => {
   const { loading, isAuthenticated, user } = useSelector(
     (state) => state.users
   );

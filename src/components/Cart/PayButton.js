@@ -1,11 +1,13 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const PayButton = ({ cartItems }) => {
   const { user } = useSelector((s) => s.users);
   const { apiKey } = useSelector((s) => s.vars);
+  const [clicked, setClicked] = useState(false);
 
   const calculateTotalPrice = (price, discount) => {
     let discountAmount = (discount * price) / 100;
@@ -17,8 +19,15 @@ const PayButton = ({ cartItems }) => {
     ...product,
     price: Math.round(calculateTotalPrice(product.price, product.discount)),
   }));
+  const navigate = useNavigate();
 
   const handleClick = () => {
+    setClicked(true);
+    setTimeout(() => {
+      toast.warning("Check your Internet connection.");
+      setClicked(false);
+      navigate("/confirmorder");
+    }, 10000);
     axios
       .post("http://localhost:3001/api/v1/create-checkout-session", {
         updatedProducts,
@@ -41,10 +50,19 @@ const PayButton = ({ cartItems }) => {
   return (
     <>
       <button
-        className="bg-cyan-500 px-3 py-2 hover:-translate-y-2 transition-all"
+        className={`${
+          clicked ? "bg-cyan-600 cursor-wait" : ""
+        } bg-cyan-400 font-semibold flex-center w-28 h-12 hover:-translate-y-2 transition-all`}
         onClick={handleClick}
       >
-        Pay now.
+        {!clicked ? (
+          <span> Pay now.</span>
+        ) : (
+          <div className="text-transparent h-5 w-5 border-white border-4  border-b-cyan-400 rounded-full animate-spin">
+            {" "}
+            o
+          </div>
+        )}
       </button>
     </>
   );

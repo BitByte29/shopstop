@@ -11,7 +11,6 @@ import ReactStars from "react-rating-stars-component";
 import "./Slider.css";
 import Breadcrumb from "../subs/Breadcrums";
 import Reviews from "./Reviews";
-import ReviewList from "./ReviewList.js";
 import { addToCart } from "../../App/features/cartSlice";
 import Loader from "../subs/Loader";
 import { toast } from "react-toastify";
@@ -256,7 +255,7 @@ const ProductPage = () => {
               )}
             </div>
             <div className="text-2xl font-semibold">Reviews</div>
-            {/* <ReviewsList/> */}
+            {/* <ReviewList productId={id} /> */}
             {product.reviews.length > 0 ? (
               <div className="flex flex-col gap-5">
                 {product.reviews.map((review) => {

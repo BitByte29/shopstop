@@ -4,11 +4,30 @@ import { toast } from "react-toastify";
 
 const initialState = {
   data: [],
+  products: [],
   product: null,
   loading: false,
   isError: false,
   error: null,
+  reviews: null,
 };
+
+const server = "http://localhost:3001";
+
+export const getAllProductsAdmin = createAsyncThunk(
+  "admin/products",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`${server}/api/v1/admin/products`);
+      return res.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage); // Pass the error message to the reducer
+    }
+  }
+);
 
 export const getAllProducts = createAsyncThunk(
   "getAllProducts",
@@ -91,6 +110,23 @@ export const voteReview = createAsyncThunk(
     }
   }
 );
+export const getReviews = createAsyncThunk(
+  "review/getall",
+  async ({ productId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/api/v1/reviews/${productId}`
+      );
+
+      return response.data; // Assuming your data is in response.data
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 //Not necessary as product is already fetched and stored in store once we can access from there
 //Faced with same problem of state emptying
 
@@ -126,6 +162,19 @@ const productSlice = createSlice({
       state.loading = false; // Set loading to false when an error occurs
       state.isError = true;
       toast(action.payload);
+      // state.error = action.payload; // Store the error message
+    });
+    builder.addCase(getAllProductsAdmin.fulfilled, (state, action) => {
+      state.loading = false;
+      state.products = action.payload.products;
+    });
+    builder.addCase(getAllProductsAdmin.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getAllProductsAdmin.rejected, (state, action) => {
+      state.loading = false; // Set loading to false when an error occurs
+      state.isError = true;
+      toast(action.payload);
       state.error = action.payload; // Store the error message
     });
     builder.addCase(getProductDetails.fulfilled, (state, action) => {
@@ -142,6 +191,7 @@ const productSlice = createSlice({
       toast(action.payload);
     });
     builder.addCase(addReview.fulfilled, (state, action) => {
+      state.product = action.payload.product;
       toast.success(action.payload.message);
     });
     builder.addCase(addReview.rejected, (state, action) => {
@@ -152,6 +202,19 @@ const productSlice = createSlice({
     });
     builder.addCase(voteReview.rejected, (state, action) => {
       toast.error(action.payload);
+    });
+    builder.addCase(getReviews.fulfilled, (state, action) => {
+      state.loading = false;
+      state.reviews = action.payload;
+    });
+    builder.addCase(getReviews.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getReviews.rejected, (state, action) => {
+      state.reviews = null;
+      state.loading = false; // Set loading to false when an error occurs
+      state.isError = true;
+      toast(action.payload);
     });
   },
 });

@@ -88,7 +88,7 @@ const ConfirmOrder = () => {
               4. Payment
             </div>
             {shippingInfoCorrect && (
-              <div className="py-2">
+              <div className="py-2 flex gap-5 items-center px-5 ">
                 You would be redirected to the payment page-{" "}
                 <PayButton cartItems={cartItems} />
               </div>
