@@ -28,6 +28,8 @@ import Success from "./components/Cart/Success";
 import Orders from "./components/Account/Orders";
 import Dashboard from "./components/Admin/Dashboard";
 
+import Check from "./Demos/Check";
+
 function App() {
   const category = [
     "Mobile",
@@ -97,7 +99,8 @@ function App() {
             isAdmin={true}
             element={<ProtectedRoute element={Dashboard} />}
           />
-          <Route path="/*" element={<div>Page not found</div>} />
+          {/* <Route path="/*" element={<div>Page not found</div>} /> */}
+          <Route path="/*" element={<Check />} />
         </Routes>
         {/* </div> */}
 

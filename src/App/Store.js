@@ -4,6 +4,7 @@ import variablesSlice from "./features/variablesSlice";
 import userSlice from "./features/userSlice";
 import cartSlice from "./features/cartSlice";
 import orderSlice from "./features/orderSlice";
+import adminSlice from "./features/adminSlice";
 // import { myOrders } from "./features/orderSlice";
 
 export const store = configureStore({
@@ -13,5 +14,6 @@ export const store = configureStore({
     users: userSlice,
     cart: cartSlice,
     orders: orderSlice,
+    admin: adminSlice,
   },
 });
