@@ -19,6 +19,12 @@
   display: none !important;
 }
 
+.absolute-center{
+  @apply absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2;
+}
+.fixed-center-cover{
+  @apply fixed w-full h-full top-0 left-0 bg-black/50 flex-center;
+}
 
 .clip-path-polygon {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 30% 50%);
