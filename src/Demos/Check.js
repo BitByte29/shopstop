@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -11,55 +11,92 @@ import { FaSort, FaArrowUp, FaArrowDown, FaTrash, FaPen } from "react-icons/fa";
 import { DATA } from "../utils/Data";
 import Filters from "./Filters";
 import { toast } from "react-toastify";
-// import {
-
-//   useReactTable,
-//   getCoreRowModel,
-//   getPaginationRowModel,
-//   getSortedRowModel,
-// } from "@tanstack/react-table";
-
-const columns = [
-  {
-    accessorKey: "id",
-    header: "ID",
-    cell: (props) => <p>{props.getValue()}</p>,
-  },
-  {
-    accessorKey: "first_name",
-    header: "Name",
-    cell: (props) => <p>{props.getValue()}</p>,
-    enableSorting: false,
-  },
-  {
-    accessorKey: "gender",
-    header: "Gender",
-    cell: (props) => <p>{props.getValue()}</p>,
-  },
-  {
-    accessorKey: "id",
-    header: "Actions",
-    enableSorting: false,
-
-    cell: (props) => (
-      <div>
-        <button onClick={() => toast.success("Editing ", props.getValue())}>
-          <FaPen />
-        </button>{" "}
-        <button onClick={() => toast.warning("Deleting ", props.getValue())}>
-          <FaTrash />
-        </button>
-      </div>
-    ),
-  },
-];
 
 const Check = () => {
-  const [data, setData] = useState(DATA);
+  const [data, setData] = useState(DATA.slice(1, 6));
+  const [tableData, setTableData] = useState(DATA.slice(1, 6)); // Separate state for table data
   const [columnFilters, setColumnFilters] = useState([]);
+  const [newG, setnewG] = useState("");
+  const [editBox, setEditBox] = useState(false);
+  const [editId, setEditId] = useState();
 
+  const deleteHandler = (id) => {
+    toast.error(`Item ${id} deleted.`);
+    const updatedData = data.filter((ele) => ele.id !== id);
+    setData(updatedData);
+    setTableData(updatedData); // Update table data
+  };
+
+  const editHandler = (id) => {
+    setEditBox(true);
+    setEditId(id);
+    setnewG(data.find((e) => e.id === id).gender);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const updatedData = data.map((obj) => {
+      if (obj.id === editId) {
+        return { ...obj, gender: newG };
+      }
+      return obj;
+    });
+
+    setData(updatedData);
+    setTableData(updatedData); // Update table data
+
+    setEditBox(false);
+    setEditId(null);
+  };
+
+  useEffect(() => {}, [data]);
+
+  useEffect(() => {}, [data]);
+
+  const columns = [
+    {
+      accessorKey: "id",
+      header: "ID",
+      cell: (props) => <p>{props.getValue()}</p>,
+    },
+    {
+      accessorKey: "first_name",
+      header: "Name",
+      cell: (props) => <p>{props.getValue()}</p>,
+      enableSorting: false,
+    },
+    {
+      accessorKey: "gender",
+      header: "Gender",
+      cell: (props) => <p>{props.getValue()}</p>,
+    },
+    {
+      accessorKey: "car.brand",
+      header: "Cars",
+      cell: (props) => <p>{props.getValue()}</p>,
+    },
+    {
+      accessorKey: "id",
+      header: "Actions",
+      enableSorting: false,
+      cell: (props) => (
+        <div>
+          <button onClick={() => editHandler(props.getValue())}>
+            <FaPen />
+          </button>{" "}
+          <button onClick={() => deleteHandler(props.getValue())}>
+            <FaTrash />
+          </button>
+        </div>
+      ),
+    },
+  ];
+  // useEffect(() => {
+
+  // }, [])
   const table = useReactTable({
-    data,
+    data: tableData, // Use tableData here
     columns,
     state: {
       columnFilters,
@@ -68,9 +105,7 @@ const Check = () => {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    // columnResizeMode: "onChange",
   });
-
   return (
     <div>
       <Filters
@@ -78,6 +113,16 @@ const Check = () => {
         columnFilters={columnFilters}
         sid={"gender"}
       />
+      {editBox && (
+        <form onSubmit={submitHandler}>
+          <input
+            type="text"
+            value={newG}
+            onChange={(e) => setnewG(e.target.value)}
+          />
+          <input type="submit" />
+        </form>
+      )}
       <table width={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id} className="bg-yellow-400 h-24">
@@ -98,11 +143,6 @@ const Check = () => {
                     }[header.column.getIsSorted()]
                   }
                 </p>
-                {/* <div
-                  className="h-full w-2  hover:opacity-100 active:bg-green-600 bg-cyan-400 absolute right-0 top-0 opacity-0 cursor-e-resize"
-                  onMouseDown={header.getResizeHandler()}
-                  onTouchStart={header.getResizeHandler()}
-                ></div> */}
               </th>
             ))}
           </tr>
