@@ -28,7 +28,6 @@ import { Link } from "react-router-dom";
 
 const Users = () => {
   const { loading, users } = useSelector((s) => s.admin);
-  const tableData = useSelector((s) => s.admin.users);
   const [columnFilters, setColumnFilters] = useState([]);
   const [newRole, setNewRole] = useState("");
   const [userEditing, setUserEditing] = useState();
@@ -127,7 +126,7 @@ const Users = () => {
   ];
 
   const table = useReactTable({
-    data: tableData,
+    data: users,
     columns,
     initialState: { pageSize: 5 },
     state: {

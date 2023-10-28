@@ -14,21 +14,6 @@ const initialState = {
 
 const server = "http://localhost:3001";
 
-export const getAllProductsAdmin = createAsyncThunk(
-  "admin/products",
-  async (_, { rejectWithValue }) => {
-    try {
-      const res = await axios.get(`${server}/api/v1/admin/products`);
-      return res.data;
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || "An error occurred.";
-      toast.error(errorMessage);
-      return rejectWithValue(errorMessage); // Pass the error message to the reducer
-    }
-  }
-);
-
 export const getAllProducts = createAsyncThunk(
   "getAllProducts",
   async (
@@ -163,19 +148,6 @@ const productSlice = createSlice({
       state.isError = true;
       toast(action.payload);
       // state.error = action.payload; // Store the error message
-    });
-    builder.addCase(getAllProductsAdmin.fulfilled, (state, action) => {
-      state.loading = false;
-      state.products = action.payload.products;
-    });
-    builder.addCase(getAllProductsAdmin.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(getAllProductsAdmin.rejected, (state, action) => {
-      state.loading = false; // Set loading to false when an error occurs
-      state.isError = true;
-      toast(action.payload);
-      state.error = action.payload; // Store the error message
     });
     builder.addCase(getProductDetails.fulfilled, (state, action) => {
       state.loading = false;

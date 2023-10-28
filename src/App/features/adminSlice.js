@@ -90,7 +90,71 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-// _____________________________________________________________________________
+//_________________________________orders________________
+export const getAllOrders = createAsyncThunk(
+  "admin/orders",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`${server}/api/v1/admin/orders`);
+      return res.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+export const updateOrder = createAsyncThunk(
+  "admin/order/update",
+  async ({ _id, orderStatus }, { rejectWithValue }) => {
+    console.log(_id, orderStatus);
+    try {
+      const res = await axios.put(`${server}/api/v1/admin/order/${_id}`, {
+        orderStatus,
+      });
+      return res.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+export const deleteOrder = createAsyncThunk(
+  "admin/delete/order",
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      const res = await axios.delete(`${server}/api/v1/admin/order/${id}`);
+      return res.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage); // Pass the error message to the reducer
+    }
+  }
+);
+
+// _______________________________________________________--orders---__________
+// _______________________________________________________--Reviews---__________
+//Get products reviews already in productslice
+
+export const deleteReview = createAsyncThunk(
+  "review/delete",
+  async ({ reviewId, productId }, rejectWithValue) => {
+    try {
+      const res = await axios.delete(
+        `${server}/api/v1/admin/review/${reviewId}`
+      );
+      return res.data;
+    } catch (error) {
+      const errorMessage = error.data.message || "Internal Server Error";
+      rejectWithValue(errorMessage);
+    }
+  }
+);
 
 const adminSlice = createSlice({
   name: "admin",
@@ -98,6 +162,9 @@ const adminSlice = createSlice({
   reducers: {
     updateUsers: (state, action) => {
       state.users = action.payload;
+    },
+    updateOrders: (state, action) => {
+      state.orders = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -109,6 +176,20 @@ const adminSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getAllProductsAdmin.rejected, (state, action) => {
+      state.loading = false;
+      toast(action.payload);
+      state.error = action.payload;
+    });
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      state.products = state.products;
+
+      toast(action.payload);
+    });
+    builder.addCase(deleteProduct.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteProduct.rejected, (state, action) => {
       state.loading = false;
       toast(action.payload);
       state.error = action.payload;
@@ -149,16 +230,52 @@ const adminSlice = createSlice({
       toast(action.payload);
       state.error = action.payload;
     });
-    builder.addCase(deleteProduct.fulfilled, (state, action) => {
-      state.loading = false;
-      state.products = state.products;
 
-      toast(action.payload);
+    builder.addCase(getAllOrders.fulfilled, (state, action) => {
+      state.loading = false;
+      state.orders = action.payload.orders;
     });
-    builder.addCase(deleteProduct.pending, (state, action) => {
+    builder.addCase(getAllOrders.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(deleteProduct.rejected, (state, action) => {
+    builder.addCase(getAllOrders.rejected, (state, action) => {
+      state.loading = false;
+      toast(action.payload);
+      state.error = action.payload;
+    });
+    builder.addCase(updateOrder.fulfilled, (state, action) => {
+      state.loading = false;
+      toast.success(action.payload.message);
+    });
+    builder.addCase(updateOrder.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateOrder.rejected, (state, action) => {
+      state.loading = false;
+      toast(action.payload);
+      state.error = action.payload;
+    });
+    builder.addCase(deleteOrder.fulfilled, (state, action) => {
+      state.loading = false;
+      // state.products = state.products;
+      toast(action.payload.message);
+    });
+    builder.addCase(deleteOrder.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteOrder.rejected, (state, action) => {
+      state.loading = false;
+      toast(action.payload);
+      state.error = action.payload;
+    });
+    builder.addCase(deleteReview.fulfilled, (state, action) => {
+      state.loading = false;
+      toast(action.payload.message);
+    });
+    builder.addCase(deleteReview.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteReview.rejected, (state, action) => {
       state.loading = false;
       toast(action.payload);
       state.error = action.payload;
@@ -168,4 +285,4 @@ const adminSlice = createSlice({
 
 export default adminSlice.reducer;
 
-export const { updateUsers } = adminSlice.actions;
+export const { updateUsers, updateOrders } = adminSlice.actions;

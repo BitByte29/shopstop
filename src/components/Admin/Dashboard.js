@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const { user } = useSelector((s) => s.users);
-  const [activeSection, setActiveSection] = useState("Stats");
+  const [activeSection, setActiveSection] = useState("Orders");
   const navigete = useNavigate();
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Dashboard = () => {
                 />
               </div>
             </div>
-            <div className="w-full md:w-5/6 px-8 min-h-screen">
+            <div className="w-full md:w-5/6 sm:px-8 px-2 min-h-screen">
               {activeSection === "Reviews" && <Reviews />}
               {activeSection === "AddProduct" && <AddProduct />}
               {activeSection === "Stats" && <Stats />}

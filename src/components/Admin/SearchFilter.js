@@ -14,7 +14,7 @@ const SearchFilter = ({ sid, columnFilters, setColumnFilters }) => {
   };
 
   return (
-    <div className="flex items-center gap-2 bg-white rounded-lg w-1/4 py-2 px-4">
+    <div className="flex items-center gap-2 bg-white rounded-lg md:w-2/4 lg:w-1/4 py-2 px-4">
       <span className="">
         <FaSearch />
       </span>
@@ -22,7 +22,7 @@ const SearchFilter = ({ sid, columnFilters, setColumnFilters }) => {
         type="text"
         name=""
         id=""
-        className="focus:outline-none"
+        className="focus:outline-none w-full"
         value={val}
         placeholder={`Search by ${sid}`}
         onChange={(e) => onFilterChange(`${sid}`, e.target.value)}

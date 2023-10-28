@@ -12,3 +12,13 @@
 .admin .side-links .activeSection{
     @apply bg-cyan-400;
 }
+
+/* Add CSS to hide columns in mobile view */
+@media (max-width: 600px) {
+    /* Replace 'age' with the accessor of the column you want to hide */
+    .rt-th.createdAt,
+    .rt-td.createdAt {
+      display: none;
+    }
+  }
+  
