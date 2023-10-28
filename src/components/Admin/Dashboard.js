@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import "./adminStyle.css";
 import UserOptions from "../layout/UserOptions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Stats from "./Stats";
 import Users from "./Users";
 import Orders from "./Orders";
@@ -14,13 +14,14 @@ import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const { user } = useSelector((s) => s.users);
-  const [activeSection, setActiveSection] = useState("Orders");
-  const navigete = useNavigate();
+
+  const [activeSection, setActiveSection] = useState("Stats");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user.role !== "admin") {
       toast("Admins only");
-      navigete("/profile");
+      navigate("/profile");
     }
   }, []);
 
@@ -47,7 +48,9 @@ const Dashboard = () => {
             <div className="w-full md:w-5/6 sm:px-8 px-2 min-h-screen">
               {activeSection === "Reviews" && <Reviews />}
               {activeSection === "AddProduct" && <AddProduct />}
-              {activeSection === "Stats" && <Stats />}
+              {activeSection === "Stats" && (
+                <Stats setActiveSection={setActiveSection} />
+              )}
               {activeSection === "Orders" && <Orders />}
               {activeSection === "Products" && <Products />}
               {activeSection === "Users" && <Users />}

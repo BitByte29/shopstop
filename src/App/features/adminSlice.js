@@ -3,22 +3,60 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const initialState = {
+  data: [],
   products: [],
   users: [],
   reviews: [],
   productReview: "",
   orders: [],
+  sales: [],
   loading: false,
   error: "",
 };
 
 const server = "http://localhost:3001";
 
+export const createProduct = createAsyncThunk(
+  "admin/create/Product",
+  async (myForm, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${server}/api/v1/product/new`,
+        myForm,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 export const getAllProductsAdmin = createAsyncThunk(
   "admin/products",
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get(`${server}/api/v1/admin/products`);
+      return res.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage); // Pass the error message to the reducer
+    }
+  }
+);
+export const getStats = createAsyncThunk(
+  "admin/stats",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`${server}/api/v1/admin/stats`);
       return res.data;
     } catch (error) {
       const errorMessage =
@@ -184,7 +222,35 @@ const adminSlice = createSlice({
       state.orders = action.payload;
     },
   },
+
   extraReducers: (builder) => {
+    builder.addCase(createProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      toast(action.payload.message);
+    });
+    builder.addCase(createProduct.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(createProduct.rejected, (state, action) => {
+      state.loading = false;
+      toast(action.payload);
+      state.error = action.payload;
+    });
+    builder.addCase(getStats.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data = action.payload.data;
+      state.sales = action.payload.sales;
+    });
+    builder.addCase(getStats.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getStats.rejected, (state, action) => {
+      state.loading = false;
+      state.sales = [];
+      state.data = [];
+      toast(action.payload);
+      state.error = action.payload;
+    });
     builder.addCase(getAllProductsAdmin.fulfilled, (state, action) => {
       state.loading = false;
       state.products = action.payload.products;

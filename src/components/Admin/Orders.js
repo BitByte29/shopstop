@@ -59,9 +59,9 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    // if (orders.length < 1) {
-    dispatch(getAllOrders());
-    // }
+    if (orders.length < 1) {
+      dispatch(getAllOrders());
+    }
   }, []);
 
   const handleDelete = (id) => {
@@ -87,10 +87,8 @@ const Orders = () => {
 
     let updatedOrderList = orders.filter((order) => order._id !== editId);
     updatedOrderList.push(p);
-    // console.log(p);
     dispatch(updateOrders(updatedOrderList));
     dispatch(updateOrder({ ...p }));
-
     setEditBox(false);
     setEditId(null);
   };
