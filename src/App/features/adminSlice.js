@@ -19,9 +19,10 @@ const server = "http://localhost:3001";
 export const createProduct = createAsyncThunk(
   "admin/create/Product",
   async (myForm, { rejectWithValue }) => {
+    console.log({ ...myForm });
     try {
       const response = await axios.post(
-        `${server}/api/v1/product/new`,
+        `${server}/api/v1/admin/product/new`,
         myForm,
         {
           headers: {
@@ -72,6 +73,22 @@ export const deleteProduct = createAsyncThunk(
     try {
       const res = await axios.delete(`${server}/api/v1/admin/product/${id}`);
       res.data.id = id;
+      return res.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage); // Pass the error message to the reducer
+    }
+  }
+);
+export const editProduct = createAsyncThunk(
+  "admin/editProduct",
+  async ({ id, productData }, { rejectWithValue }) => {
+    try {
+      const res = await axios.put(`${server}/api/v1/admin/product/${id}`, {
+        productData,
+      });
       return res.data;
     } catch (error) {
       const errorMessage =
@@ -221,21 +238,12 @@ const adminSlice = createSlice({
     updateOrders: (state, action) => {
       state.orders = action.payload;
     },
+    updateProducts: (state, action) => {
+      state.products = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
-    builder.addCase(createProduct.fulfilled, (state, action) => {
-      state.loading = false;
-      toast(action.payload.message);
-    });
-    builder.addCase(createProduct.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(createProduct.rejected, (state, action) => {
-      state.loading = false;
-      toast(action.payload);
-      state.error = action.payload;
-    });
     builder.addCase(getStats.fulfilled, (state, action) => {
       state.loading = false;
       state.data = action.payload.data;
@@ -263,10 +271,32 @@ const adminSlice = createSlice({
       toast(action.payload);
       state.error = action.payload;
     });
+    builder.addCase(createProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      toast(action.payload.message);
+    });
+    builder.addCase(createProduct.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(createProduct.rejected, (state, action) => {
+      state.loading = false;
+      toast(action.payload);
+      state.error = action.payload;
+    });
+    builder.addCase(editProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      toast(action.payload.message);
+    });
+    builder.addCase(editProduct.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(editProduct.rejected, (state, action) => {
+      state.loading = false;
+      toast(action.payload);
+      state.error = action.payload;
+    });
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = state.products;
-
       toast(action.payload);
     });
     builder.addCase(deleteProduct.pending, (state, action) => {
@@ -384,4 +414,4 @@ const adminSlice = createSlice({
 
 export default adminSlice.reducer;
 
-export const { updateUsers, updateOrders } = adminSlice.actions;
+export const { updateUsers, updateOrders, updateProducts } = adminSlice.actions;

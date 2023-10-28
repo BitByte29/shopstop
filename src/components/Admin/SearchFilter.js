@@ -16,7 +16,7 @@ const SearchFilter = ({ sid, columnFilters, setColumnFilters }) => {
   };
 
   return (
-    <div className="flex items-center gap-2 bg-white rounded-lg md:w-2/4 lg:w-1/4 py-2 my-4 px-4">
+    <div className="flex items-center gap-2 bg-white rounded-lg md:w-2/4 lg:w-1/4 py-2 my-4 px-4 border-2 shadow-lg">
       <span className="">
         <FaSearch />
       </span>

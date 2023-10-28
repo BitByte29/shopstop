@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 const Dashboard = () => {
   const { user } = useSelector((s) => s.users);
 
-  const [activeSection, setActiveSection] = useState("Stats");
+  const [activeSection, setActiveSection] = useState("AddProduct");
   const navigate = useNavigate();
 
   useEffect(() => {
