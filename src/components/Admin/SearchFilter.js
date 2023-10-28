@@ -1,7 +1,9 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const SearchFilter = ({ sid, columnFilters, setColumnFilters }) => {
+  //Can compare string values.
   const val = columnFilters.find((f) => f.id === sid)?.value || "";
   const onFilterChange = (id, value) => {
     //To set multiple filter one by searching other by selecting
@@ -14,7 +16,7 @@ const SearchFilter = ({ sid, columnFilters, setColumnFilters }) => {
   };
 
   return (
-    <div className="flex items-center gap-2 bg-white rounded-lg md:w-2/4 lg:w-1/4 py-2 px-4">
+    <div className="flex items-center gap-2 bg-white rounded-lg md:w-2/4 lg:w-1/4 py-2 my-4 px-4">
       <span className="">
         <FaSearch />
       </span>

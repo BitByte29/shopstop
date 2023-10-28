@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 const initialState = {
   products: [],
   users: [],
-  review: [],
+  reviews: [],
+  productReview: "",
   orders: [],
   loading: false,
   error: "",
@@ -141,17 +142,33 @@ export const deleteOrder = createAsyncThunk(
 // _______________________________________________________--Reviews---__________
 //Get products reviews already in productslice
 
+export const getProductReviews = createAsyncThunk(
+  "admin/reviews",
+  async ({ productId }, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        `${server}/api/v1/reviews?productId=${productId}`
+      );
+      return res.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 export const deleteReview = createAsyncThunk(
   "review/delete",
-  async ({ reviewId, productId }, rejectWithValue) => {
+  async ({ reviewId, productId }, { rejectWithValue }) => {
     try {
       const res = await axios.delete(
-        `${server}/api/v1/admin/review/${reviewId}`
+        `${server}/api/v1/review/${reviewId}/?productId=${productId}`
       );
       return res.data;
     } catch (error) {
       const errorMessage = error.data.message || "Internal Server Error";
-      rejectWithValue(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -268,9 +285,25 @@ const adminSlice = createSlice({
       toast(action.payload);
       state.error = action.payload;
     });
+
+    builder.addCase(getProductReviews.fulfilled, (state, action) => {
+      state.loading = false;
+      state.productReview = action.payload.productName;
+      state.reviews = action.payload.reviews;
+    });
+    builder.addCase(getProductReviews.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getProductReviews.rejected, (state, action) => {
+      state.loading = false;
+      state.reviews = [];
+      toast(action.payload);
+      state.error = action.payload;
+    });
     builder.addCase(deleteReview.fulfilled, (state, action) => {
       state.loading = false;
-      toast(action.payload.message);
+      toast("Review Deleted.");
+      state.reviews = action.payload.reviews;
     });
     builder.addCase(deleteReview.pending, (state, action) => {
       state.loading = true;

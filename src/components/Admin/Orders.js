@@ -204,7 +204,7 @@ const Orders = () => {
       <SearchFilter
         setColumnFilters={setColumnFilters}
         columnFilters={columnFilters}
-        sid={"totalPrice"}
+        sid={"orderStatus"}
       />
       {editBox && (
         <div
