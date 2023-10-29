@@ -1,16 +1,72 @@
 import React from "react";
 import { test } from "../../assets";
+import {
+  tv,
+  mobile,
+  laptop,
+  accessory,
+  headphones,
+  speaker,
+  others,
+  computer,
+} from "../../assets";
+import { useDispatch } from "react-redux";
+import { setCategory } from "../../App/features/variablesSlice";
+import { useNavigate } from "react-router-dom";
+
 const Categories = () => {
   const cats = [
-    "Mobile",
-    "Laptop",
-    "Computer",
-    "Gaming",
-    "Accessories",
-    "Others",
-    "Two",
-    "One",
+    {
+      name: "Mobile",
+      url: mobile,
+    },
+    {
+      name: "Laptop",
+      url: laptop,
+    },
+    {
+      name: "Computer",
+      url: computer,
+    },
+    {
+      name: "Television",
+      url: tv,
+    },
+    {
+      name: "Gaming",
+      url: headphones,
+    },
+    {
+      name: "Accessories",
+      url: accessory,
+    },
+    {
+      name: "Audio",
+      url: speaker,
+    },
+    {
+      name: "Others",
+      url: others,
+    },
   ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const cats = [
+  //   "Mobile",
+  //   "Laptop",
+  //   "Computer",
+  //   "Gaming",
+  //   "Accessories",
+  //   "Audio",
+  //   "Tv",
+  //   "Others",
+  // ];
+
+  const handleCategoryChange = (val) => {
+    dispatch(setCategory(val));
+    navigate("/products");
+  };
+
   return (
     <div className="flex  min-h-[60vh] md:flex-row flex-col items-center ">
       <div className="relative flex justify-center w-full md:justify-end md:w-2/6">
@@ -25,11 +81,18 @@ const Categories = () => {
         {cats.map((item) => {
           return (
             <button
-              key={item}
-              className="h-[150px] w-[150px] transform transition-all rounded-full border-2 border-black items-center grid text-center text-transparent hover:text-black hover:-translate-y-4"
+              onClick={() => handleCategoryChange(item.name)}
+              key={item.name}
+              className="h-[150px] w-[150px] transform transition-all rounded-fullitems-center grid text-center text-transparent hover:text-black hover:-translate-y-4 relative group flex-center bg-white rounded-full"
             >
-              <img src={test} className="rounded-full" alt="asd" />
-              {item}
+              <img
+                src={item.url}
+                className="max-h-[150px] max-w-[150px] w-auto h-auto  "
+                alt={`${item.name}`}
+              />
+              <span className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-white hidden group-hover:block px-2 py-1">
+                {item.name}
+              </span>
             </button>
           );
         })}

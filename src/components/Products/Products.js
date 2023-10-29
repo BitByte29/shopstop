@@ -8,7 +8,7 @@ import Loader from "../subs/Loader";
 import Product from "./Product";
 import Slider from "react-slider";
 // import PriceFilter from "./PriceFilter";
-
+import { setCategory } from "../../App/features/variablesSlice";
 const Products = () => {
   const MIN = 0;
   const MAX = 125000;
@@ -20,7 +20,8 @@ const Products = () => {
   const categories = useSelector((s) => s.vars.categories);
   const [currentPage, setCurrentPage] = useState(1);
   const [ratingValue, setRatingValue] = useState(0);
-  const [category, setCategory] = useState("All");
+  // const [category, setCategory] = useState("All");
+  const category = useSelector((s) => s.vars.category);
   const [price, setPrice] = useState([MIN, MAX]);
   const [range, setRange] = useState([MIN, MAX]);
   const cartSize = useSelector((s) => s.cart.cartSize);
@@ -37,7 +38,7 @@ const Products = () => {
 
   const resetFilters = () => {
     setRatingValue(0);
-    setCategory("All");
+    dispatch(setCategory("All"));
     setRange([MIN, MAX]);
     setPrice([MIN, MAX]);
   };
@@ -103,8 +104,7 @@ const Products = () => {
                   >
                     <li
                       onClick={() => {
-                        setCategory(val);
-                        console.log(val);
+                        dispatch(setCategory(val));
                       }}
                       value={val}
                     >

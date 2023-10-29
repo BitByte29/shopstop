@@ -7,12 +7,20 @@ import {
   FaUsers,
   FaShoppingCart,
   FaStar,
+  FaArrowLeft,
 } from "react-icons/fa";
 
 const Sidebar = ({ handleSectionChange, activeSection }) => {
   return (
-    <div className="flex flex-col md:h-screen h-auto p-4 shadow-lg ">
-      <p className="text-4xl pb-5 ">logo</p>
+    <div className="flex flex-col md:h-screen h-auto p-4 shadow-lg bg-yellow-200/70">
+      <Link to="/" className="py-2 px-4 text-lg md:text-3xl flex items-center">
+        <FaArrowLeft />
+        <img
+          src="/adminss.png"
+          alt="admin"
+          className="rounded-full w-12 h-12"
+        />
+      </Link>
       <div className="flex flex-col gap-2 side-links ">
         <button
           className={`sidebar-nav 

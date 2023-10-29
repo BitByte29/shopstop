@@ -329,7 +329,9 @@ const Products = () => {
           </div>
         </>
       ) : (
-        <>No Products</>
+        <div className="my-12 text-2xl text-center text-slate-600">
+          No products found.
+        </div>
       )}
     </>
   );

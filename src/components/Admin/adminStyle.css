@@ -6,7 +6,7 @@
     @apply flex-center py-2 
 }
 .admin .side-links > *{
-    @apply hover:bg-cyan-700;
+    @apply hover:bg-yellow-300;
 }
 
 .admin .side-links .activeSection{

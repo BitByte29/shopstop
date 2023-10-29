@@ -10,9 +10,11 @@ const CartIcon = () => {
     <>
       {" "}
       <FaShoppingCart />
-      <span className="absolute top-[-60%] left-[60%]  text-lg flex-center bg-red-500 text-white rounded-full w-6 h-6">
-        {cartSize}
-      </span>
+      {cartSize > 0 && (
+        <span className="absolute top-[-60%] left-[60%]  text-lg flex-center bg-red-500 text-white rounded-full w-6 h-6">
+          {cartSize}
+        </span>
+      )}
     </>
   );
 };

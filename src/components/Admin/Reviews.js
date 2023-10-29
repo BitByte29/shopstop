@@ -19,8 +19,12 @@ const Reviews = () => {
       <h1 className="text-center text-4xl font-semibold  text-slate-700 py-12">
         Reviews
       </h1>
-      <form action="" className="shadow-none " onSubmit={handleSubmit}>
-        <div className="flex bg-white rounded-full pl-5 overflow-hidden">
+      <form
+        action=""
+        className="shadow-none flex-center"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex bg-white rounded-full pl-5 overflow-hidden w-[300px]">
           <input
             type="text"
             placeholder="Enter Product Id"

@@ -31,8 +31,8 @@ const Footer = () => {
         <div className="font-semibold">
           <p>&copy; 2023 All Rights Reserverd.</p>
           <p>
-            Developed by
-            <span className="text-red-600 "> Hritik Pal</span>
+            Developed by{" "}
+            <span className="bg-yellow-300 text-black">Hritik Pal</span>
           </p>
         </div>
       </footer>

@@ -66,7 +66,7 @@ const UserOptions = ({ user }) => {
   return (
     <>
       <div
-        className="relative w-12 h-12 rounded-full cursor-pointer"
+        className="relative w-12 h-12 rounded-full text-black cursor-pointer"
         style={{
           backgroundImage: `url(${user.avatar.url})`,
           backgroundSize: "cover",

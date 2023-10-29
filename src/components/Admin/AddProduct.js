@@ -51,7 +51,7 @@ const AddProduct = () => {
   };
   const handleDataChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
-    console.log(product);
+    // console.log(product);
   };
 
   const imageDataChange = (e) => {
@@ -77,88 +77,125 @@ const AddProduct = () => {
         <div className="md:w-1/2 w-full">
           <form
             action=""
-            className={` bg-cyan-400/70 shadow-2xl transition-all py-12 flex-center`}
+            className="bg-slate-200 rounded-lg shadow-lg p-6 space-y-4"
             encType="multipart/form-data"
             onSubmit={handleSubmit}
           >
-            <div className="input-div w-[300px]">
-              <BiRename />
-              <input
-                type="text"
-                placeholder="Product Name"
-                name="name"
-                required
-                onChange={handleDataChange}
-              />
+            {/* Product Name */}
+            <div className="flex flex-col">
+              <label htmlFor="name" className="text-gray-700">
+                Product Name
+              </label>
+              <div className="flex items-center border border-gray-300 p-2 rounded-md focus:outline-none bg-white  focus:border-cyan-400">
+                <BiRename className="text-gray-500 mr-2" />
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="w-full h-full text-lg  focus:outline-none"
+                  required
+                  onChange={handleDataChange}
+                />
+              </div>
             </div>
 
-            <div className="input-div w-[300px]">
-              <MdDescription />
-              <input
-                type="text"
-                placeholder="Description"
-                name="description"
-                required
-                onChange={handleDataChange}
-              />
+            {/* Description */}
+            <div className="flex flex-col">
+              <label htmlFor="description" className="text-gray-700">
+                Description
+              </label>
+              <div className="flex items-start border border-gray-300 p-2 rounded-md focus:outline-none bg-white focus:border-cyan-400">
+                <MdDescription className="text-gray-500 mr-2" />
+                <textarea
+                  id="description"
+                  name="description"
+                  className="w-full h-full text-lg  focus:outline-none"
+                  required
+                  onChange={handleDataChange}
+                  rows="3"
+                />
+              </div>
             </div>
 
-            <div className="input-div w-[300px]">
-              <FaRupeeSign />
-              <input
-                type="number"
-                placeholder="Price"
-                name="price"
-                required
-                onChange={handleDataChange}
-              />
+            {/* Price */}
+            <div className="flex flex-col">
+              <label htmlFor="price" className="text-gray-700">
+                Price (in Rupees)
+              </label>
+              <div className="flex items-center border border-gray-300 p-2 rounded-md focus:outline-none bg-white focus:border-cyan-400">
+                <FaRupeeSign className="text-gray-500 mr-2" />
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  className="w-full h-full text-lg  focus:outline-none"
+                  required
+                  onChange={handleDataChange}
+                />
+              </div>
             </div>
-            <div className="input-div w-[300px]">
-              <TbTournament />
-              <select
-                className="focus:outline-none"
-                name="category"
-                id=""
-                placeholder=""
-                required
-                onChange={handleDataChange}
-              >
-                <option onChange={handleDataChange}>Select Category</option>
-                {categoryList.map((cat) => {
-                  return (
+
+            {/* Stock */}
+            <div className="flex flex-col">
+              <label htmlFor="stock" className="text-gray-700">
+                Stock
+              </label>
+              <div className="flex items-center border border-gray-300 p-2 rounded-md focus:outline-none bg-white focus:border-cyan-400">
+                <AiFillDatabase className="text-gray-500 mr-2" />
+                <input
+                  type="number"
+                  id="stock"
+                  className="w-full h-full text-lg  focus:outline-none"
+                  name="stock"
+                  required
+                  onChange={handleDataChange}
+                />
+              </div>
+            </div>
+
+            {/* Category */}
+            <div className="flex flex-col">
+              <label htmlFor="category" className="text-gray-700">
+                Category
+              </label>
+              <div className="flex items-center border border-gray-300 p-2 rounded-md focus:outline-none bg-white focus:border-cyan-400">
+                <TbTournament className="text-gray-500 mr-2" />
+                <select
+                  id="category"
+                  name="category"
+                  className="w-full h-full text-lg  focus:outline-none"
+                  required
+                  onChange={handleDataChange}
+                >
+                  <option value="">Select Category</option>
+                  {categoryList.map((cat) => (
                     <option key={cat} value={cat}>
                       {cat}
                     </option>
-                  );
-                })}
-              </select>
+                  ))}
+                </select>
+              </div>
             </div>
 
-            <div className="input-div w-[300px]">
-              <AiFillDatabase />
-              <input
-                type="number"
-                placeholder="Stock"
-                name="stock"
-                required
-                onChange={handleDataChange}
-              />
-            </div>
-
-            <div id="productImages " className="p-0">
+            {/* Product Images */}
+            <div className="flex flex-col">
+              <label htmlFor="images" className="text-gray-700">
+                Product Images
+              </label>
               <input
                 type="file"
+                id="images"
                 name="images"
                 accept="image/*"
-                className="bg-white flex-col w-[300px]"
                 multiple
                 onChange={imageDataChange}
               />
             </div>
 
+            {/* Create Product Button */}
             <button
               type="submit"
-              className={`px-3 py-3 w-[200px] bg-slate-100`}
+              className="bg-cyan-400 text-white py-2 rounded-md px-3  hover:bg-cyan-500 transition-colors"
             >
               Create Product
             </button>

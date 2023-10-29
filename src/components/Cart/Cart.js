@@ -55,7 +55,7 @@ const Cart = () => {
           <p>No items in your cart</p>{" "}
           <button
             onClick={() => navigate("/products")}
-            className=" py-2 mt-2 border-2 px-3 hover:shadow-lg"
+            className=" py-2 mt-2 hover:tracking-wider transition-all px-3 rounded-2xl hover:shadow-lg bg-cyan-200"
           >
             Continue shopping
           </button>

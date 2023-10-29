@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UserOptions from "./UserOptions";
 import { openSearchBox } from "../../App/features/variablesSlice";
 import CartIcon from "./CartIcon";
+import "./userOption.css";
 
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
@@ -24,15 +25,15 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 z-30 flex items-center justify-between w-full h-[10vh] px-8 md:px-8 py-4 text-2xl  bg-dp md:text-lg">
+      <nav className="fixed top-0 left-0 z-30 flex items-center justify-between w-full h-[10vh] px-8 md:px-8 py-4 text-2xl  bg-dp text-white md:text-lg">
         <Link
           to="/home"
           className="hidden md:block text-3xl font-bold cursor-pointer group"
         >
-          <span className="bg-lp rounded-s-lg rounded-e-2xl group-hover:bg-transparent">
+          <span className="bg-lp rounded-s-lg rounded-e-2xl group-hover:bg-transparent text-dp group-hover:text-white">
             Shop
           </span>
-          <span className="rounded-none rounded-s-2xl rounded-e-lg group-hover:bg-lp">
+          <span className="rounded-none rounded-s-2xl rounded-e-lg group-hover:bg-lp group-hover:text-dp">
             Stop
           </span>
         </Link>
@@ -40,15 +41,15 @@ const Navbar = () => {
         <button onClick={() => setMobileNav(true)} className="md:hidden">
           <FaHamburger />
         </button>
-        <ul className="justify-around hidden gap-8 md:flex">
-          <li className="font-semibold hover:text-red-600 ">
+        <ul className="justify-around hidden gap-8 md:flex uppercase tracking-wider font-light">
+          <li className="border-b-2 border-transparent hover:border-white">
             <Link to="/home">Home</Link>
           </li>
-          <li className="font-semibold hover:text-red-600">
+          <li className="border-b-2 border-transparent hover:border-white">
             <Link to="/products">Products</Link>
           </li>
-          <li className="font-semibold hover:text-red-600">
-            <Link to="/demo">Demo</Link>
+          <li className="border-b-2 border-transparent hover:border-white">
+            <Link to="/demo">About</Link>
           </li>
         </ul>
 

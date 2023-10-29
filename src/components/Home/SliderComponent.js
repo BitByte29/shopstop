@@ -17,7 +17,7 @@ const SliderComponent = () => {
   return (
     <Slider {...settings} className="w-full">
       <div className="relative ">
-        <div className="absolute flex flex-col items-start justify-center px-4 top-[50%] right-0 md:right-16 translate-y-[-50%]  md:gap-2 ">
+        <div className="absolute flex flex-col items-start justify-center top-[50%] left-[70%]  translate-y-[-50%]  md:gap-2 ">
           <h2 className="text-xl font-bold md:text-6xl text-cyan-200">
             Nice Sound
           </h2>
@@ -39,10 +39,7 @@ const SliderComponent = () => {
       </div>
 
       <div className="relative">
-        <div
-          className="absolute flex flex-col items-start text-white justify-center px-4 top-[50%] right-0 
-        md:right-16 translate-y-[-50%]  md:gap-2 "
-        >
+        <div className="absolute flex flex-col items-start text-white justify-center  top-[50%] left-[70%]  translate-y-[-50%]  md:gap-2 ">
           <h2 className="text-xl font-bold md:text-6xl text-red2">
             Latest Tablets
           </h2>
@@ -64,10 +61,7 @@ const SliderComponent = () => {
       </div>
 
       <div className="relative">
-        <div
-          className="absolute flex flex-col items-start justify-center px-4 top-[50%] right-0 
-        md:right-16 translate-y-[-50%]  md:gap-2 "
-        >
+        <div className="absolute flex flex-col items-start justify-center top-[50%] left-[70%]  translate-y-[-50%]  md:gap-2 ">
           <h2 className="text-xl font-bold text-indigo-700 md:text-6xl">
             Flagship
           </h2>

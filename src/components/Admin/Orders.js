@@ -334,7 +334,9 @@ const Orders = () => {
           </div>
         </>
       ) : (
-        <>No orders</>
+        <div className="my-12 text-2xl text-center text-slate-600">
+          No pending orders.
+        </div>
       )}
     </>
   );

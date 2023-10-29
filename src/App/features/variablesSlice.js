@@ -6,6 +6,7 @@ const initialState = {
   rating: 0,
   currentPage: 1,
   categories: [],
+  category: "All",
 };
 
 export const variableSlice = createSlice({
@@ -30,6 +31,9 @@ export const variableSlice = createSlice({
     updateCategories: (state, action) => {
       state.categories = action.payload;
     },
+    setCategory: (state, action) => {
+      state.category = action.payload;
+    },
   },
 });
 
@@ -40,6 +44,7 @@ export const {
   updateCurrenPage,
   updateRating,
   updateCategories,
+  setCategory,
 } = variableSlice.actions;
 
 export default variableSlice.reducer;
