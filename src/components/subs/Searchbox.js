@@ -37,12 +37,12 @@ const Searchbox = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-full  py-2">
+    <div className="relative flex items-center justify-center w-full bg-blue-500  py-2 transition-all">
       <form
         action=""
         method="POST"
         onSubmit={handleSubmit}
-        className="sm:w-[80%] w-[90%] border-none shadow-none "
+        className="sm:w-[80%] bg-white px-0 py-0 rounded-full w-[90%] border-none shadow-none "
       >
         <div className="sticky top-0 w-full border-none shadow-none">
           <div className="flex items-center w-full gap-3 px-4 py-2 border-2 border-gray-500 rounded-full ">
@@ -55,15 +55,17 @@ const Searchbox = () => {
               value={keyword}
               className="w-full px-1 py-1 outline-none "
             />
-            <button type="submit" className="btn">
-              <FaSearch onClick={handleSubmit} className="text-2xl" />
-            </button>
-            <button type="" className="btn">
-              <FaWindowClose
-                onClick={() => dispatch(closeSearchBox(true))}
-                className="text-2xl"
-              />
-            </button>
+            <ul className="flex gap-4">
+              <button type="submit" className="hover:text-blue-500">
+                <FaSearch onClick={handleSubmit} className="text-2xl " />
+              </button>
+              <button type="" className="hover:text-blue-500">
+                <FaWindowClose
+                  onClick={() => dispatch(closeSearchBox(true))}
+                  className="text-2xl"
+                />
+              </button>
+            </ul>
           </div>
         </div>
       </form>

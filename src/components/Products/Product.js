@@ -34,7 +34,8 @@ const Product = ({ product }) => {
     isHalf: true,
   };
   return (
-    <div className="relative group hover:border-slate-200 hover:-translate-y-2 hover:shadow-lg border-transparent transition-all border-2 rounded-lg">
+    <div className="relative group  bg-white transition-all  rounded-lg">
+      {/* hover:border-slate-200 hover:-translate-y-2 hover:shadow-lg */}
       <div
         className="z-50 absolute -top-4 -left-4 p-4 rounded-full bg-ds cursor-crosshair hover:scale-125 transition-all active:bg-red-700 backdrop-blur-70 hidden group-hover:block text-2xl border-2"
         onClick={handleAddToCart}
@@ -42,7 +43,7 @@ const Product = ({ product }) => {
         <FaCartPlus />
       </div>
       <Link
-        className=" flex flex-col items-center justify-center p-4 sm:w-[275px] w-[80%] border-transparent  "
+        className=" flex flex-col items-center justify-center md:p-4 w-full h-full  border-2 rounded-lg  group-hover:shadow-lg"
         to={`/products/${product._id}`}
       >
         {product.onSale && (
@@ -51,11 +52,13 @@ const Product = ({ product }) => {
           </span>
         )}
 
-        <img
-          src={product.images[0].url}
-          alt=""
-          className="md:w-[200px] sm:w-full h-[250px] "
-        />
+        <div className="w-full sm:w-[200px] p-4 sm:h-[250px] flex-center md:py-2 group-hover:scale-110 transition-all  ">
+          <img
+            src={product.images[0].url}
+            alt=""
+            className="max-w-full max-h-full rounded-lg"
+          />
+        </div>
         <div
           className="flex items-center justify-center gap-2"
           key={product._id}
@@ -73,16 +76,19 @@ const Product = ({ product }) => {
           }`}
         >
           <p className="text-xl">
+            &#8377;
             {product.onSale
-              ? salePrice(product.discount, product.price)
-              : product.price}
-            $
+              ? salePrice(product.discount, product.price).toLocaleString(
+                  "hi-IN"
+                )
+              : product.price.toLocaleString("hi-IN")}
           </p>
           {product.onSale && (
             <div className="flex gap-2 text-sm">
               <span className="text-red-500 line-through">
                 {" "}
-                {product.price}$
+                &#8377;
+                {product.price.toLocaleString("hi-IN")}
               </span>
               <span className="text-green-600">{product.discount}% off.</span>
             </div>

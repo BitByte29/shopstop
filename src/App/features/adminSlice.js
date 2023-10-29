@@ -16,6 +16,24 @@ const initialState = {
 
 const server = "http://localhost:3001";
 
+//----------------------------------------------------Get Stats----------------------------------------------//
+export const getStats = createAsyncThunk(
+  "admin/stats",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`${server}/api/v1/admin/stats`);
+      return res.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      toast.error(errorMessage);
+      return rejectWithValue(errorMessage); // Pass the error message to the reducer
+    }
+  }
+);
+
+//-----------------------------------------------Products---------------------------------------------------//
+
 export const createProduct = createAsyncThunk(
   "admin/create/Product",
   async (myForm, { rejectWithValue }) => {
@@ -53,20 +71,7 @@ export const getAllProductsAdmin = createAsyncThunk(
     }
   }
 );
-export const getStats = createAsyncThunk(
-  "admin/stats",
-  async (_, { rejectWithValue }) => {
-    try {
-      const res = await axios.get(`${server}/api/v1/admin/stats`);
-      return res.data;
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || "An error occurred.";
-      toast.error(errorMessage);
-      return rejectWithValue(errorMessage); // Pass the error message to the reducer
-    }
-  }
-);
+
 export const deleteProduct = createAsyncThunk(
   "admin/deleteProduct",
   async ({ id }, { rejectWithValue }) => {
@@ -98,6 +103,8 @@ export const editProduct = createAsyncThunk(
     }
   }
 );
+
+//-----------------------------------------------Users---------------------------------------------------//
 
 export const getAllUsers = createAsyncThunk(
   "admin/users",
@@ -146,7 +153,8 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-//_________________________________orders________________
+//-----------------------------------------------Orders---------------------------------------------------//
+
 export const getAllOrders = createAsyncThunk(
   "admin/orders",
   async (_, { rejectWithValue }) => {
@@ -193,9 +201,7 @@ export const deleteOrder = createAsyncThunk(
   }
 );
 
-// _______________________________________________________--orders---__________
-// _______________________________________________________--Reviews---__________
-//Get products reviews already in productslice
+//-----------------------------------------------Reviews---------------------------------------------------//
 
 export const getProductReviews = createAsyncThunk(
   "admin/reviews",
@@ -227,6 +233,8 @@ export const deleteReview = createAsyncThunk(
     }
   }
 );
+
+//-----------------------------------------------0---------------------------------------------------//
 
 const adminSlice = createSlice({
   name: "admin",

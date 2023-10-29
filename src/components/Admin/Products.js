@@ -15,6 +15,7 @@ import {
   FaEdit,
   FaWindowClose,
   FaShare,
+  FaRupeeSign,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -31,8 +32,9 @@ import SearchFilter from "./SearchFilter";
 const Products = () => {
   const { products, loading } = useSelector((s) => s.admin);
   const [columnFilters, setColumnFilters] = useState([]);
-  const [newprice, setNewprice] = useState();
-  const [newstock, setNewstock] = useState();
+  const [newprice, setNewprice] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [newstock, setNewstock] = useState(0);
   const dispatch = useDispatch();
   const [productEditing, setProductEditing] = useState();
   const [editBox, setEditBox] = useState(false);
@@ -75,18 +77,32 @@ const Products = () => {
     setProductEditing(product);
     setNewprice(product.price);
     setNewstock(product.stock);
+    setDiscount(product.discount);
   };
   const submitHandler = (e) => {
     e.preventDefault();
     if (
       productEditing.stock === newstock &&
-      productEditing.price === newprice
+      productEditing.price === newprice &&
+      productEditing.discount === discount
     ) {
       setEditBox(false);
       return;
     }
-    let p = { ...productEditing, price: newprice };
-    p = { ...p, stock: newstock };
+
+    let p = {
+      ...productEditing,
+      price: newprice,
+      stock: newstock,
+      discount: Number(discount),
+    };
+    if (discount !== productEditing.discount) {
+      if (discount === "0") {
+        p = { ...p, onSale: false };
+      } else {
+        p = { ...p, onSale: true };
+      }
+    }
     let updatedProductList = products.filter(
       (product) => product._id !== editId
     );
@@ -202,19 +218,33 @@ const Products = () => {
             <h1 className="font-semibold">
               Update {productEditing.name}'s Price and Stock
             </h1>
-
-            <input
-              type="number"
-              placeholder="Stock"
-              onChange={(e) => setNewstock(e.target.value)}
-              value={newstock}
-            />
-            <input
-              type="number"
-              placeholder="Price"
-              onChange={(e) => setNewprice(e.target.value)}
-              value={newprice}
-            />
+            <div>
+              Stock:
+              <input
+                type="number"
+                placeholder="Stock"
+                onChange={(e) => setNewstock(e.target.value)}
+                value={newstock}
+              />
+            </div>
+            <div>
+              Price: <FaRupeeSign />
+              <input
+                type="number"
+                placeholder="Price"
+                onChange={(e) => setNewprice(e.target.value)}
+                value={newprice}
+              />
+            </div>
+            <div>
+              Discount:
+              <input
+                type="number"
+                placeholder="Discount percentage"
+                onChange={(e) => setDiscount(e.target.value)}
+                value={discount}
+              />
+            </div>
             <input
               type="submit"
               className="bg-red-200 px-4 py-2 cursor-pointer hover:-translate-y-[3px] transition-all"

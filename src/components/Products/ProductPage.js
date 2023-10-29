@@ -86,11 +86,12 @@ const ProductPage = () => {
         <Loader />
       ) : product ? (
         <div className="relative flex flex-col gap-4 px-4 lg:flex-row ">
-          <div className="bg-white lg:w-2/6 ">
+          <div className=" lg:w-2/6 ">
             <div className="sticky top-[100px] py-0 ">
               <div>
                 <Breadcrumb productName={product.name} />
               </div>
+
               <Carousel {...options} className="px-0 py-0 ">
                 {product.images &&
                   product.images.map((image, i) => (
@@ -106,7 +107,8 @@ const ProductPage = () => {
                     </div>
                   ))}
               </Carousel>
-              <div className="flex items-center justify-between ">
+
+              <div className="items-center flex justify-between ">
                 <button
                   onClick={handleAddToCart}
                   className="w-[45%] py-4 uppercase bg-cyan-600 flex gap-2 items-center hover:-translate-y-2 transition-all justify-center"
@@ -117,9 +119,21 @@ const ProductPage = () => {
                   Buy now
                 </button>
               </div>
+
+              {/* <div className="items-center flex fixed bottom-0 left-0 px-2 py-2 sm:hidden z-50 justify-between w-full bg-dp">
+                <button
+                  onClick={handleAddToCart}
+                  className="w-[45%] py-4 uppercase bg-cyan-600 flex gap-2 items-center hover:-translate-y-2 transition-all justify-center"
+                >
+                  <FaShoppingCart /> Add to Cart
+                </button>
+                <button className="w-[45%] py-4 bg-green-600 uppercase hover:-translate-y-2 transition-all ">
+                  Buy now
+                </button>
+              </div> */}
             </div>
           </div>
-          <div className="flex flex-col gap-4 bg-white lg:w-4/6">
+          <div className="flex flex-col my-4 p-4 rounded-lg gap-4 bg-white lg:w-4/6">
             <div className="text-5xl">{product.name}</div>
             <div className="flex items-center gap-2" key={product._id}>
               <ReactStars
@@ -271,9 +285,6 @@ const ProductPage = () => {
             ) : (
               <p>No reviews yet.</p>
             )}
-            <div className="h-[100vh]">hu</div>
-            <div className="h-[100vh]">hu</div>
-            <div className="h-[100vh]">hu</div>
           </div>
         </div>
       ) : (

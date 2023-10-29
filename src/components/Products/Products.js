@@ -49,9 +49,9 @@ const Products = () => {
   };
   return (
     <>
-      <div className="flex flex-col  gap-4 md:flex-row md:px-[5vh]">
-        <div className="w-full md:w-[25%] ">
-          <div className="sticky px-4 py-4 border-2 rounded-lg md:px-14 top-20 ">
+      <div className="flex flex-col gap-4 md:flex-row lg:px-[5vh]">
+        <div className="w-full p-4 md:w-[30%] ">
+          <div className="sticky px-4 py-4 border-2 rounded-lg lg:px-14 top-20 bg-white">
             {/* ___________price fiter________________ */}
             <h2 className="filter-header">Price</h2>
             <div className="relative flex flex-col gap-4 pb-4">
@@ -131,13 +131,13 @@ const Products = () => {
           </div>
         </div>
 
-        <div className="relative flex flex-col items-center  md:w-[75%] border-2">
+        <div className="relative flex flex-col items-center m-4  md:w-[75%] ">
           {loading ? (
             <Loader />
           ) : products && products.length > 0 ? (
-            <div className="text-center">
+            <div className="text-center ">
               <div className="py-4 mb-4 text-3xl">Available Products</div>
-              <div className="flex flex-wrap items-center justify-center gap-4 ">
+              <div className="flex flex-wrap items-center justify-center md:gap-4 gap-2 ">
                 {products.map((pro, index) => {
                   return <Product product={pro} key={index} />;
                 })}

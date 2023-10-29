@@ -24,8 +24,11 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 z-30 flex items-center justify-around w-full h-[10vh] px-8 py-4 text-2xl  bg-gradient-to-l from-purple-600 via-purple-400 to-purple-600 md:text-lg">
-        <Link to="/home" className="text-3xl font-bold cursor-pointer group">
+      <nav className="fixed top-0 left-0 z-30 flex items-center justify-between w-full h-[10vh] px-8 md:px-8 py-4 text-2xl  bg-dp md:text-lg">
+        <Link
+          to="/home"
+          className="hidden md:block text-3xl font-bold cursor-pointer group"
+        >
           <span className="bg-lp rounded-s-lg rounded-e-2xl group-hover:bg-transparent">
             Shop
           </span>
@@ -48,6 +51,7 @@ const Navbar = () => {
             <Link to="/demo">Demo</Link>
           </li>
         </ul>
+
         <ul className="flex flex-row items-center justify-around gap-4 text-2xl ">
           <li>
             {searchBoxOn ? (
@@ -55,6 +59,11 @@ const Navbar = () => {
             ) : (
               <FaSearch onClick={() => dispatch(openSearchBox())} />
             )}
+          </li>
+          <li className="hover:text-red-600 relative">
+            <Link to="/cart">
+              <CartIcon />
+            </Link>
           </li>
 
           {isAuthenticated && !loading && user ? (
@@ -66,11 +75,6 @@ const Navbar = () => {
               </Link>
             </li>
           )}
-          <li className="hover:text-red-600 relative">
-            <Link to="/cart">
-              <CartIcon />
-            </Link>
-          </li>
         </ul>
 
         {mobileNav && (
