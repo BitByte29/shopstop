@@ -50,10 +50,12 @@ const Navbar = () => {
             {searchBoxOn ? (
               <div className="w-[25px] text-transparent">o</div>
             ) : (
-              <FaSearch onClick={() => dispatch(openSearchBox())} />
+              <span className="hover:text-blue-500 relative cursor-pointer">
+                <FaSearch onClick={() => dispatch(openSearchBox())} />
+              </span>
             )}
           </li>
-          <li className="hover:text-red-600 relative">
+          <li className="hover:text-blue-500 relative">
             <Link to="/cart">
               <CartIcon />
             </Link>
@@ -62,7 +64,7 @@ const Navbar = () => {
           {isAuthenticated && !loading && user ? (
             <UserOptions user={user} />
           ) : (
-            <li className="hover:text-red-600">
+            <li className="hover:text-blue-500 relative">
               <Link to="/auth">
                 <FaUser />
               </Link>
@@ -71,49 +73,30 @@ const Navbar = () => {
         </ul>
 
         {mobileNav && (
-          <div className="absolute top-0 left-0 z-20 flex w-full h-[100vh] bg-lp">
-            <button
-              onClick={() => setMobileNav(false)}
-              className="fixed text-5xl right-[50px] top-4"
-            >
-              <FaWindowClose className="text-4xl" />
-            </button>
-            <ul className="flex flex-col items-center justify-center w-full mt-10 font-semibold gap-y-10 ">
-              <li className="font-semibold hover:text-red-600 ">
+          <div className="absolute top-0 left-0 z-20 flex flex-col w-1/2 sm:w-1/3  h-[100vh] bg-white">
+            <div className="flex justify-end p-4 w-full ">
+              <button
+                onClick={() => setMobileNav(false)}
+                className=" text-5xl right-[50px] top-4"
+              >
+                <FaWindowClose className="text-4xl" />
+              </button>
+            </div>
+
+            <ul className="flex flex-col  w-full  uppercase tracking-wider font-light gap-4 px-4">
+              <li>
                 <Link to="/home" onClick={() => setMobileNav(false)}>
                   Home
                 </Link>
               </li>
-              <li className="font-semibold hover:text-red-600">
+              <li>
                 <Link to="/products" onClick={() => setMobileNav(false)}>
                   Products
                 </Link>
               </li>
-              <li className="font-semibold hover:text-red-600">
+              <li>
                 <Link to="/" onClick={() => setMobileNav(false)}>
                   About
-                </Link>
-              </li>
-
-              <li>
-                {searchBoxOn ? (
-                  <></>
-                ) : (
-                  <FaSearch
-                    onClick={() => dispatch(openSearchBox())}
-                    className="text-3xl"
-                  />
-                )}
-              </li>
-
-              <li className="hover:text-red-600">
-                <Link to="/auth" onClick={() => setMobileNav(false)}>
-                  <FaUser className="text-3xl" />
-                </Link>
-              </li>
-              <li className="hover:text-red-600">
-                <Link to="/">
-                  <FaShoppingCart className="text-3xl" />
                 </Link>
               </li>
             </ul>

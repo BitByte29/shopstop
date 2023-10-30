@@ -10,69 +10,56 @@ const Profile = () => {
   const [passModalClose, setPassModalClose] = useState(true);
 
   return (
-    <>
-      <div className="flex min-h-[90vh] bg-red-100 flex-col md:flex-row items-center justify-center py-5">
-        {!modalClose && (
-          <EditProfile user={user} setModalClose={setModalClose} />
-        )}
-        {!passModalClose && (
-          <EditPassword setPassModalClose={setPassModalClose} />
-        )}
-        <div className="flex-1 gap-y-12 flex-center">
-          {" "}
-          <h2 className="text-2xl font-semibold">My Profile</h2>
-          <img
-            src={user.avatar.url}
-            alt=""
-            className="w-[200px] rounded-full border-2 border-black"
-          />
-          <button
-            onClick={() => setModalClose(false)}
-            className="px-4 py-2 text-white transition-all hover:scale-110 bg-cyan-600 hover:-translate-y-2 hover:shadow-lg"
-          >
-            Edit Profile
-          </button>
+    <div className="min-h-screen bg-gradient-to-b from-[#2E3192]  to-[#1BFFFF] flex flex-col items-center justify-center py-5">
+      {!modalClose && <EditProfile user={user} setModalClose={setModalClose} />}
+      {!passModalClose && (
+        <EditPassword setPassModalClose={setPassModalClose} />
+      )}
+      <div className="text-center text-white my-4">
+        <h1 className="text-4xl font-extrabold">My Profile</h1>
+        <img
+          src={user.avatar.url}
+          alt=""
+          className="w-48 h-48 rounded-full border-4 border-white mx-auto mt-4"
+        />
+        <button
+          onClick={() => setModalClose(false)}
+          className="px-6 py-3 mt-4 text-white transition-transform transform hover:scale-105 bg-blue-700 hover:-translate-y-1 hover:shadow-lg rounded-full"
+        >
+          Edit Profile
+        </button>
+      </div>
+      <div className="text-white my-10 text-left mx-4">
+        <div className="text-2xl">
+          Name: <span className="text-lg font-semibold">{user.name}</span>
         </div>
-        <div className="flex-1 flex-center my-10 ">
-          <div className="items-start gap-8 ms-4 flex-center">
-            <div className="text-2xl">
-              N<span className="text-lg uppercase">ame</span>:{" "}
-              <p className="inline-block text-lg font-semibold uppercase first-letter:text-2xl">
-                {user.name}
-              </p>
-            </div>
-            <div className="text-2xl">
-              E<span className="text-lg uppercase">mail</span>:{" "}
-              <p className="inline-block text-lg font-semibold uppercase first-letter:text-2xl">
-                {user.email}
-              </p>
-            </div>
-            <div className="text-2xl">
-              J<span className="text-lg uppercase">oined on</span>:{" "}
-              <p className="inline-block text-lg font-semibold uppercase first-letter:text-2xl">
-                {user.joinedOn
-                  ? formatDateFromTimestamp(user.joinedOn)
-                  : "Feb 8, 23"}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2 pt-4 pr-8">
-              <button
-                onClick={() => setPassModalClose(false)}
-                className="px-4 py-2 text-white transition-all hover:scale-110 bg-cyan-600 hover:-translate-y-2 hover:shadow-lg"
-              >
-                Change Password
-              </button>
-              <Link
-                to={"/myorders"}
-                className="px-4 py-2 text-white transition-all hover:scale-110 bg-cyan-600 hover:-translate-y-2 hover:shadow-lg"
-              >
-                My Orders
-              </Link>
-            </div>
-          </div>
+        <div className="text-2xl">
+          Email: <span className="text-lg font-semibold">{user.email}</span>
+        </div>
+        <div className="text-2xl">
+          Joined on:{" "}
+          <span className="text-lg font-semibold">
+            {user.joinedOn
+              ? formatDateFromTimestamp(user.joinedOn)
+              : "Feb 8, 23"}
+          </span>
+        </div>
+        <div className="flex items-center space-x-4 mt-8">
+          <button
+            onClick={() => setPassModalClose(false)}
+            className="px-6 py-3 text-white transition-transform transform hover:scale-105 bg-purple-700 hover:-translate-y-1 hover:shadow-lg rounded-full"
+          >
+            Change Password
+          </button>
+          <Link
+            to="/myorders"
+            className="px-6 py-3 text-white transition-transform transform hover:scale-105 bg-green-500 hover:-translate-y-1 hover:shadow-lg rounded-full"
+          >
+            My Orders
+          </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
