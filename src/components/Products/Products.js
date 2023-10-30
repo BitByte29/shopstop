@@ -51,15 +51,15 @@ const Products = () => {
   return (
     <>
       <div className="flex flex-col gap-4 md:flex-row lg:px-[5vh]">
-        <div className="w-full p-4 md:w-[30%] ">
-          <div className="sticky px-4 py-4 border-2 rounded-lg lg:px-14 top-20 bg-white">
-            {/* ___________price fiter________________ */}
-            <h2 className="filter-header">Price</h2>
-            <div className="relative flex flex-col gap-4 pb-4">
-              <div>
-                <span>&#8377;{price[0]}</span>
-                {` to `}
-                <span>&#8377;{price[1]}</span>
+        <div className="w-full p-4 md:w-1/3">
+          <div className="sticky px-4 py-4 border-2 rounded-lg lg:px-14 top-20 bg-gray-100">
+            <h2 className="text-2xl font-semibold text-center mb-4">
+              Filter Products
+            </h2>
+            <div className="mb-6">
+              <h3 className="text-xl font-semibold mb-2">Price</h3>
+              <div className="flex items-center gap-2">
+                <span>&#8377;{price[0]}</span> to <span>&#8377;{price[1]}</span>
               </div>
               <Slider
                 className="price-slider"
@@ -74,63 +74,53 @@ const Products = () => {
                 }}
               />
             </div>
-            <hr />
-            {/* ___________ratings fiter________________ */}
-            <h2 className="filter-header">Ratings</h2>
-            <ReactStars
-              {...options}
-              value={ratingValue}
-              key={ratingValue === 0 ? "rating-key" : null}
-              onChange={(newRating) => {
-                setRatingValue(newRating);
-                setCurrentPage(1);
-              }}
-            />
-            <p>{ratingValue}+ and up.</p>
-
-            <hr />
-            {/* ___________category fiter________________ */}
-            {/* Can make a subcomponent */}
-            {/* <CategoryFilter categories={categories} setCategory={setCategory}/> */}
-            <h2 className="filter-header">Category</h2>
-            <ul>
-              {categories.map((val) => {
-                return (
-                  <div
+            <hr className="my-6" />
+            <div className="mb-6">
+              <h3 className="text-xl font-semibold">Ratings</h3>
+              <ReactStars
+                value={ratingValue}
+                count={5}
+                size={24}
+                activeColor="#f0c14b"
+                onChange={(newRating) => {
+                  setRatingValue(newRating);
+                  setCurrentPage(1);
+                }}
+              />
+              <p>{ratingValue}+ and up.</p>
+            </div>
+            <hr className="my-6" />
+            <div className="mb-6">
+              <h3 className="text-xl font-semibold">Category</h3>
+              <ul>
+                {categories.map((val) => (
+                  <li
                     key={val}
-                    className={`flex items-center gap-2 cursor-pointer hover:tracking-wider ${
+                    className={`flex items-center gap-2 cursor-pointer ${
                       category === val ? "font-semibold" : ""
                     }`}
+                    onClick={() => {
+                      setCategory(val);
+                    }}
                   >
-                    <li
-                      onClick={() => {
-                        dispatch(setCategory(val));
-                      }}
-                      value={val}
-                    >
-                      {val}
-                    </li>
+                    {val}
                     <IoMdCheckmarkCircleOutline
-                      className={`w-[20px] h-[20px]  ${
+                      className={`w-6 h-6 ${
                         category === val ? "text-green-500" : "text-transparent"
                       }`}
                     />
-                  </div>
-                );
-              })}
-            </ul>
-
-            <br />
-
+                  </li>
+                ))}
+              </ul>
+            </div>
             <button
-              className="px-3 py-2 font-semibold text-black transition-all hover:text-white hover:bg-cyan-600 hover:-translate-y-2 bg-cyan-300"
+              className="w-full py-3 text-white font-semibold bg-cyan-500 hover:bg-cyan-600 hover:-translate-y-2 rounded-lg"
               onClick={resetFilters}
             >
               Clear all filters
             </button>
           </div>
         </div>
-
         <div className="relative flex flex-col items-center m-4  md:w-[75%] ">
           {loading ? (
             <Loader />

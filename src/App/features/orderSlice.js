@@ -45,8 +45,23 @@ export const myOrders = createAsyncThunk(
   }
 );
 
+export const getOrder = createAsyncThunk(
+  "order/one",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${serverUrl}/api/v1/order/${id}`);
+      return response.data;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "An error occurred.";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 const initialState = {
   orders: [],
+  orderInfo: null,
   loading: false,
   itemsPrice: sessionStorage.getItem("itemsPrice")
     ? Number(sessionStorage.getItem("itemsPrice"))
@@ -88,8 +103,7 @@ const orderSlice = createSlice({
       .addCase(createNewOrder.rejected, (state, action) => {
         state.loading = false;
         console.log("Nope");
-      });
-    builder
+      })
       .addCase(myOrders.fulfilled, (state, action) => {
         state.orders = action.payload.orders;
         state.loading = false;
@@ -98,6 +112,18 @@ const orderSlice = createSlice({
         state.loading = true;
       })
       .addCase(myOrders.rejected, (state, action) => {
+        toast(action.payload);
+        console.log(action.payload);
+        state.loading = false;
+      })
+      .addCase(getOrder.fulfilled, (state, action) => {
+        state.orderInfo = action.payload.order;
+        state.loading = false;
+      })
+      .addCase(getOrder.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getOrder.rejected, (state, action) => {
         toast(action.payload);
         console.log(action.payload);
         state.loading = false;

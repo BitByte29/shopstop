@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { offer, sale1, sale2 } from "../../assets";
+import { Link } from "react-router-dom";
 
 function DealOfTheDay() {
   const [countdown, setCountdown] = useState();
@@ -97,8 +98,7 @@ function DealOfTheDay() {
                 <span className="text-green-600">30% off.</span>
               </div>
 
-              {/* {t.h !== "" && ( */}
-              <div className="countdown p-4  font-bold text-red-600">
+              <div className="countdown p-4">
                 <div className="flex md:gap-4 gap-2 items-center ">
                   <p className="relative md:w-[70px] md:h-[70px] w-[40px] border2 h-[40px] text-2xl rounded-full md:text-4xl flex-center bg-yellow-300 text-black font-semibold  border-2 border-black ">
                     {t.h}
@@ -119,39 +119,19 @@ function DealOfTheDay() {
                   </p>
                   <span className="text-black font-semibold text-sm md:text-lg">
                     <span className="hidden lg:block text-sm">Seconds</span>
-                    {/* <span className="lg:hidden">:</span> */}
                   </span>
                 </div>
               </div>
-              {/* )} */}
             </div>
+            <Link
+              to="/products/653f2661a2ed2758c93f7265"
+              className="mt-4 px-5 py-3 uppercase tracking-wider bg-cyan-300 font-semibold hover:bg-yellow-300 transition-all hover:-translate-y-2 rounded-lg cursor-pointer"
+            >
+              Buy Now
+            </Link>
           </div>
         </div>
       </div>
-      {/* <div className="border p-4 my-4 h-auto flex flex-col md:flex-row items-center">
-        <div className="md:w-1/2 w-full px-12  bg-red-600 md:h-1/2 h-1/3 first-letter:md:h-full items-center flex-center">
-          <div className="relative w-[100%] bg-transparent border-2 rounded-2xl border-black h-[50%] ">
-            <img
-              src={sale2}
-              alt="product"
-              className="absolute md:-top-[100px] 
-              -top-[50px] left-1/2 -translate-x-1/2"
-            />
-          </div>
-        </div>
-        <div className="product-details flex-2 p-4">
-          <p className="text-lg">Product Name: Lorem Ipsum</p>
-          <p className="text-lg">Price: $XX.XX</p>
-          <p className="text-lg">
-            Description: Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit.
-          </p>
-          <div className="countdown flex-1 p-4 text-2xl font-bold text-red-600">
-            {countdown}
-          </div>
-          <div className="absolute">30% off</div>
-        </div>
-      </div> */}
     </>
   );
 }

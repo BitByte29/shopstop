@@ -29,6 +29,8 @@ import Orders from "./components/Account/Orders";
 import Dashboard from "./components/Admin/Dashboard";
 
 import Check from "./Demos/Check";
+import NotFound from "./components/subs/NotFound";
+import MyOrders from "./components/Auth/myOrders";
 
 function App() {
   const category = [
@@ -93,6 +95,10 @@ function App() {
             path="/myorders"
             element={<ProtectedRoute element={Orders} />}
           />
+          <Route
+            path="/orders/:id"
+            element={<ProtectedRoute element={MyOrders} />}
+          />
 
           <Route
             path="/admin/dashboard"
@@ -100,7 +106,7 @@ function App() {
             element={<ProtectedRoute element={Dashboard} />}
           />
           {/* <Route path="/*" element={<div>Page not found</div>} /> */}
-          <Route path="/*" element={<Check />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
         {/* </div> */}
 
