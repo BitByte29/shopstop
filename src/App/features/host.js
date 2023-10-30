@@ -1,4 +1,4 @@
 export const getserver = () => {
-  const server = "https://shopstop.onrender.com";
+  const server = "https://shopstopAPI.onrender.com";
   return server;
 };
