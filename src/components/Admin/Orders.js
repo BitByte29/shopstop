@@ -225,10 +225,10 @@ const Orders = () => {
             </h1>
 
             <select
-              name="role"
-              id=""
+              name="status"
               value={status}
               onChange={(e) => setStatus(e.target.value)}
+              className="block w-full py-2 px-3 bg-white border rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500 mt-4"
             >
               {status === "Processing" ? (
                 <>
@@ -244,7 +244,7 @@ const Orders = () => {
             </select>
             <input
               type="submit"
-              className="bg-red-200 px-4 py-2 cursor-pointer hover:-translate-y-[3px] transition-all"
+              className=" px-4 py-2 cursor-pointer hover:-translate-y-3 transition-all mt-4 block w-full text-center text-white font-semibold rounded-lg bg-cyan-500 hover:bg-cyan-600 focus:outline-none focus:ring focus:ring-cyan-200"
             />
           </form>
         </div>

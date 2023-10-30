@@ -6,7 +6,7 @@ import {
   laptop,
   accessory,
   headphones,
-  speaker,
+  gaming,
   others,
   computer,
 } from "../../assets";
@@ -34,7 +34,7 @@ const Categories = () => {
     },
     {
       name: "Gaming",
-      url: headphones,
+      url: gaming,
     },
     {
       name: "Accessories",
@@ -42,7 +42,7 @@ const Categories = () => {
     },
     {
       name: "Audio",
-      url: speaker,
+      url: headphones,
     },
     {
       name: "Others",

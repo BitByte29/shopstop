@@ -4,7 +4,7 @@ import { FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-      <footer className="flex flex-col items-center justify-center min-h-[10vh] py-4 bg-dp">
+      <footer className="w-full flex flex-col items-center justify-center min-h-[10vh] py-4 bg-gray-200">
         <div className="flex gap-4">
           <a
             href="https://www.linkedin.com/in/hritik-pal-472550190/"

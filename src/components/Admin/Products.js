@@ -218,36 +218,51 @@ const Products = () => {
             <h1 className="font-semibold">
               Update {productEditing.name}'s Price and Stock
             </h1>
-            <div>
-              Stock:
+            <div class="mt-4">
+              <label for="stock" class="block font-medium text-cyan-700">
+                Stock:
+              </label>
               <input
                 type="number"
+                id="stock"
                 placeholder="Stock"
                 onChange={(e) => setNewstock(e.target.value)}
                 value={newstock}
+                class="w-full px-3 py-2 mt-1 bg-white border rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500"
               />
             </div>
-            <div>
-              Price: <FaRupeeSign />
-              <input
-                type="number"
-                placeholder="Price"
-                onChange={(e) => setNewprice(e.target.value)}
-                value={newprice}
-              />
+            <div class="mt-4">
+              <label for="price" class="block font-medium text-cyan-700">
+                Price:
+              </label>
+              <div class="flex items-center">
+                <FaRupeeSign class="text-cyan-700 mr-2" />
+                <input
+                  type="number"
+                  id="price"
+                  placeholder="Price"
+                  onChange={(e) => setNewprice(e.target.value)}
+                  value={newprice}
+                  class="w-full px-3 py-2 mt-1 bg-white border rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500"
+                />
+              </div>
             </div>
-            <div>
-              Discount:
+            <div class="mt-4">
+              <label for="discount" class="block font-medium text-cyan-700">
+                Discount:
+              </label>
               <input
                 type="number"
+                id="discount"
                 placeholder="Discount percentage"
                 onChange={(e) => setDiscount(e.target.value)}
                 value={discount}
+                class="w-full px-3 py-2 mt-1 bg-white border rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500"
               />
             </div>
             <input
               type="submit"
-              className="bg-red-200 px-4 py-2 cursor-pointer hover:-translate-y-[3px] transition-all"
+              className=" px-4 py-2 cursor-pointer hover:-translate-y-3 transition-all mt-4 block w-full text-center text-white font-semibold rounded-lg bg-cyan-500 hover:bg-cyan-600 focus:outline-none focus:ring focus:ring-cyan-200"
             />
           </form>
         </div>

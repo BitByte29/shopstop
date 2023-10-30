@@ -17,11 +17,13 @@ const SliderComponent = () => {
   return (
     <Slider {...settings} className="w-full">
       <div className="relative ">
-        <div className="absolute flex flex-col items-start justify-center top-[50%] left-[70%]  translate-y-[-50%]  md:gap-2 ">
-          <h2 className="text-xl font-bold md:text-6xl text-cyan-200">
+        <div className="absolute flex flex-col items-start justify-center top-[50%] left-[50%] md:left-[60%] lg:left-[70%]  translate-y-[-50%]  md:gap-2 ">
+          <h2 className="text-xl font-bold md:text-3xl lg:text-6xl text-cyan-200">
             Nice Sound
           </h2>
-          <h2 className="text-xl font-bold md:text-6xl ">Headphones</h2>
+          <h2 className="text-xl font-bold md:text-3xl lg:text-6xl ">
+            Headphones
+          </h2>
           <p className="border border-y-2 border-black w-[25%]"></p>
           <p className="font-bold">Hot Deal</p>
           <p className="hidden text-black md:block">
@@ -39,11 +41,13 @@ const SliderComponent = () => {
       </div>
 
       <div className="relative">
-        <div className="absolute flex flex-col items-start text-white justify-center  top-[50%] left-[70%]  translate-y-[-50%]  md:gap-2 ">
-          <h2 className="text-xl font-bold md:text-6xl text-red2">
+        <div className="absolute flex flex-col items-start text-white justify-center  top-[50%] left-[50%] md:left-[60%] lg:left-[70%]  translate-y-[-50%]  md:gap-2 ">
+          <h2 className="text-xl font-bold md:text-3xl lg:text-6xl text-red2">
             Latest Tablets
           </h2>
-          <h2 className="text-xl font-bold md:text-6xl ">Best Prices</h2>
+          <h2 className="text-xl font-bold md:text-3xl lg:text-6xl ">
+            Best Prices
+          </h2>
           <p className="border border-y-2 border-white w-[25%]"></p>
           <p className="font-bold">New Arrivals 2023</p>
           <p className="hidden  text-white md:block ">
@@ -61,11 +65,13 @@ const SliderComponent = () => {
       </div>
 
       <div className="relative">
-        <div className="absolute flex flex-col items-start justify-center top-[50%] left-[70%]  translate-y-[-50%]  md:gap-2 ">
-          <h2 className="text-xl font-bold text-indigo-700 md:text-6xl">
+        <div className="absolute flex flex-col items-start justify-center top-[50%] left-[50%] md:left-[60%] lg:left-[70%]   translate-y-[-50%]  md:gap-2 ">
+          <h2 className="text-xl font-bold text-indigo-700 md:text-3xl lg:text-6xl">
             Flagship
           </h2>
-          <h2 className="text-xl font-bold md:text-6xl ">Smartphones!</h2>
+          <h2 className="text-xl font-bold md:text-3xl lg:text-6xl ">
+            Smartphones!
+          </h2>
           <p className="border border-y-2 border-black w-[25%]"></p>
           <p className="font-bold">Big Sale!</p>
           <p className="hidden text-black md:block">

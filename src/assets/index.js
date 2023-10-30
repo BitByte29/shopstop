@@ -7,11 +7,14 @@ import accessory from "./accessory.webp";
 import computer from "./computer.webp";
 import headphones from "./headphones.webp";
 import laptop from "./laptop.webp";
-import speaker from "./speaker.webp";
 import tv from "./tv.webp";
+import gaming from "./gaming.webp";
 
 import mobile from "./phones2.webp";
-import others from "./others.webp";
+import others from "./camera.webp";
+import sale1 from "./sale1.webp";
+import sale2 from "./sale2.webp";
+import offer from "./offer.webp";
 
 export {
   cone,
@@ -22,9 +25,12 @@ export {
   mobile,
   tv,
   laptop,
+  sale1,
+  sale2,
   computer,
   headphones,
   others,
-  speaker,
   accessory,
+  gaming,
+  offer,
 };

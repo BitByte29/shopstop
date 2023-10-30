@@ -56,7 +56,7 @@ const Stats = ({ setActiveSection }) => {
         <p className="flex-center mb-6 p-4 bg-cyan-400 rounded-lg">
           Total amount: &#8377; {totalSales.toLocaleString("hi-IN")}
         </p>
-        <div className="text-2xl flex justify-center gap-x-12">
+        <div className="text-2xl flex justify-center flex-col md:flex-row items-center gap-y-4 gap-x-12">
           <div
             className="count bg-red-400 shadow-xl hover:scale-125 transition-all cursor-pointer"
             onClick={() => setActiveSection("Products")}

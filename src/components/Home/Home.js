@@ -6,6 +6,7 @@ import Metadata from "../layout/Metadata";
 // import Loader from "../subs/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../App/features/productSlice";
+import DealOfTheDay from "./DealOfTheDay";
 
 const Home = () => {
   const products = useSelector((s) => s.products.data.products);
@@ -29,6 +30,7 @@ const Home = () => {
         <SliderComponent />
         <Categories />
         <FeaturedProducts products={products} />
+        <DealOfTheDay />
         {/* <Loader /> */}
       </div>
     </>

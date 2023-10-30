@@ -37,7 +37,7 @@ const Searchbox = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-full bg-dp  py-2 transition-all">
+    <div className="relative flex items-center justify-center w-full bg-white py-2 transition-all">
       <form
         action=""
         method="POST"

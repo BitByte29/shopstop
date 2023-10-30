@@ -84,7 +84,7 @@ const Users = () => {
         <Link className="flex-center" to={`/user/${props.row.original._id}`}>
           <img
             src={props.getValue().url}
-            className="w-16 h-16 rounded-full border-[1px] border-black"
+            className="md:w-16 md:h-16 h-14 w-14 rounded-full border-[1px] border-black"
           />
         </Link>
       ),
@@ -176,13 +176,14 @@ const Users = () => {
               id=""
               value={newRole}
               onChange={(e) => setNewRole(e.target.value)}
+              className="block w-full py-2 px-3 bg-white border rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500"
             >
               <option value="admin">Admin</option>
               <option value="user">User</option>
             </select>
             <input
               type="submit"
-              className="bg-red-200 px-4 py-2 cursor-pointer hover:-translate-y-[3px] transition-all"
+              className=" px-4 py-2 cursor-pointer hover:-translate-y-3 transition-all mt-4 block w-full text-center text-white font-semibold rounded-lg bg-cyan-500 hover:bg-cyan-600 focus:outline-none focus:ring focus:ring-cyan-200"
             />
           </form>
         </div>
