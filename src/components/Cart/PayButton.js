@@ -2,10 +2,11 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { getserver } from "../../App/features/host";
 
 const PayButton = ({ cartItems }) => {
   const [clicked, setClicked] = useState(false);
-
+  const server = getserver();
   const calculateTotalPrice = (price, discount) => {
     let discountAmount = (discount * price) / 100;
     let salePrice = price - discountAmount;
@@ -24,9 +25,9 @@ const PayButton = ({ cartItems }) => {
       toast.warning("Check your Internet connection.");
       setClicked(false);
       navigate("/confirmorder");
-    }, 10000);
+    }, 15000);
     axios
-      .post("http://localhost:3001/api/v1/create-checkout-session", {
+      .post(`${server}}/api/v1/create-checkout-session`, {
         updatedProducts,
       })
       .then((res) => {
