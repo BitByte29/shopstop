@@ -67,7 +67,7 @@ const Users = () => {
 
     let updatedUsersList = users.filter((user) => user._id !== editId);
     updatedUsersList.push(p);
-    console.log(p);
+    // console.log(p);
     dispatch(updateUsers(updatedUsersList));
     dispatch(updateUser(p));
     setEditBox(false);

@@ -5,11 +5,7 @@ import {
   setTaxPrice,
   setTotalPrice,
 } from "../../App/features/orderSlice";
-// itemsPrice,
-//     taxPrice,
-//     shippingPrice,
-//     totalPrice,
-const OrderSummary = () => {
+const OrderSummary = ({ handleOrder, confirm = false }) => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const gst = 0.18;
   const deliveryCharge = 10;
@@ -42,8 +38,8 @@ const OrderSummary = () => {
     return finalTotal;
   };
   return (
-    <>
-      <div className="bg-orange-400 p-2 mb-2">
+    <div className="px-4 py-1 bg-white rounded-2xl pt-4 ">
+      <div className="bg-blue-600 text-white font-semibold p-2 mb-2">
         <p>Price Summary</p>
       </div>
       <div>
@@ -79,17 +75,34 @@ const OrderSummary = () => {
         </p>
       </div>
 
-      <div className="my-4">
+      <div className="my-4 flex-center">
         <input
           type="text"
           placeholder="Enter Coupon Code"
-          className="w-full p-2 border rounded border-gray-300"
+          className="w-full px-2 py-1 border-gray-300 border-b-2 focus:outline-none"
         />
-        <button className="bg-blue-500 text-white p-2 rounded ml-2">
-          Apply Coupon
-        </button>
+        {!confirm && (
+          <div className="w-full flex justify-around gap-2 mt-4">
+            <button className="border-2 hover:bg-blue-500 text-blue-500 border-blue-500 text-center hover:text-white px-4 py-2 w-1/2">
+              Apply Coupon
+            </button>
+            <button
+              className="bg-green-500 text-white hover:bg-green-600 font-semibold px-4 py-2 w-1/2"
+              onClick={handleOrder}
+            >
+              Place order
+            </button>
+          </div>
+        )}
+        {confirm && (
+          <div className="w-full flex justify-around gap-2 mt-4">
+            <button className="border-2 hover:bg-blue-500 text-blue-500 border-blue-500 text-center hover:text-white px-4 py-2 w-1/2">
+              Apply Coupon
+            </button>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

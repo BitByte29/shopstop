@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaSearch, FaWindowClose } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -8,6 +8,7 @@ import {
   updateRating,
   updateToSearch,
 } from "../../App/features/variablesSlice";
+import { MdClose } from "react-icons/md";
 // import { getAllProducts } from "../../App/features/productSlice";
 
 const Searchbox = () => {
@@ -30,10 +31,10 @@ const Searchbox = () => {
     navigate(`/products`);
   };
   const onChange = (e) => {
-    console.log("keyword here:", keyword);
+    // console.log("keyword here:", keyword);
     setKeyword(e.target.value);
     // dispatch(updateToSearch(e.target.value));
-    console.log("keyword here 2:", keyword);
+    // console.log("keyword here 2:", keyword);
   };
 
   return (
@@ -60,7 +61,7 @@ const Searchbox = () => {
                 <FaSearch onClick={handleSubmit} className="text-2xl " />
               </button>
               <button type="" className="hover:text-blue-500">
-                <FaWindowClose
+                <MdClose
                   onClick={() => dispatch(closeSearchBox(true))}
                   className="text-2xl"
                 />

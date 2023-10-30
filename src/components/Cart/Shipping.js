@@ -12,7 +12,6 @@ import {
 } from "react-icons/fa";
 import { MdLocationCity } from "react-icons/md";
 import "./formStyle.css";
-import Cart from "./Cart";
 
 const Shipping = ({ shippingForm, setShippingForm }) => {
   const shippingInfo = useSelector((s) => s.cart.shippingInfo);
@@ -64,7 +63,7 @@ const Shipping = ({ shippingForm, setShippingForm }) => {
     if (e.target.name === "pinCode") {
       validatePinCode(e.target.value);
     }
-    console.log(InfoS);
+    // console.log(InfoS);
     dispatch(setShippingInfoCorrect(false));
     dispatch(updateShippingInfo(InfoS));
   };
@@ -72,11 +71,15 @@ const Shipping = ({ shippingForm, setShippingForm }) => {
   return (
     <>
       <div className=" flex-center">
-        {/* <div className="pb-8">
+        <div className="pb-8">
           <h2 className="text-3xl font-semibold">Add Shipping Details</h2>
-        </div> */}
-        <form className="border-2" action="" onSubmit={handleSubmit}>
-          <div className="input-div">
+        </div>
+        <form
+          className="border-2 flex gap-4 flex-col"
+          action=""
+          onSubmit={handleSubmit}
+        >
+          <div className="input-div ">
             <FaLocationArrow />
 
             <input
@@ -145,7 +148,12 @@ const Shipping = ({ shippingForm, setShippingForm }) => {
             )}
           </div>
           <div className="flex justify-center gap-2 flex-col">
-            <button type="submit">Confirm Shipping Details</button>
+            <button
+              type="submit"
+              className="rounded-full bg-cyan-300 py-2  font-semibold hover:bg-cyan-400 hover:-translate-y-1 transition-all"
+            >
+              Confirm Shipping Details
+            </button>
             {/* <button>Back to cart</button> */}
           </div>
         </form>

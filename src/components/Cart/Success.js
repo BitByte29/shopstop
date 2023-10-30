@@ -18,7 +18,7 @@ function Success() {
     shippingInfo,
     orderItems: cartItems,
     paymentInfo: {
-      id: "Stripe payement id",
+      id: "Stripe payment id",
       status: "Paid",
     },
     itemsPrice,
@@ -34,7 +34,7 @@ function Success() {
       dispatch(createNewOrder(data));
       dispatch(clearCart());
       toast("Payment processed successfully");
-      navigate("/products");
+      navigate("/myorders");
     } else if (successParam === "false") {
       navigate("/cart");
       toast("There was an error while processing payment");

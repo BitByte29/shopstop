@@ -7,6 +7,7 @@ import {
 } from "../../App/features/cartSlice";
 
 import { FaWindowClose } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 
 const CartItem = ({ item, list = false }) => {
@@ -48,7 +49,7 @@ const CartItem = ({ item, list = false }) => {
   };
 
   return (
-    <div className="border border-gray-300 p-4 flex flex-col md:flex-row items-center justify-between">
+    <div className="bg-white rounded-xl my-2 p-4 flex flex-col md:flex-row items-center justify-between relative">
       <div className="flex flex-col md:flex-row items-center">
         <div className="w-52 h-52 md:w-52 md:h-52 mb-4 md:mb-0 md:mr-4 flex items-center justify-center">
           <img
@@ -59,7 +60,7 @@ const CartItem = ({ item, list = false }) => {
         </div>
         <div className="text-center md:text-left">
           <p className="text-lg font-semibold">{item.name}</p>
-          <div className="mt-2">
+          <div className="mt-2  flex-center sm:items-start">
             {!list && <span className="text-gray-600">Quantity:</span>}
             <div className="flex items-center mt-1">
               {!list && (
@@ -102,10 +103,11 @@ const CartItem = ({ item, list = false }) => {
       )}
       {!list && (
         <button
-          className="mt-2 bg-red-500 text-white px-4 py-2 rounded self-center"
+          title="Remove Item"
+          className="absolute  md:right-0 md:top-0 right-[5%] top-[5%] font-bold text-red-500  px-4 py-2 rounded self-center text-4xl"
           onClick={handleRemove}
         >
-          Remove
+          <MdClose />
         </button>
       )}
     </div>

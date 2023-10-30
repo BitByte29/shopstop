@@ -31,7 +31,7 @@ const SliderComponent = () => {
           </p>
 
           <Link
-            to="/products/asfadfy"
+            to="/products/"
             className="px-4 py-2 tracking-widest uppercase cursor-pointer md:p-8 md:py-4 bg-cyan-200 "
           >
             Buy Now
@@ -55,7 +55,7 @@ const SliderComponent = () => {
           </p>
 
           <Link
-            to="/products/asfadfy"
+            to="/products/"
             className="px-4 py-2 tracking-widest uppercase cursor-pointer md:p-8 md:py-4 bg-red2 "
           >
             Buy Now
@@ -80,7 +80,7 @@ const SliderComponent = () => {
           </p>
 
           <Link
-            to="/products/asfadfy"
+            to="/products/"
             className="px-4 py-2 tracking-widest text-white uppercase bg-indigo-700 cursor-pointer md:p-8 md:py-4"
           >
             Buy Now

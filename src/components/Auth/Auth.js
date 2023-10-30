@@ -49,7 +49,7 @@ const Auth = () => {
     navigate("/auth");
   };
   const registerDataChange = (e) => {
-    console.log("data change");
+    // console.log("data change");
     if (e.target.name === "avatar") {
       const reader = new FileReader();
       //When files are uploaded they are done in a array as there can be many files so the 0 says the first file
@@ -113,6 +113,7 @@ const Auth = () => {
                 placeholder="Email"
                 name="email"
                 value={loginEmail}
+                autoComplete="email"
                 required
                 onChange={(e) => setLoginEmail(e.target.value)}
               />
@@ -123,6 +124,7 @@ const Auth = () => {
                 type={pType}
                 placeholder="Password"
                 name="password"
+                autoComplete="password"
                 value={loginPass}
                 required
                 onChange={(e) => setLoginPass(e.target.value)}
@@ -174,6 +176,7 @@ const Auth = () => {
                 type="text"
                 placeholder="Name"
                 name="name"
+                autoComplete="name"
                 required
                 value={user.name}
                 onChange={registerDataChange}
@@ -185,6 +188,7 @@ const Auth = () => {
                 type="text"
                 placeholder="Email"
                 name="email"
+                autoComplete="email"
                 required
                 value={user.email}
                 onChange={registerDataChange}
@@ -196,6 +200,7 @@ const Auth = () => {
                 type={pType}
                 placeholder="Password"
                 name="password"
+                autoComplete="password"
                 required
                 value={user.password}
                 onChange={registerDataChange}

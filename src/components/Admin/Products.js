@@ -107,7 +107,7 @@ const Products = () => {
       (product) => product._id !== editId
     );
     updatedProductList.push(p);
-    console.log(p);
+    // console.log(p);
     //Local store
     dispatch(updateProducts(updatedProductList));
     //API call

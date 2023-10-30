@@ -56,7 +56,7 @@ const Orders = () => {
           to={`/orders/${props.getValue()}`}
           className="text-blue-700 underline text-sm"
         >
-          {props.getValue()}
+          View
         </Link>
       ),
     },

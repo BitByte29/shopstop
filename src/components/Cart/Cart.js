@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdShoppingCartCheckout } from "react-icons/md";
-import { FaShoppingCart } from "react-icons/fa";
 import OrderSummary from "./OrderSummary";
 
 const Cart = () => {
@@ -25,11 +24,11 @@ const Cart = () => {
   return (
     <>
       {cartItems.length > 0 ? (
-        <div className="bg-lp flex flex-col md:flex-row">
-          <div className="flex flex-col py-5 px-4 w-full md:w-3/4">
-            <div className="bg-orange-400 flex justify-between px-2 py-1">
+        <div className="bg-lp  flex flex-col md:flex-row">
+          <div className="flex flex-col py-5 px-4 w-full md:w-3/4 md:min-h-screen">
+            <div className="bg-blue-600 text-white flex justify-between px-4 py-2">
               <p>Item</p>
-              <p>Subtotal</p>
+              <p className="hidden md:block ">Subtotal</p>
             </div>
             <div>
               {cartItems.map((item) => (
@@ -38,15 +37,8 @@ const Cart = () => {
             </div>
           </div>
 
-          <div className="w-full md:w-1/4 p-4 bg-gray-200">
-            <OrderSummary />
-
-            <button
-              className="bg-green-500 text-white p-2 rounded w-full"
-              onClick={handleOrder}
-            >
-              Place order
-            </button>
+          <div className="w-full md:w-1/4 p-4 bg-lp relative">
+            <OrderSummary handleOrder={handleOrder} />
           </div>
         </div>
       ) : (
@@ -55,7 +47,7 @@ const Cart = () => {
           <p>No items in your cart</p>{" "}
           <button
             onClick={() => navigate("/products")}
-            className=" py-2 mt-2 hover:tracking-wider transition-all px-3 rounded-2xl hover:shadow-lg bg-cyan-200"
+            className=" text-blue-900 underline text-lg"
           >
             Continue shopping
           </button>

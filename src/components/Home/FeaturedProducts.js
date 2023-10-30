@@ -1,10 +1,9 @@
 import React from "react";
 import Product from "../Products/Product";
-import { demo, cone, ctwo } from "../../assets";
 
 const FeaturedProducts = ({ products }) => {
   return (
-    <div className="w-full py-2 md:px-[150px] bg-white">
+    <div className="w-full md:px-[150px] bg-white pb-16">
       <h2 className="py-10 text-3xl text-center">
         <span className="px-3 py-4 font-semibold bg-yellow-300">
           Featured Products

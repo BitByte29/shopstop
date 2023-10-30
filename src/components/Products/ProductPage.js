@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addReview, getProductDetails } from "../../App/features/productSlice";
 import { Link, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
-import { demo } from "../../assets/index";
 
 import { FaExclamationTriangle, FaPlus, FaShoppingCart } from "react-icons/fa";
 import ReactStars from "react-rating-stars-component";
@@ -39,6 +38,17 @@ const ProductPage = () => {
     setQuantity(e.target.value);
   };
 
+  // const handleBuy = () => {
+  //   if (product.stock >= 1) {
+  //     dispatch(clearCartOneTime());
+  //     dispatch(addToCart({ id, quantity: 1 }));
+  //     navigate("/confirmorder");
+  //   } else {
+  //     toast.warn("Item out of stock");
+  //     // return;
+  //   }
+  // };
+
   const handleAddToCart = () => {
     if (product.stock >= quantity) {
       toast.success("Item added to cart.");
@@ -60,7 +70,7 @@ const ProductPage = () => {
       productId: id,
     };
     // product.reviews.push(reviewData);
-    console.log(reviewData);
+    // console.log(reviewData);
     dispatch(addReview(reviewData));
     setReviewBox(false);
   };
@@ -111,11 +121,14 @@ const ProductPage = () => {
               <div className="items-center flex justify-between ">
                 <button
                   onClick={handleAddToCart}
-                  className="w-[45%] py-4 uppercase bg-cyan-600 flex gap-2 items-center hover:-translate-y-2 transition-all justify-center"
+                  className="w-[45%] py-4 uppercase bg-cyan-600 text-white flex gap-2 items-center hover:-translate-y-2 transition-all justify-center"
                 >
                   <FaShoppingCart /> Add to Cart
                 </button>
-                <button className="w-[45%] py-4 bg-green-600 uppercase hover:-translate-y-2 transition-all ">
+                <button
+                  onClick={handleAddToCart}
+                  className="w-[45%] py-4 hover:text-white  border-2 hover:bg-cyan-600 border-cyan-600 uppercase hover:-translate-y-2 transition-all "
+                >
                   Buy now
                 </button>
               </div>

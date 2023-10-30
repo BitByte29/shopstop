@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  FaSearch,
-  FaUser,
-  FaShoppingCart,
-  FaHamburger,
-  FaWindowClose,
-} from "react-icons/fa";
+import { FaSearch, FaUser, FaHamburger } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
 import Searchbox from "../subs/Searchbox";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -33,7 +28,7 @@ const Navbar = () => {
         <button onClick={() => setMobileNav(true)} className="md:hidden">
           <FaHamburger />
         </button>
-        <ul className="justify-around hidden gap-8 md:flex uppercase tracking-wider font-light">
+        <ul className="justify-around hidden gap-8 md:flex uppercase tracking-wider ">
           <li className="border-b-2 border-transparent hover:border-slate-500">
             <Link to="/home">Home</Link>
           </li>
@@ -41,7 +36,7 @@ const Navbar = () => {
             <Link to="/products">Products</Link>
           </li>
           <li className="border-b-2 border-transparent hover:border-slate-500">
-            <Link to="/demo">About</Link>
+            <Link to="/about">About</Link>
           </li>
         </ul>
 
@@ -79,7 +74,7 @@ const Navbar = () => {
                 onClick={() => setMobileNav(false)}
                 className=" text-5xl right-[50px] top-4"
               >
-                <FaWindowClose className="text-4xl" />
+                <MdClose className="text-4xl" />
               </button>
             </div>
 
@@ -95,7 +90,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/" onClick={() => setMobileNav(false)}>
+                <Link to="/about" onClick={() => setMobileNav(false)}>
                   About
                 </Link>
               </li>

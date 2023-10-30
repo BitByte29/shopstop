@@ -44,7 +44,7 @@ const Products = () => {
   };
   const options = {
     edit: true,
-    activeColor: "tomato",
+    activeColor: "gold",
     size: 25,
     isHalf: true,
   };
@@ -58,7 +58,7 @@ const Products = () => {
             </h2>
             <div className="mb-6">
               <h3 className="text-xl font-semibold mb-2">Price</h3>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-4">
                 <span>&#8377;{price[0]}</span> to <span>&#8377;{price[1]}</span>
               </div>
               <Slider
@@ -78,10 +78,9 @@ const Products = () => {
             <div className="mb-6">
               <h3 className="text-xl font-semibold">Ratings</h3>
               <ReactStars
+                {...options}
                 value={ratingValue}
-                count={5}
-                size={24}
-                activeColor="#f0c14b"
+                key={ratingValue === 0 ? "rating-key" : null}
                 onChange={(newRating) => {
                   setRatingValue(newRating);
                   setCurrentPage(1);
@@ -94,22 +93,26 @@ const Products = () => {
               <h3 className="text-xl font-semibold">Category</h3>
               <ul>
                 {categories.map((val) => (
-                  <li
+                  <div
                     key={val}
-                    className={`flex items-center gap-2 cursor-pointer ${
+                    className={`flex items-center gap-2 cursor-pointer hover:tracking-wider ${
                       category === val ? "font-semibold" : ""
                     }`}
-                    onClick={() => {
-                      setCategory(val);
-                    }}
                   >
-                    {val}
+                    <li
+                      onClick={() => {
+                        dispatch(setCategory(val));
+                      }}
+                      value={val}
+                    >
+                      {val}
+                    </li>
                     <IoMdCheckmarkCircleOutline
-                      className={`w-6 h-6 ${
+                      className={`w-[20px] h-[20px]  ${
                         category === val ? "text-green-500" : "text-transparent"
                       }`}
                     />
-                  </li>
+                  </div>
                 ))}
               </ul>
             </div>

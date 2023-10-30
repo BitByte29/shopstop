@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { getserver } from "./host";
+const server = getserver();
 const initialState = {
   data: [],
   products: [],
@@ -13,8 +14,6 @@ const initialState = {
   loading: false,
   error: "",
 };
-
-const server = "http://localhost:3001";
 
 //----------------------------------------------------Get Stats----------------------------------------------//
 export const getStats = createAsyncThunk(
@@ -37,7 +36,7 @@ export const getStats = createAsyncThunk(
 export const createProduct = createAsyncThunk(
   "admin/create/Product",
   async (myForm, { rejectWithValue }) => {
-    console.log({ ...myForm });
+    // console.log({ ...myForm });
     try {
       const response = await axios.post(
         `${server}/api/v1/admin/product/new`,
@@ -138,7 +137,7 @@ export const updateUser = createAsyncThunk(
   "admin/user/update",
   async ({ _id, email, name, role }, { rejectWithValue }) => {
     try {
-      console.log(email, name);
+      // console.log(email, name);
       const res = await axios.put(`${server}/api/v1/admin/user/${_id}`, {
         email,
         name,
@@ -172,7 +171,7 @@ export const getAllOrders = createAsyncThunk(
 export const updateOrder = createAsyncThunk(
   "admin/order/update",
   async ({ _id, orderStatus }, { rejectWithValue }) => {
-    console.log(_id, orderStatus);
+    // console.log(_id, orderStatus);
     try {
       const res = await axios.put(`${server}/api/v1/admin/order/${_id}`, {
         orderStatus,

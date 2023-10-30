@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-const serverUrl = "http://localhost:3001";
+import { getserver } from "./host";
+const server = getserver();
 // const {
 // shippingInfo,
 // orderItems,
@@ -16,10 +16,10 @@ const serverUrl = "http://localhost:3001";
 export const createNewOrder = createAsyncThunk(
   "order/new",
   async (orderDetails, { rejectWithValue }) => {
-    console.log(orderDetails);
+    // console.log(orderDetails);
 
     try {
-      const response = await axios.post(`${serverUrl}/api/v1/order/new`, {
+      const response = await axios.post(`${server}/api/v1/order/new`, {
         orderDetails,
       });
       return response.data;
@@ -35,7 +35,7 @@ export const myOrders = createAsyncThunk(
   "order/my",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${serverUrl}/api/v1/myorders`);
+      const response = await axios.get(`${server}/api/v1/myorders`);
       return response.data;
     } catch (error) {
       const errorMessage =
@@ -49,7 +49,7 @@ export const getOrder = createAsyncThunk(
   "order/one",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${serverUrl}/api/v1/order/${id}`);
+      const response = await axios.get(`${server}/api/v1/order/${id}`);
       return response.data;
     } catch (error) {
       const errorMessage =
@@ -95,14 +95,14 @@ const orderSlice = createSlice({
     builder
       .addCase(createNewOrder.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("Order created");
+        // console.log("Order created");
       })
       .addCase(createNewOrder.pending, (state, action) => {
         state.loading = true;
       })
       .addCase(createNewOrder.rejected, (state, action) => {
         state.loading = false;
-        console.log("Nope");
+        // console.log("Nope");
       })
       .addCase(myOrders.fulfilled, (state, action) => {
         state.orders = action.payload.orders;
@@ -113,7 +113,7 @@ const orderSlice = createSlice({
       })
       .addCase(myOrders.rejected, (state, action) => {
         toast(action.payload);
-        console.log(action.payload);
+        // console.log(action.payload);
         state.loading = false;
       })
       .addCase(getOrder.fulfilled, (state, action) => {
@@ -125,7 +125,7 @@ const orderSlice = createSlice({
       })
       .addCase(getOrder.rejected, (state, action) => {
         toast(action.payload);
-        console.log(action.payload);
+        // console.log(action.payload);
         state.loading = false;
       });
   },

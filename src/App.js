@@ -28,9 +28,9 @@ import Success from "./components/Cart/Success";
 import Orders from "./components/Account/Orders";
 import Dashboard from "./components/Admin/Dashboard";
 
-import Check from "./Demos/Check";
 import NotFound from "./components/subs/NotFound";
 import MyOrders from "./components/Auth/myOrders";
+import About from "./components/Home/About";
 
 function App() {
   const category = [
@@ -75,6 +75,7 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/password/reset/:token" element={<ResetPassword />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/about" element={<About />} />
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/success" element={<Success />} />
@@ -112,7 +113,7 @@ function App() {
 
         <Footer />
         <ToastContainer
-          position="bottom-left"
+          position="bottom-center"
           autoClose={1500}
           hideProgressBar={true}
           newestOnTop={false}

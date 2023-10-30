@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+import { getserver } from "./host";
+const server = getserver();
 const initialState = {
   cartItems: localStorage.getItem("cartItemsList")
     ? JSON.parse(localStorage.getItem("cartItemsList"))
@@ -24,10 +26,8 @@ export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async ({ id, quantity }, { rejectWithValue }) => {
     try {
-      console.log(id, quantity);
-      const response = await axios.get(
-        `http://localhost:3001/api/v1/product/${id}`
-      );
+      // console.log(id, quantity);
+      const response = await axios.get(`${server}/api/v1/product/${id}`);
       const product = response.data;
       if (product) {
         const productItem = {
@@ -98,6 +98,10 @@ const cartSlice = createSlice({
 
       localStorage.removeItem("cartSize");
     },
+    clearCartOneTime: (state, action) => {
+      state.cartItems = [];
+      state.cartSize = 0;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -135,5 +139,6 @@ export const {
   updateShippingInfo,
   setShippingInfoCorrect,
   clearCart,
+  clearCartOneTime,
 } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -1,12 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const PayButton = ({ cartItems }) => {
-  const { user } = useSelector((s) => s.users);
-  const { apiKey } = useSelector((s) => s.vars);
   const [clicked, setClicked] = useState(false);
 
   const calculateTotalPrice = (price, discount) => {
@@ -34,16 +31,16 @@ const PayButton = ({ cartItems }) => {
       })
       .then((res) => {
         if (res.data.redirectUrl) {
-          console.log(res.data.paymentIntentId);
+          // console.log(res.data.paymentIntentId);
           window.location.href = res.data.redirectUrl;
         } else {
-          console.log(res.data);
+          // console.log(res.data);
           //   alert(res.data);
         }
       })
       .catch((err) => {
-        console.log(err.message);
-        console.log("Hi");
+        // console.log(err.message);
+        // console.log("Hi");
         toast(err);
       });
   };

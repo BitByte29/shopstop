@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+import { getserver } from "./host";
+const server = getserver();
 const initialState = {
   user: null,
   message: "",
@@ -15,15 +17,11 @@ export const registerUser = createAsyncThunk(
   "registerUser",
   async (myForm, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `http://localhost:3001/api/v1/register`,
-        myForm,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${server}/api/v1/register`, myForm, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return response.data;
     } catch (error) {
       const errorMessage =
@@ -37,7 +35,7 @@ export const updateProfile = createAsyncThunk(
   "updateProfile",
   async ({ name, email }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`http://localhost:3001/api/v1/update`, {
+      const response = await axios.put(`${server}/api/v1/update`, {
         name,
         email,
       });
@@ -56,11 +54,11 @@ export const updatePassword = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      console.log(oldPassword, newPassword, confirmPassword);
-      const response = await axios.put(
-        `http://localhost:3001/api/v1/password/update`,
-        { oldPassword, newPassword, confirmPassword }
-      );
+      const response = await axios.put(`${server}/api/v1/password/update`, {
+        oldPassword,
+        newPassword,
+        confirmPassword,
+      });
       return response.data;
     } catch (error) {
       const errorMessage =
@@ -74,7 +72,7 @@ export const loginUser = createAsyncThunk(
   "loginUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`http://localhost:3001/api/v1/login`, {
+      const response = await axios.post(`${server}/api/v1/login`, {
         email,
         password,
       });
@@ -90,7 +88,7 @@ export const getUserDetails = createAsyncThunk(
   "getUser",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/v1/me`);
+      const response = await axios.get(`${server}/api/v1/me`);
       return response.data;
     } catch (error) {
       const errorMessage =
@@ -103,7 +101,7 @@ export const logout = createAsyncThunk(
   "logout",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/v1/logout`);
+      const response = await axios.get(`${server}/api/v1/logout`);
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "An error occurred.";
@@ -117,10 +115,9 @@ export const forgotPassword = createAsyncThunk(
   "forgotPassword",
   async ({ email }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `http://localhost:3001/api/v1/password/forgot`,
-        { email }
-      );
+      const response = await axios.post(`${server}/api/v1/password/forgot`, {
+        email,
+      });
       return response.data;
     } catch (error) {
       const errorMessage = error.response.data.message || "An error occurred.";
@@ -135,7 +132,7 @@ export const resetPassword = createAsyncThunk(
   async ({ token, password, confirmPassword }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `http://localhost:3001/api/v1/password/reset/${token}`,
+        `${server}/api/v1/password/reset/${token}`,
         {
           password,
           confirmPassword,

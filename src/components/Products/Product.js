@@ -37,7 +37,7 @@ const Product = ({ product }) => {
     <div className="relative group  bg-white transition-all  rounded-lg">
       {/* hover:border-slate-200 hover:-translate-y-2 hover:shadow-lg */}
       <div
-        className="z-50 absolute -top-4 -left-4 p-4 rounded-full bg-ds cursor-crosshair hover:scale-125 transition-all active:bg-red-700 backdrop-blur-70 hidden group-hover:block text-2xl border-2"
+        className="z-50 absolute -top-4 -left-4 p-4 rounded-full bg-cyan-300  cursor-crosshair hover:scale-125 transition-all active:bg-yellow-300 backdrop-blur-70 hidden group-hover:block text-2xl border-2"
         onClick={handleAddToCart}
       >
         <FaCartPlus />
