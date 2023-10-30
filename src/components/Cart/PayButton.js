@@ -27,7 +27,7 @@ const PayButton = ({ cartItems }) => {
       navigate("/confirmorder");
     }, 15000);
     axios
-      .post(`${server}}/api/v1/create-checkout-session`, {
+      .post(`${server}/api/v1/create-checkout-session`, {
         updatedProducts,
       })
       .then((res) => {
