@@ -7,7 +7,6 @@ import ReactStars from "react-rating-stars-component";
 import Loader from "../subs/Loader";
 import Product from "./Product";
 import Slider from "react-slider";
-// import PriceFilter from "./PriceFilter";
 import { setCategory } from "../../App/features/variablesSlice";
 const Products = () => {
   const MIN = 0;
@@ -34,7 +33,7 @@ const Products = () => {
       category,
     };
     dispatch(getAllProducts(filters));
-  }, [dispatch, toSearch, ratingValue, currentPage, range, category, cartSize]);
+  }, [dispatch, toSearch, ratingValue, currentPage, range, category]);
 
   const resetFilters = () => {
     setRatingValue(0);

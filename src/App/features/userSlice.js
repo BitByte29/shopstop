@@ -33,11 +33,13 @@ export const registerUser = createAsyncThunk(
 
 export const updateProfile = createAsyncThunk(
   "updateProfile",
-  async ({ name, email }, { rejectWithValue }) => {
+  async (myForm, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${server}/api/v1/update`, {
-        name,
-        email,
+      console.log("slice: ", myForm.name);
+      const response = await axios.put(`${server}/api/v1/update`, myForm, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
       return response.data;
     } catch (error) {
@@ -102,6 +104,7 @@ export const logout = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${server}/api/v1/logout`);
+      return response.data;
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "An error occurred.";
@@ -150,6 +153,11 @@ export const resetPassword = createAsyncThunk(
 const userSlice = createSlice({
   name: "Users",
   initialState,
+  reducers: {
+    clearProfileUpdate: (state, action) => {
+      state.accountCreated = false;
+    },
+  },
   extraReducers: (builder) => {
     //Register
     builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -165,7 +173,6 @@ const userSlice = createSlice({
     builder.addCase(registerUser.rejected, (state, action) => {
       state.loading = false;
       state.isError = true;
-      state.accountCreated = true;
       state.message = action.payload;
       toast.error(action.payload);
     });
@@ -174,7 +181,7 @@ const userSlice = createSlice({
     builder.addCase(updateProfile.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload.user;
-      state.message = action.payload.message;
+      state.accountCreated = true;
       toast.success(action.payload.message);
     });
     builder.addCase(updateProfile.pending, (state, action) => {
@@ -283,3 +290,5 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+
+export const { clearProfileUpdate } = userSlice.actions;

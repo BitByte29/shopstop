@@ -60,7 +60,7 @@ function App() {
       dispatch(getAllProducts());
     }
     // eslint-disable-next-line
-  }, [dispatch, isAuthenticated, loading]);
+  }, [dispatch, isAuthenticated]);
 
   return (
     <div>

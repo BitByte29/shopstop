@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   deleteProduct,
   getAllProductsAdmin,
   editProduct,
   updateProducts,
+  setproductInserted,
 } from "../../App/features/adminSlice";
 import Loader from "../subs/Loader";
 import {
@@ -30,7 +32,7 @@ import {
 import SearchFilter from "./SearchFilter";
 
 const Products = () => {
-  const { products, loading } = useSelector((s) => s.admin);
+  const { products, loading, productInserted } = useSelector((s) => s.admin);
   const [columnFilters, setColumnFilters] = useState([]);
   const [newprice, setNewprice] = useState(0);
   const [discount, setDiscount] = useState(0);
@@ -61,8 +63,9 @@ const Products = () => {
   };
 
   useEffect(() => {
-    if (products.length < 1) {
+    if (products.length < 1 || productInserted) {
       dispatch(getAllProductsAdmin());
+      dispatch(setproductInserted(false));
     }
   }, [dispatch]);
   const handleDelete = (id) => {

@@ -12,6 +12,7 @@ const initialState = {
   orders: [],
   sales: [],
   loading: false,
+  productInserted: false,
   error: "",
 };
 
@@ -248,6 +249,9 @@ const adminSlice = createSlice({
     updateProducts: (state, action) => {
       state.products = action.payload;
     },
+    setproductInserted: (state, action) => {
+      state.productInserted = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -280,6 +284,7 @@ const adminSlice = createSlice({
     });
     builder.addCase(createProduct.fulfilled, (state, action) => {
       state.loading = false;
+      state.productInserted = true;
       toast(action.payload.message);
     });
     builder.addCase(createProduct.pending, (state, action) => {
@@ -303,16 +308,7 @@ const adminSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
-      state.loading = false;
       toast(action.payload);
-    });
-    builder.addCase(deleteProduct.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(deleteProduct.rejected, (state, action) => {
-      state.loading = false;
-      toast(action.payload);
-      state.error = action.payload;
     });
     builder.addCase(getAllUsers.fulfilled, (state, action) => {
       state.loading = false;
@@ -328,15 +324,6 @@ const adminSlice = createSlice({
     });
     builder.addCase(deleteUser.fulfilled, (state, action) => {
       toast.error(action.payload.message);
-      state.loading = false;
-    });
-    builder.addCase(deleteUser.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(deleteUser.rejected, (state, action) => {
-      state.loading = false;
-      toast(action.payload);
-      state.error = action.payload;
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.loading = false;
@@ -376,17 +363,9 @@ const adminSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(deleteOrder.fulfilled, (state, action) => {
-      state.loading = false;
+      // state.loading = false;
       // state.products = state.products;
       toast(action.payload.message);
-    });
-    builder.addCase(deleteOrder.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(deleteOrder.rejected, (state, action) => {
-      state.loading = false;
-      toast(action.payload);
-      state.error = action.payload;
     });
 
     builder.addCase(getProductReviews.fulfilled, (state, action) => {
@@ -404,21 +383,12 @@ const adminSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(deleteReview.fulfilled, (state, action) => {
-      state.loading = false;
       toast("Review Deleted.");
-      state.reviews = action.payload.reviews;
-    });
-    builder.addCase(deleteReview.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(deleteReview.rejected, (state, action) => {
-      state.loading = false;
-      toast(action.payload);
-      state.error = action.payload;
     });
   },
 });
 
 export default adminSlice.reducer;
 
-export const { updateUsers, updateOrders, updateProducts } = adminSlice.actions;
+export const { updateUsers, updateOrders, updateProducts, setproductInserted } =
+  adminSlice.actions;

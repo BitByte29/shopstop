@@ -1,15 +1,5 @@
 import React from "react";
-import { test } from "../../assets";
-import {
-  tv,
-  mobile,
-  laptop,
-  accessory,
-  headphones,
-  gaming,
-  others,
-  computer,
-} from "../../assets";
+
 import { useDispatch } from "react-redux";
 import { setCategory } from "../../App/features/variablesSlice";
 import { useNavigate } from "react-router-dom";
@@ -18,50 +8,39 @@ const Categories = () => {
   const cats = [
     {
       name: "Mobile",
-      url: mobile,
+      url: "/phones2.webp",
     },
     {
       name: "Laptop",
-      url: laptop,
+      url: "/assets/laptop.webp",
     },
     {
       name: "Computer",
-      url: computer,
+      url: "/assets/computer.webp",
     },
     {
       name: "Television",
-      url: tv,
+      url: "/assets/tv.webp",
     },
     {
       name: "Gaming",
-      url: gaming,
+      url: "/assets/gaming.webp",
     },
     {
       name: "Accessories",
-      url: accessory,
+      url: "/assets/accessory.webp",
     },
     {
       name: "Audio",
-      url: headphones,
+      url: "/assets/headphones.webp",
     },
     {
       name: "Others",
-      url: others,
+      url: "/assets/camera.webp",
     },
   ];
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const cats = [
-  //   "Mobile",
-  //   "Laptop",
-  //   "Computer",
-  //   "Gaming",
-  //   "Accessories",
-  //   "Audio",
-  //   "Tv",
-  //   "Others",
-  // ];
-
   const handleCategoryChange = (val) => {
     dispatch(setCategory(val));
     navigate("/products");

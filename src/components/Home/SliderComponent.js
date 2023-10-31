@@ -1,6 +1,5 @@
 import React from "react";
 import Slider from "react-slick";
-import { cone, ctwo, cthree } from "../../assets";
 import { Link } from "react-router-dom";
 
 const SliderComponent = () => {
@@ -37,7 +36,7 @@ const SliderComponent = () => {
             Buy Now
           </Link>
         </div>
-        <img className="w-full" src={cone} alt="Headphones" />
+        <img className="w-full" src="/assets/cone.png" alt="Headphones" />
       </div>
 
       <div className="relative">
@@ -61,7 +60,7 @@ const SliderComponent = () => {
             Buy Now
           </Link>
         </div>
-        <img className="w-full" src={ctwo} alt="tablet" />
+        <img className="w-full" src="/assets/ctwo.png" alt="tablet" />
       </div>
 
       <div className="relative">
@@ -86,7 +85,7 @@ const SliderComponent = () => {
             Buy Now
           </Link>
         </div>
-        <img className="w-full" src={cthree} alt="mobile" />
+        <img className="w-full" src="/assets/cthree.png" alt="mobile" />
       </div>
     </Slider>
   );

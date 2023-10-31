@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { offer, sale2 } from "../../assets";
 import { Link } from "react-router-dom";
 
 function DealOfTheDay() {
@@ -62,13 +61,13 @@ function DealOfTheDay() {
         <div className="lg:w-1/2 w-[80%] flex-center  md:h-full ">
           <div className="relative w-[100%] bg-transparent border-2 rounded-2xl lg:h-[100%] md:h-[50%]  border-slate-500  ">
             <img
-              src={sale2}
+              src="/assets/sale2.webp"
               alt="product"
               className="md:absolute md:-top-[100px]
                  md:left-1/2 md:-translate-x-1/2"
             />
             <img
-              src={offer}
+              src="/assets/offer.webp"
               className="absolute -top-[30%] sm:-top-[100px] sm:-left-[100px] -left-[20%] h-[100px] w-[100px] md:h-[200px] sm:w-[200px]"
               alt=""
             />

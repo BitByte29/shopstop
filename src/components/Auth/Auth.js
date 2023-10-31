@@ -4,12 +4,17 @@ import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import "./authStyle.css";
 import { useNavigate } from "react-router-dom";
-import { loginUser, registerUser } from "../../App/features/userSlice";
+import {
+  clearProfileUpdate,
+  loginUser,
+  registerUser,
+} from "../../App/features/userSlice";
 import ForgotPassword from "./ForgotPassword";
 
 const Auth = () => {
   const navigate = useNavigate();
   const { isAuthenticated, accountCreated } = useSelector((s) => s.users);
+  const { loading } = useSelector((s) => s.users);
   const [isLoginPage, setIsLoginPage] = useState(true);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPass, setLoginPass] = useState("");
@@ -40,22 +45,18 @@ const Auth = () => {
       myForm.set("avatar", avatar);
     }
     dispatch(registerUser(myForm));
-    setUser({
-      name: "",
-      email: "",
-      password: "",
-    });
-    setIsLoginPage(true);
-    navigate("/auth");
+    // setUser({
+    //   name: "",
+    //   email: "",
+    //   password: "",
+    // });
+    // setIsLoginPage(true);
+    // navigate("/auth");
   };
   const registerDataChange = (e) => {
     // console.log("data change");
     if (e.target.name === "avatar") {
       const reader = new FileReader();
-      //When files are uploaded they are done in a array as there can be many files so the 0 says the first file
-      //When the avatar is changed we will read the uploaded file using filereader
-      //using the filereader instance (reader) we will read the
-      //ReadAsDataURL makes a url which can be used to view it on browser
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = () => {
         if (reader.readyState === 2) {
@@ -69,12 +70,23 @@ const Auth = () => {
   };
 
   useEffect(() => {
-    setIsLoginPage(true);
+    if (!loading && accountCreated) {
+      setUser({
+        name: "",
+        email: "",
+        password: "",
+      });
+      setAvatar(null);
+      setAvatarPreview("/user.jpg");
+      //Using accountCreated to check if account updatedo or created
+      dispatch(clearProfileUpdate());
+      setIsLoginPage(true);
+    }
 
     if (isAuthenticated) {
       navigate("/profile");
     }
-  }, [dispatch, isAuthenticated, navigate]);
+  }, [dispatch, loading, navigate]);
 
   return (
     <div className="h-[90vh] flex items-center justify-center">
@@ -218,7 +230,6 @@ const Auth = () => {
                 onClick={() => setpType("text")}
               />
             </div>
-
             <div id="registerImage" className="p-0">
               <img src={avatarPreview} alt="" className="rounded-full" />
               <input
@@ -228,9 +239,15 @@ const Auth = () => {
                 onChange={registerDataChange}
               />
             </div>
-
-            <button>Signup</button>
-
+            {loading ? (
+              <button className="w-[125px] h-[90px] flex-center">
+                <span className="text-transparent border-4 rounded-full border-cyan-600 text-sm animate-spin border-b-yellow-500">
+                  oo
+                </span>
+              </button>
+            ) : (
+              <button className="w-[125px] h-[90px]">Signup</button>
+            )}
             <p>
               Already a user?{" "}
               <span onClick={() => setIsLoginPage(true)}>Login</span>
