@@ -8,7 +8,7 @@ const Categories = () => {
   const cats = [
     {
       name: "Mobile",
-      url: "/phones2.webp",
+      url: "/assets/phones2.webp",
     },
     {
       name: "Laptop",

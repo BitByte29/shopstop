@@ -26,7 +26,7 @@ function DealOfTheDay() {
   function calculateCountdown() {
     const now = new Date();
     const startTime = new Date(now);
-    startTime.setHours(0, 0, 0, 0); // Set the time to midnight
+    startTime.setHours(0, 0, 0, 0);
 
     const targetDate = new Date(startTime);
     targetDate.setDate(targetDate.getDate() + 1);
@@ -73,15 +73,16 @@ function DealOfTheDay() {
             />
           </div>
         </div>
-        <div className="h-full flex lg:w-1/2 w-full">
-          <div className="flex-center border-2 bg-slate-100 rounded-3xl w-full">
+        <div className="h-full lg:w-1/2 w-full md:w-2/5">
+          <div className="flex-center border-2 bg-slate-100 rounded-3xl w-full h-full">
             <div className="sm:block flex-center">
-              <p className="text-5xl font-semibold pb-6">HP 360</p>
+              <p className="text-5xl font-semibold pb-6 text-yellow-600">
+                HP 360
+              </p>
 
               <div className="text-3xl">
-                <span className="">
-                  &#8377;
-                  {(21700).toLocaleString("hi-IN")}
+                <span className="text-yellow-600">
+                  &#8377;{(21700).toLocaleString("hi-IN")}
                 </span>
               </div>
 
@@ -93,19 +94,19 @@ function DealOfTheDay() {
                     {(31000).toLocaleString("hi-IN")}
                   </span>
                 </span>
-                <span className="text-green-600">30% off.</span>
+                <span className="text-green-600">30% off</span>
               </div>
 
               <div className="countdown p-4">
                 <div className="flex md:gap-4 gap-2 items-center ">
-                  <p className="relative md:w-[70px] md:h-[70px] w-[40px] border2 h-[40px] text-2xl rounded-full md:text-4xl flex-center bg-yellow-300 text-black font-semibold  border-2 border-black ">
+                  <p className="relative md:w-[70px] md:h-[70px] w-[40px] h-[40px] text-2xl rounded-full md:text-4xl flex-center bg-yellow-300 text-black font-semibold border-2 border-black ">
                     {t.h}
                   </p>
                   <span className="text-black font-semibold text-sm md:text-lg">
                     <span className="hidden lg:block text-sm">Hours</span>
                     <span className="lg:hidden block">:</span>
                   </span>
-                  <p className="md:w-[70px] md:h-[70px] w-[40px] h-[40px] text-2xl rounded-full md:text-4xl flex-center bg-yellow-300 text-black font-semibold  border-2 border-black ">
+                  <p className="md:w-[70px] md:h-[70px] w-[40px] h-[40px] text-2xl rounded-full md:text-4xl flex-center bg-yellow-300 text-black font-semibold border-2 border-black ">
                     {t.m}
                   </p>
                   <span className="text-black font-semibold text-sm md:text-lg">
