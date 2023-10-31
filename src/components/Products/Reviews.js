@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaThumbsDown, FaThumbsUp, FaUser } from "react-icons/fa";
+import { FaThumbsDown, FaStar, FaThumbsUp, FaUser } from "react-icons/fa";
 
 import ReactStars from "react-rating-stars-component";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,7 @@ const Reviews = ({ review, productId }) => {
   const dispatch = useDispatch();
   const ratingOptions = {
     edit: false,
-    activeColor: "tomato",
+    activeColor: "gold",
     size: 25,
     isHalf: true,
   };
@@ -32,38 +32,45 @@ const Reviews = ({ review, productId }) => {
     dispatch(voteReview(anObject));
   };
   return (
-    <div key={review.user} className="flex justify-between p-2 border-2">
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-4">
-          <div className="rounded-full bg-slate-700 w-[30px] h-[30px] flex items-center justify-center  text-white">
-            <FaUser />
-          </div>
-          <p>{review.name}</p>
+    <div key={review.user} className="border-2 p-2">
+      <div className="flex justify-between">
+        <div className="flex gap-4">
           <div className="flex items-center gap-2">
-            <ReactStars {...ratingOptions} value={review.rating} size={15} />
-            <span>{review.rating} </span>
+            <span className="flex-center text-white rounded-full bg-gray-500 w-8 h-8">
+              <FaUser />
+            </span>
+            <p className="font-semibold">{review.name}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <ReactStars
+              {...ratingOptions}
+              value={review.rating}
+              size={window.innerWidth < 512 ? 15 : 20}
+            />
+            <span className="bg-green-600 text-white flex items-center p-[2px] text-sm">
+              {review.rating} <FaStar />
+            </span>
           </div>
         </div>
-        <p className="text-justify">{review.comment}</p>
-      </div>
 
-      <div className="flex justify-center flex-col w-[155px] min-w-[155px]">
-        <div className="flex items-center justify-around w-full px-4 py-2 text-slate-700">
-          <span className="cursor-pointer hover:text-green-600 ">
+        <div className="flex gap-4 items-center"></div>
+      </div>
+      <p className="text-justify py-2">{review.comment}</p>
+      <div className="flex justify-between">
+        {review.createdAt && (
+          <span className="text-gray-400">
+            {formatDateFromTimestamp(review.createdAt)}
+          </span>
+        )}
+        <div className="flex min-w-[100px] items-center mt-1 justify-around text-gray-400 text-sm ">
+          <span className="cursor-pointer flex-center flex-row gap-1 hover:text-green-600 ">
             <FaThumbsUp onClick={() => handleVote("like")} />
             {likes}
           </span>
-          <span className="cursor-pointer hover:text-red-600">
+          <span className="cursor-pointer hover:text-red-600 flex-center flex-row gap-1 ">
             <FaThumbsDown onClick={() => handleVote("dislike")} />
             {dislikes}
           </span>
-        </div>
-        <div className="flex items-center justify-between px-4 py-2 ">
-          {review.createdAt && (
-            <span className="text-gray-400">
-              {formatDateFromTimestamp(review.createdAt)}
-            </span>
-          )}
         </div>
       </div>
     </div>

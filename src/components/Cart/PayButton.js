@@ -32,7 +32,6 @@ const PayButton = ({ cartItems }) => {
       })
       .then((res) => {
         if (res.data.redirectUrl) {
-          // console.log(res.data.paymentIntentId);
           window.location.href = res.data.redirectUrl;
         } else {
           // console.log(res.data);
@@ -41,7 +40,7 @@ const PayButton = ({ cartItems }) => {
       })
       .catch((err) => {
         // console.log(err.message);
-        // console.log("Hi");
+        console.log("Hi");
         toast(err);
       });
   };

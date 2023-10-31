@@ -51,12 +51,12 @@ const Products = () => {
   return (
     <>
       <div className="flex flex-col gap-4 md:flex-row lg:px-[5vh]">
-        <div className="w-full p-4 md:w-1/3">
+        <div className="w-full p-4 md:w-[30%]">
           <div className="sticky px-4 py-4 border-2 rounded-lg lg:px-14 top-20 bg-gray-100">
             <h2 className="text-2xl font-semibold text-center mb-4">
               Filter Products
             </h2>
-            <div className="mb-6">
+            <div className="">
               <h3 className="text-xl font-semibold mb-2">Price</h3>
               <div className="flex items-center gap-2 mb-4">
                 <span>&#8377;{price[0]}</span> to <span>&#8377;{price[1]}</span>
@@ -74,8 +74,8 @@ const Products = () => {
                 }}
               />
             </div>
-            <hr className="my-6" />
-            <div className="mb-6">
+            <hr className="mt-3 mb-4" />
+            <div className="">
               <h3 className="text-xl font-semibold">Ratings</h3>
               <ReactStars
                 {...options}
@@ -88,8 +88,8 @@ const Products = () => {
               />
               <p>{ratingValue}+ and up.</p>
             </div>
-            <hr className="my-6" />
-            <div className="mb-6">
+            <hr className="mt-3 mb-4" />
+            <div className="">
               <h3 className="text-xl font-semibold">Category</h3>
               <ul>
                 {categories.map((val) => (
@@ -117,7 +117,7 @@ const Products = () => {
               </ul>
             </div>
             <button
-              className="w-full py-3 text-white font-semibold bg-cyan-500 hover:bg-cyan-600 hover:-translate-y-2 rounded-lg"
+              className="w-full mt-3 py-3 text-white font-semibold bg-cyan-500 hover:bg-cyan-600 hover:-translate-y-2 rounded-lg"
               onClick={resetFilters}
             >
               Clear all filters

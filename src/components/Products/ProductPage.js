@@ -4,7 +4,7 @@ import { addReview, getProductDetails } from "../../App/features/productSlice";
 import { Link, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 
-import { FaExclamationTriangle, FaPlus, FaShoppingCart } from "react-icons/fa";
+import { FaExclamationTriangle, FaShoppingCart } from "react-icons/fa";
 import ReactStars from "react-rating-stars-component";
 
 import "./Slider.css";
@@ -20,14 +20,10 @@ const ProductPage = () => {
   // const userId = useSelector((s) => s.users.user._id);
   const { id } = useParams();
   const product = useSelector((s) => s.products.product);
+
   const [quantity, setQuantity] = useState(1);
 
   const [reviewBox, setReviewBox] = useState(false);
-  // const userReview = product.reviews.find((review) => {
-  //   return review.user.toString() === userId.toString();
-  // });
-  // const [review, setReview] = useState(userReview.comment);
-  // const [ratingValue, setRatingValue] = useState(userReview.rating);
   const [review, setReview] = useState("");
   const [ratingValue, setRatingValue] = useState(0);
   useEffect(() => {
@@ -37,17 +33,6 @@ const ProductPage = () => {
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
   };
-
-  // const handleBuy = () => {
-  //   if (product.stock >= 1) {
-  //     dispatch(clearCartOneTime());
-  //     dispatch(addToCart({ id, quantity: 1 }));
-  //     navigate("/confirmorder");
-  //   } else {
-  //     toast.warn("Item out of stock");
-  //     // return;
-  //   }
-  // };
 
   const handleAddToCart = () => {
     if (product.stock >= quantity) {
@@ -80,10 +65,13 @@ const ProductPage = () => {
     interval: 2000,
     infiniteLoop: true,
     showArrows: false,
+    showIndicators: false,
+    // axis: "vertical",
+    // showThumbs: false,
   };
   const ratingOptions = {
     edit: false,
-    activeColor: "tomato",
+    activeColor: "gold",
     // value: product.rating,
     size: 25,
     isHalf: true,
@@ -107,7 +95,7 @@ const ProductPage = () => {
                   product.images.map((image, i) => (
                     <div
                       key={i}
-                      className="flex items-center justify-center lg:w-[400px] lg:h-[375px] w-full h-full px-16 py-4"
+                      className="flex items-center justify-center lg:w-[400px] lg:h-[375px] bg-white w-full h-full px-16 py-4"
                     >
                       <img
                         src={image.url}
@@ -121,29 +109,17 @@ const ProductPage = () => {
               <div className="items-center flex justify-between ">
                 <button
                   onClick={handleAddToCart}
-                  className="w-[45%] py-4 uppercase bg-cyan-600 text-white flex gap-2 items-center hover:-translate-y-2 transition-all justify-center"
+                  className="md:w-[45%] w-1/2 md:py-4 py-2 uppercase bg-cyan-600 text-white flex md:gap-2 gap-1 items-center hover:-translate-y-2 transition-all justify-center"
                 >
                   <FaShoppingCart /> Add to Cart
                 </button>
                 <button
                   onClick={handleAddToCart}
-                  className="w-[45%] py-4 hover:text-white  border-2 hover:bg-cyan-600 border-cyan-600 uppercase hover:-translate-y-2 transition-all "
+                  className="w-[45%] py-2 md:py-4 hover:text-white  border-2 hover:bg-cyan-600 border-cyan-600 uppercase hover:-translate-y-2 transition-all "
                 >
                   Buy now
                 </button>
               </div>
-
-              {/* <div className="items-center flex fixed bottom-0 left-0 px-2 py-2 sm:hidden z-50 justify-between w-full bg-dp">
-                <button
-                  onClick={handleAddToCart}
-                  className="w-[45%] py-4 uppercase bg-cyan-600 flex gap-2 items-center hover:-translate-y-2 transition-all justify-center"
-                >
-                  <FaShoppingCart /> Add to Cart
-                </button>
-                <button className="w-[45%] py-4 bg-green-600 uppercase hover:-translate-y-2 transition-all ">
-                  Buy now
-                </button>
-              </div> */}
             </div>
           </div>
           <div className="flex flex-col my-4 p-4 rounded-lg gap-4 bg-white lg:w-4/6">
@@ -215,69 +191,70 @@ const ProductPage = () => {
                 )}
               </select>
             </div>
-            <div className="text-xl font-semibold ">
+            <div>
               <button
-                className="flex items-center justify-center gap-2 px-4 py-2 text-lg text-white transition-all bg-cyan-600 hover:-translate-y-1 hover:shadow-lg"
+                className="px-3 py-2 border-2 border-cyan-500 hover:-translate-y-2 transition-all hover:bg-cyan-500 hover:text-white"
                 onClick={() => setReviewBox(true)}
               >
-                Add a review <FaPlus />
+                Add a review +
               </button>
 
               {/* Rating box */}
               {reviewBox && (
-                <div>
-                  <div className="overlay fixed top-0 left-0 flex-center w-screen h-screen  bg-black/70 cursor-pointer z-30">
-                    <form
-                      action=""
-                      onSubmit={handleReviewSubmit}
-                      className="flex-center z-40 p-4 bg-white rounded-lg min-h-[300px]"
-                    >
-                      <div className="flex w-full flex-col ">
-                        <p>Rate the product</p>
-                        <div className="flex gap-4 py-2">
-                          <ReactStars
-                            {...ratingOptions}
-                            edit={true}
-                            size={30}
-                            value={ratingValue}
-                            onChange={(newRating) => {
-                              setRatingValue(newRating);
-                            }}
-                          />
-                          <span>{ratingValue} star.</span>
-                        </div>
+                <div className="overlay fixed top-0 left-0 flex-center w-screen h-screen bg-black/70 cursor-pointer z-30">
+                  <form
+                    action=""
+                    onSubmit={handleReviewSubmit}
+                    className="flex-center z-40 p-4 bg-white rounded-lg w-11/12 max-w-md shadow-md"
+                  >
+                    <div className="flex flex-col w-full">
+                      <p className="text-xl font-semibold mb-2">
+                        Rate the product
+                      </p>
+                      <div className="flex items-center mb-2">
+                        <ReactStars
+                          {...ratingOptions}
+                          edit={true}
+                          size={30}
+                          value={ratingValue}
+                          onChange={(newRating) => {
+                            setRatingValue(newRating);
+                          }}
+                        />
+                        <span className="text-lg ml-2">{ratingValue} star</span>
                       </div>
+                    </div>
 
-                      <div className="w-full">
-                        <p>Review</p>
-                        <textarea
-                          name="rating"
-                          className="text-sm px-2 py-2 focus:outline-gray-500"
-                          id=""
-                          cols="50"
-                          rows="5"
-                          placeholder="Enter your review"
-                          required
-                          onChange={(e) => setReview(e.target.value)}
-                        ></textarea>
-                      </div>
+                    <div className="w-full">
+                      <p className="text-xl font-semibold">Review</p>
+                      <textarea
+                        name="rating"
+                        className="text-sm px-2 py-2 border rounded w-full"
+                        id=""
+                        cols="50"
+                        rows="5"
+                        placeholder="Enter your review"
+                        required
+                        onChange={(e) => setReview(e.target.value)}
+                      ></textarea>
+                    </div>
 
-                      <div className="flex gap-2">
-                        <button
-                          className="w-1/2 border-2 hover:bg-red-500 hover:-translate-y-[4px]"
-                          onClick={() => setReviewBox(false)}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          className="bg-green-400 hover:bg-green-500 hover:-translate-y-[4px]"
-                          type="submit"
-                        >
-                          Submit
-                        </button>
-                      </div>
-                    </form>
-                  </div>
+                    <div className="flex justify-between space-x-4 mt-4">
+                      <button
+                        className="w-1/2 bg-gray-300 hover:bg-gray-400 hover:-translate-y-2  px-2 md:px-3 transform duration-300 text-gray-700 py-2 rounded"
+                        onClick={() => setReviewBox(false)}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="w-1/2 bg-green-400 hover:bg-green-500 hover:-translate-y-2 
+                        px-2 md:px-3 transform duration-300 text-white py-2 rounded"
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
                 </div>
               )}
             </div>
