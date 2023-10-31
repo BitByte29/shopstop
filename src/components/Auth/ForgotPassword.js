@@ -4,7 +4,7 @@ import { forgotPassword } from "../../App/features/userSlice";
 // import { useNavigate } from "react-router-dom";
 import Loader from "../subs/Loader";
 import "./authStyle.css";
-import { FaTimes } from "react-icons/fa";
+import { FaEnvelope, FaTimes } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const ForgotPassword = ({ setforgotPasswordPrompt }) => {
@@ -23,31 +23,44 @@ const ForgotPassword = ({ setforgotPasswordPrompt }) => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="p-5 bg-cyan-500">
-          <h2 className="relative pb-4 font-semibold text-center flex-center">
-            Forgot Password{" "}
-            <span
-              className="absolute cursor-pointer right-2"
-              onClick={() => setforgotPasswordPrompt(false)}
+        <div className="fixed inset-0 z-50 flex items-center flex-col justify-center bg-black bg-opacity-70">
+          <div className="rounded-3xl bg-cyan-600  overflow-hidden">
+            <h2 className="py-3 text-lg md:text-xl font-semibold text-center text-white bg-cyan-600 relative">
+              Forgot Password{" "}
+              <span
+                className="absolute cursor-pointer right-2"
+                onClick={() => setforgotPasswordPrompt(false)}
+              >
+                <FaTimes />
+              </span>
+            </h2>
+            <form
+              action=""
+              onSubmit={handleSubmit}
+              className="flex gap-2 flex-col md:p-5 p-2 bg-white"
             >
-              <FaTimes />
-            </span>
-          </h2>
-          <form action="" onSubmit={handleSubmit} className=" auth">
-            <div className="w-full input-div">
-              <span className="font-semibold">Enter your Email:</span>
+              <div className="input-div2">
+                <FaEnvelope />
 
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoFocus
-              />
-            </div>
-            <div className="flex-row gap-2 flex-center">
-              <button type="submit">Get reset Token</button>
-            </div>
-          </form>
+                <input
+                  type="text"
+                  value={email}
+                  name="email"
+                  placeholder="Your Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoFocus
+                />
+              </div>
+              <div className="flex-row gap-2 flex-center mt-2">
+                <button
+                  type="submit"
+                  className="btn bg-cyan-600 border-2 rounded-lg border-cyan-600 text-white"
+                >
+                  Get reset Token
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

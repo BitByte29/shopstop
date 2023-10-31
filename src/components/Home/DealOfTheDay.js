@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { offer, sale1, sale2 } from "../../assets";
+import { offer, sale2 } from "../../assets";
 import { Link } from "react-router-dom";
 
 function DealOfTheDay() {
-  const [countdown, setCountdown] = useState();
   const [t, sett] = useState({
     h: "",
     m: "",
@@ -17,7 +16,7 @@ function DealOfTheDay() {
       s: "00",
     });
     const interval = setInterval(() => {
-      setCountdown(calculateCountdown());
+      calculateCountdown();
     }, 1000);
 
     return () => {
@@ -124,7 +123,7 @@ function DealOfTheDay() {
               </div>
             </div>
             <Link
-              to="/products/653f2661a2ed2758c93f7265"
+              to="/products/6540967541bc61323fd1fa4f"
               className="mt-4 px-5 py-3 uppercase tracking-wider bg-cyan-300 font-semibold hover:bg-yellow-300 transition-all hover:-translate-y-2 rounded-lg cursor-pointer"
             >
               Buy Now
