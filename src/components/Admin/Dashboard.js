@@ -13,9 +13,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
+  const [activeSection, setActiveSection] = useState("Stats");
   const { user } = useSelector((s) => s.users);
 
-  const [activeSection, setActiveSection] = useState("Stats");
   const navigate = useNavigate();
 
   useEffect(() => {

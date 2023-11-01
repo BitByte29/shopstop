@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrder } from "../../App/features/orderSlice";
 import { useParams } from "react-router-dom";
 
-const MyOrders = () => {
+const MyOrderDetail = () => {
   const order = useSelector((s) => s.orders.orderInfo);
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -104,4 +104,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default MyOrderDetail;

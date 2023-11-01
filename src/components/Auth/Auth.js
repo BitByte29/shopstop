@@ -156,7 +156,17 @@ const Auth = () => {
             </div>
 
             {/* <Link to="/forgotpassword">Forgot Password</Link> */}
-            <button type="submit">Login</button>
+            {loading ? (
+              <button className="w-[125px] h-[90px] flex-center">
+                <span className="text-transparent border-4 rounded-full border-cyan-600 text-sm animate-spin border-b-yellow-500">
+                  oo
+                </span>
+              </button>
+            ) : (
+              <button className="w-[125px] h-[90px]" type="submit">
+                Submit
+              </button>
+            )}
 
             <div className="text-center">
               <span

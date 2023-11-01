@@ -15,7 +15,7 @@ import Loader from "../subs/Loader";
 import { formatDateFromTimestamp } from "../../utils/functions";
 import { Link } from "react-router-dom";
 
-const Orders = () => {
+const MyOrdersList = () => {
   const dispatch = useDispatch();
   const { orders, loading } = useSelector((s) => s.orders);
   const [columnFilters, setColumnFilters] = useState([]);
@@ -53,7 +53,7 @@ const Orders = () => {
       enableSorting: false,
       cell: (props) => (
         <Link
-          to={`/orders/${props.getValue()}`}
+          to={`/order/${props.getValue()}`}
           className="text-blue-700 underline text-sm"
         >
           View
@@ -204,4 +204,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default MyOrdersList;

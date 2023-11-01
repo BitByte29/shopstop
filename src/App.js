@@ -9,6 +9,7 @@ import {
   ProductPage,
   Auth,
 } from "./components";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -25,12 +26,13 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import Cart from "./components/Cart/Cart";
 import ConfirmOrder from "./components/Cart/ConfirmOrder";
 import Success from "./components/Cart/Success";
-import Orders from "./components/Account/Orders";
 import Dashboard from "./components/Admin/Dashboard";
 
 import NotFound from "./components/subs/NotFound";
-import MyOrders from "./components/Auth/myOrders";
+import MyOrdersList from "./components/Account/MyOrdersList";
+import MyOrderDetail from "./components/Account/MyOrderDetail";
 import About from "./components/Home/About";
+import SingleOrderDetail from "./components/Admin/SingleOrderDetail";
 
 function App() {
   const category = [
@@ -68,15 +70,14 @@ function App() {
         <Navbar />
         {/* <div className="min-h-[100vh]"> */}
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductPage />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/password/reset/:token" element={<ResetPassword />} />
-          <Route path="/auth" element={<Auth />} />
           <Route path="/about" element={<About />} />
-          <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/success" element={<Success />} />
 
@@ -94,22 +95,23 @@ function App() {
           />
           <Route
             path="/myorders"
-            element={<ProtectedRoute element={Orders} />}
+            element={<ProtectedRoute element={MyOrdersList} />}
           />
           <Route
-            path="/orders/:id"
-            element={<ProtectedRoute element={MyOrders} />}
+            path="/myorder/:id"
+            element={<ProtectedRoute element={MyOrderDetail} />}
           />
-
+          <Route
+            path="/admin/order/:id"
+            element={<ProtectedRoute element={SingleOrderDetail} />}
+          />
           <Route
             path="/admin/dashboard"
             isAdmin={true}
             element={<ProtectedRoute element={Dashboard} />}
           />
-          {/* <Route path="/*" element={<div>Page not found</div>} /> */}
           <Route path="/*" element={<NotFound />} />
         </Routes>
-        {/* </div> */}
 
         <Footer />
         <ToastContainer
