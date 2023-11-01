@@ -92,13 +92,13 @@ const cartSlice = createSlice({
       state.shippingInfoCorrect = action.payload;
       localStorage.setItem("shippingInfoCorrect", state.shippingInfoCorrect);
     },
-    // clearCart: (state, action) => {
-    //   state.cartItems = [];
-    //   state.cartSize = 0;
-    //   localStorage.removeItem("cartItemsList");
+    clearCart: (state, action) => {
+      state.cartItems = [];
+      state.cartSize = 0;
+      localStorage.removeItem("cartItemsList");
 
-    //   localStorage.removeItem("cartSize");
-    // },
+      localStorage.removeItem("cartSize");
+    },
     clearCartOneTime: (state, action) => {
       state.cartItems = [];
       state.cartSize = 0;

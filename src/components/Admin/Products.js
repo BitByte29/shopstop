@@ -32,6 +32,9 @@ import {
 import SearchFilter from "./SearchFilter";
 
 const Products = () => {
+  const [shouldHideFirstColumn, setShouldHideFirstColumn] = useState(
+    window.innerWidth <= 800
+  );
   const { products, loading, productInserted } = useSelector((s) => s.admin);
   const [columnFilters, setColumnFilters] = useState([]);
   const [newprice, setNewprice] = useState(0);
@@ -118,6 +121,18 @@ const Products = () => {
     setEditBox(false);
     setEditId(null);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setShouldHideFirstColumn(window.innerWidth <= 800);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const columns = [
     {
       accessorKey: "name",
@@ -126,23 +141,28 @@ const Products = () => {
       enableSorting: false,
       show: false,
     },
-    // {
-    //   accessorKey: "images",
-    //   header: "Product Name",
-    //   cell: (props) => <p>{props.getValue()}</p>,
-    //   enableSorting: false,
-    //   show: false,
-    // },
+    {
+      accessorKey: "images",
+      header: "Product Image",
+      cell: (props) => (
+        <div className="w-full h-20 flex-center" key={props.getValue()[0].url}>
+          <div className={`w-24 h-24 flex-center bg-white p-2`}>
+            <img
+              src={props.getValue()[0].url}
+              className="w-full h-full object-contain"
+              alt="product"
+            />
+          </div>
+        </div>
+      ),
+      enableSorting: false,
+      // show: false,
+    },
     {
       accessorKey: "price",
       header: "Price",
       cell: (props) => <p>&#8377;{props.getValue().toLocaleString("hi-IN")}</p>,
     },
-    // {
-    //   accessorKey: "createdAt",
-    //   header: "Date",
-    //   cell: (props) => <p>{formatDateFromTimestamp(props.getValue())}</p>,
-    // },
     {
       accessorKey: "stock",
       header: "Stock",
@@ -161,7 +181,7 @@ const Products = () => {
       header: "Actions",
       enableSorting: false,
       cell: (props) => (
-        <div className="sm:space-x-2 flex items-center justify-center flex-col sm:flex-row">
+        <div className="gap-4 flex items-center justify-center flex-col sm:flex-row">
           <button
             className="text-blue-500 hover:text-blue-700"
             title="Edit Product"
@@ -186,10 +206,12 @@ const Products = () => {
     },
   ];
 
-  // const adjustedColumns = shouldHideFirstColumn ? columns.slice(1, 5) : columns;
+  const adjustedColumns = shouldHideFirstColumn
+    ? columns.slice(0, 1).concat(columns.slice(2, 5))
+    : columns;
   const table = useReactTable({
     data: products,
-    columns: columns,
+    columns: adjustedColumns,
     state: {
       columnFilters,
       pagination,
