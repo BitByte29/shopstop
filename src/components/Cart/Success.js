@@ -12,7 +12,9 @@ function Success() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { shippingInfo, cartItems } = useSelector((s) => s.cart);
-  const { itemsPrice, totalPrice, taxPrice } = useSelector((s) => s.orders);
+  const { itemsPrice, totalPrice, taxPrice, loading } = useSelector(
+    (s) => s.orders
+  );
 
   const data = {
     shippingInfo,
@@ -32,7 +34,6 @@ function Success() {
     if (successParam === "true") {
       //Create Order and clear cart
       dispatch(createNewOrder(data));
-      dispatch(clearCart());
       toast("Payment processed successfully");
       navigate("/myorders");
     } else if (successParam === "false") {

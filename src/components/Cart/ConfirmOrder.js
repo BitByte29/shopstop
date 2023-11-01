@@ -9,24 +9,20 @@ import { MdCheck } from "react-icons/md";
 import PayButton from "./PayButton";
 
 const ConfirmOrder = () => {
-  const { shippingInfo, cartItems, shippingInfoCorrect } = useSelector(
+  const { shippingInfo, cartItems, shippingInfoCorrect, loading } = useSelector(
     (s) => s.cart
   );
+
   const navigate = useNavigate();
   const [shippingForm, setShippingForm] = useState(false);
   const [orders, setOrders] = useState(true);
-  //   const cartItems = useSelector((state) => state.cart.cartItems);
 
   useEffect(() => {
-    if (cartItems.length < 1) {
+    if (!loading && cartItems.length < 1) {
       toast("Add Items in Cart");
       navigate("/cart");
     }
-    if (!shippingInfo) {
-      toast("Add shipping details first.");
-      navigate("/shipping");
-    }
-  }, [navigate, cartItems, shippingInfo]);
+  }, [navigate, cartItems]);
 
   return (
     <div className="min-h-[90vh]">

@@ -126,6 +126,13 @@ const Products = () => {
       enableSorting: false,
       show: false,
     },
+    // {
+    //   accessorKey: "images",
+    //   header: "Product Name",
+    //   cell: (props) => <p>{props.getValue()}</p>,
+    //   enableSorting: false,
+    //   show: false,
+    // },
     {
       accessorKey: "price",
       header: "Price",

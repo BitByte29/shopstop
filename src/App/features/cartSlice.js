@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { getserver } from "./host";
 const server = getserver();
 const initialState = {
+  loading: false,
   cartItems: localStorage.getItem("cartItemsList")
     ? JSON.parse(localStorage.getItem("cartItemsList"))
     : [],
@@ -91,13 +92,13 @@ const cartSlice = createSlice({
       state.shippingInfoCorrect = action.payload;
       localStorage.setItem("shippingInfoCorrect", state.shippingInfoCorrect);
     },
-    clearCart: (state, action) => {
-      state.cartItems = [];
-      state.cartSize = 0;
-      localStorage.removeItem("cartItemsList");
+    // clearCart: (state, action) => {
+    //   state.cartItems = [];
+    //   state.cartSize = 0;
+    //   localStorage.removeItem("cartItemsList");
 
-      localStorage.removeItem("cartSize");
-    },
+    //   localStorage.removeItem("cartSize");
+    // },
     clearCartOneTime: (state, action) => {
       state.cartItems = [];
       state.cartSize = 0;
@@ -125,8 +126,13 @@ const cartSlice = createSlice({
 
         localStorage.setItem("cartItemsList", JSON.stringify(state.cartItems));
         localStorage.setItem("cartSize", state.cartSize.toString());
+        state.loading = false;
+      })
+      .addCase(addToCart.pending, (state, action) => {
+        state.loading = true;
       })
       .addCase(addToCart.rejected, (state, action) => {
+        state.loading = false;
         toast(action.payload);
       });
   },

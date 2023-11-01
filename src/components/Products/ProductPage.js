@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview, getProductDetails } from "../../App/features/productSlice";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 
 import { FaExclamationTriangle, FaShoppingCart } from "react-icons/fa";
@@ -10,7 +10,11 @@ import ReactStars from "react-rating-stars-component";
 import "./Slider.css";
 import Breadcrumb from "../subs/Breadcrums";
 import Reviews from "./Reviews";
-import { addToCart } from "../../App/features/cartSlice";
+import {
+  addToCart,
+  clearCart,
+  clearCartOneTime,
+} from "../../App/features/cartSlice";
 import Loader from "../subs/Loader";
 import { toast } from "react-toastify";
 
@@ -20,7 +24,7 @@ const ProductPage = () => {
   // const userId = useSelector((s) => s.users.user._id);
   const { id } = useParams();
   const product = useSelector((s) => s.products.product);
-
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
 
   const [reviewBox, setReviewBox] = useState(false);
@@ -32,6 +36,16 @@ const ProductPage = () => {
 
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
+  };
+  const handleBuy = () => {
+    if (product.stock >= 1) {
+      // dispatch(clearCartOneTime());
+      dispatch(clearCart());
+      dispatch(addToCart({ id, quantity: 1 }));
+      navigate("/confirmorder");
+    } else {
+      toast.warn("Item out of stock");
+    }
   };
 
   const handleAddToCart = () => {
@@ -66,6 +80,7 @@ const ProductPage = () => {
     infiniteLoop: true,
     showArrows: false,
     showIndicators: false,
+    dynamicHeight: false,
     // axis: "vertical",
     // showThumbs: false,
   };
@@ -76,6 +91,18 @@ const ProductPage = () => {
     size: 25,
     isHalf: true,
   };
+  const customRenderThumb = (children) =>
+    children.map((item) => {
+      return (
+        <div className="w-20 h-20 ">
+          <img
+            src={item.key}
+            alt="something"
+            className="object-contain w-full h-full"
+          />
+        </div>
+      );
+    });
 
   //Stock, num of reviews, desription, reviews
   return (
@@ -90,17 +117,31 @@ const ProductPage = () => {
                 <Breadcrumb productName={product.name} />
               </div>
 
-              <Carousel {...options} className="px-0 py-0 ">
+              <Carousel
+                {...options}
+                className="px-0 py-0 "
+                renderThumbs={customRenderThumb}
+              >
                 {product.images &&
                   product.images.map((image, i) => (
+                    // <div
+                    //   key={i}
+                    //   className="flex items-center justify-center lg:w-[400px] lg:h-[375px] bg-blue-600 w-full h-full px-16 py-4 relative"
+                    // >
+                    //   <img
+                    //     src={image.url}
+                    //     alt=""
+                    //     className="w-full  h-auto  rounded-xl"
+                    //   />
+                    // </div>
                     <div
-                      key={i}
-                      className="flex items-center justify-center lg:w-[400px] lg:h-[375px] bg-white w-full h-full px-16 py-4"
+                      key={image.url}
+                      className="lg:w-[400px] lg:h-[375px]  w-full h-[275px] flex-center bg-white pt-4 pb-2 rounded-lg"
                     >
                       <img
                         src={image.url}
                         alt=""
-                        className="max-w-[100%] max-h-[100%] rounded-xl"
+                        className="object-contain w-full h-full"
                       />
                     </div>
                   ))}
@@ -114,8 +155,8 @@ const ProductPage = () => {
                   <FaShoppingCart /> Add to Cart
                 </button>
                 <button
-                  onClick={handleAddToCart}
-                  className="w-[45%] py-2 md:py-4 hover:text-white  border-2 hover:bg-cyan-600 border-cyan-600 uppercase hover:-translate-y-2 transition-all "
+                  onClick={handleBuy}
+                  className="w-[45%] py-2 md:py-4 hover:text-white box-border border-2 hover:bg-cyan-600 border-cyan-600 uppercase hover:-translate-y-2 transition-all "
                 >
                   Buy now
                 </button>

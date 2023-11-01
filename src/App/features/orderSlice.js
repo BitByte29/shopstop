@@ -95,6 +95,9 @@ const orderSlice = createSlice({
     builder
       .addCase(createNewOrder.fulfilled, (state, action) => {
         state.loading = false;
+        toast("Order created not clear cart");
+        localStorage.removeItem("cartItemsList");
+        localStorage.removeItem("cartSize");
         // console.log("Order created");
       })
       .addCase(createNewOrder.pending, (state, action) => {
