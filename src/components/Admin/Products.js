@@ -31,7 +31,7 @@ import {
 } from "@tanstack/react-table";
 import SearchFilter from "./SearchFilter";
 
-const Products = () => {
+const Products = ({ role }) => {
   const [shouldHideFirstColumn, setShouldHideFirstColumn] = useState(
     window.innerWidth <= 800
   );
@@ -70,6 +70,7 @@ const Products = () => {
       dispatch(getAllProductsAdmin());
       dispatch(setproductInserted(false));
     }
+    // eslint-disable-next-line
   }, [dispatch]);
   const handleDelete = (id) => {
     const updatedProductList = products.filter((product) => product._id !== id);
@@ -186,13 +187,30 @@ const Products = () => {
             className="text-blue-500 hover:text-blue-700"
             title="Edit Product"
           >
-            <FaEdit onClick={() => handleEdit(props.getValue())} />
+            {role === "admin" ? (
+              <FaEdit onClick={() => handleEdit(props.getValue())} />
+            ) : (
+              <FaEdit
+                onClick={() =>
+                  toast.warning("Visitor's not allowed this action.")
+                }
+              />
+            )}
           </button>
+
           <button
             className="text-red-500 hover:text-red-700"
             title="Delete Product"
           >
-            <FaTrash onClick={() => handleDelete(props.getValue())} />
+            {role === "admin" ? (
+              <FaTrash onClick={() => handleDelete(props.getValue())} />
+            ) : (
+              <FaTrash
+                onClick={() =>
+                  toast.warning("Visitor's not allowed this action.")
+                }
+              />
+            )}
           </button>
           <Link
             className="text-blue-800 hover:text-cyan-500"

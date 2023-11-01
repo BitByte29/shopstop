@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaSearch, FaTrash, FaStar } from "react-icons/fa";
 import { deleteReview, getProductReviews } from "../../App/features/adminSlice";
 import Loader from "../subs/Loader";
+import { toast } from "react-toastify";
 
-const Reviews = () => {
+const Reviews = ({ role }) => {
   const dispatch = useDispatch();
   const [productId, setProductId] = useState("");
   const { reviews, loading, productReview } = useSelector((s) => s.admin);
@@ -86,16 +87,26 @@ const Reviews = () => {
                           </td>
                           <td className=" py-3 px-2 sm:py-4 sm:px-3 text-center">
                             <span className="text-red-500 flex-center">
-                              <FaTrash
-                                onClick={() =>
-                                  dispatch(
-                                    deleteReview({
-                                      productId,
-                                      reviewId: review._id,
-                                    })
-                                  )
-                                }
-                              />
+                              {role === "admin" ? (
+                                <FaTrash
+                                  onClick={() =>
+                                    dispatch(
+                                      deleteReview({
+                                        productId,
+                                        reviewId: review._id,
+                                      })
+                                    )
+                                  }
+                                />
+                              ) : (
+                                <FaTrash
+                                  onClick={() =>
+                                    toast.warning(
+                                      "Visitor's not allowed this action."
+                                    )
+                                  }
+                                />
+                              )}
                             </span>
                           </td>
                         </tr>

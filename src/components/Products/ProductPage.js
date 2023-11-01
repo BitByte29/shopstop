@@ -10,11 +10,7 @@ import ReactStars from "react-rating-stars-component";
 import "./Slider.css";
 import Breadcrumb from "../subs/Breadcrums";
 import Reviews from "./Reviews";
-import {
-  addToCart,
-  clearCart,
-  clearCartOneTime,
-} from "../../App/features/cartSlice";
+import { addToCart, clearCart } from "../../App/features/cartSlice";
 import Loader from "../subs/Loader";
 import { toast } from "react-toastify";
 

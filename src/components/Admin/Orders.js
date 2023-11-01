@@ -16,7 +16,6 @@ import {
   FaEdit,
   FaWindowClose,
   FaShare,
-  FaSignOutAlt,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -28,8 +27,9 @@ import {
 import Loader from "../subs/Loader";
 import { formatDateFromTimestamp } from "../../utils/functions";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const Orders = () => {
+const Orders = ({ role }) => {
   const { loading, orders } = useSelector((s) => s.admin);
   const [columnFilters, setColumnFilters] = useState([]);
   const [status, setStatus] = useState("");
@@ -62,6 +62,7 @@ const Orders = () => {
     if (orders.length < 1) {
       dispatch(getAllOrders());
     }
+    // eslint-disable-next-line
   }, []);
 
   const handleDelete = (id) => {
@@ -138,7 +139,15 @@ const Orders = () => {
               className="text-blue-500 hover:text-blue-700"
               title="Edit Order"
             >
-              <FaEdit onClick={() => handleEdit(props.getValue())} />
+              {role === "admin" ? (
+                <FaEdit onClick={() => handleEdit(props.getValue())} />
+              ) : (
+                <FaEdit
+                  onClick={() =>
+                    toast.warning("Visitor's not allowed this action.")
+                  }
+                />
+              )}
             </button>
           )}
           {props.row.original.orderStatus === "Delivered" && (
@@ -150,7 +159,15 @@ const Orders = () => {
             className="text-red-500 hover:text-red-700"
             title="Delete Order"
           >
-            <FaTrash onClick={() => handleDelete(props.getValue())} />
+            {role === "admin" ? (
+              <FaTrash onClick={() => handleDelete(props.getValue())} />
+            ) : (
+              <FaTrash
+                onClick={() =>
+                  toast.warning("Visitor's not allowed this action.")
+                }
+              />
+            )}
           </button>
           <Link
             className="text-blue-800 hover:text-cyan-500"

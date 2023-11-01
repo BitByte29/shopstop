@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import EditProfile from "./EditProfile";
 import EditPassword from "./EditPassword";
 import { formatDateFromTimestamp } from "../../utils/functions";
+import { toast } from "react-toastify";
+
 const Profile = () => {
   const { user } = useSelector((state) => state.users);
   const [modalClose, setModalClose] = useState(true);
@@ -22,12 +24,21 @@ const Profile = () => {
           alt=""
           className="w-48 h-48 rounded-full border-4 border-white mx-auto mt-4"
         />
-        <button
-          onClick={() => setModalClose(false)}
-          className="px-6 py-3 mt-4 text-white transition-transform transform hover:scale-105 bg-blue-700 hover:-translate-y-1 hover:shadow-lg rounded-full"
-        >
-          Edit Profile
-        </button>
+        {user.role === "visitor" ? (
+          <button
+            onClick={() => toast.warning("Action not allowed to visitors")}
+            className="px-6 py-3 mt-4 text-white transition-transform transform hover:scale-105 bg-blue-700 hover:-translate-y-1 hover:shadow-lg rounded-full"
+          >
+            Edit Profile
+          </button>
+        ) : (
+          <button
+            onClick={() => setModalClose(false)}
+            className="px-6 py-3 mt-4 text-white transition-transform transform hover:scale-105 bg-blue-700 hover:-translate-y-1 hover:shadow-lg rounded-full"
+          >
+            Edit Profile
+          </button>
+        )}
       </div>
       <div className="text-white my-10 text-left mx-4">
         <div className="text-2xl">
@@ -45,12 +56,21 @@ const Profile = () => {
           </span>
         </div>
         <div className="flex items-center space-x-4 mt-8">
-          <button
-            onClick={() => setPassModalClose(false)}
-            className="px-6 py-3 text-white transition-transform transform hover:scale-105 bg-purple-700 hover:-translate-y-1 hover:shadow-lg rounded-full"
-          >
-            Change Password
-          </button>
+          {user.role === "visitor" ? (
+            <button
+              onClick={() => toast.warning("Action not allowed to visitors")}
+              className="px-6 py-3 text-white transition-transform transform hover:scale-105 bg-purple-700 hover:-translate-y-1 hover:shadow-lg rounded-full"
+            >
+              Change Password
+            </button>
+          ) : (
+            <button
+              onClick={() => setPassModalClose(false)}
+              className="px-6 py-3 text-white transition-transform transform hover:scale-105 bg-purple-700 hover:-translate-y-1 hover:shadow-lg rounded-full"
+            >
+              Change Password
+            </button>
+          )}
           <Link
             to="/myorders"
             className="px-6 py-3 text-white transition-transform transform hover:scale-105 bg-green-500 hover:-translate-y-1 hover:shadow-lg rounded-full"

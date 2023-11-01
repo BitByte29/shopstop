@@ -6,11 +6,12 @@ import { FaRupeeSign } from "react-icons/fa";
 import { AiFillDatabase } from "react-icons/ai";
 import { MdDescription } from "react-icons/md";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createProduct } from "../../App/features/adminSlice";
+import { toast } from "react-toastify";
 
-const AddProduct = () => {
-  const { loading } = useSelector((s) => s.admin);
+const AddProduct = ({ role }) => {
+  // const { loading } = useSelector((s) => s.admin);
   const categoryList = [
     "Mobile",
     "Laptop",
@@ -21,7 +22,6 @@ const AddProduct = () => {
     "Accessories",
     "All",
   ];
-  const [uploading, setuploading] = useState(false);
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -193,12 +193,23 @@ const AddProduct = () => {
             </div>
 
             {/* Create Product Button */}
-            <button
-              type="submit"
-              className="bg-cyan-400 text-white py-2 rounded-md px-3  hover:bg-cyan-500 transition-colors"
-            >
-              Create Product
-            </button>
+            {role === "admin" ? (
+              <button
+                type="submit"
+                className="bg-cyan-400 text-white py-2 rounded-md px-3  hover:bg-cyan-500 transition-colors"
+              >
+                Create Product
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  toast.warning("visitor's not allowed this action.")
+                }
+                className="bg-cyan-400 text-white py-2 rounded-md px-3  hover:bg-cyan-500 transition-colors"
+              >
+                Create Product
+              </button>
+            )}
           </form>
         </div>
 

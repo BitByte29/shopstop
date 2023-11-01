@@ -8,6 +8,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import SearchFilter from "./SearchFilter";
+
 import {
   FaSort,
   FaArrowUp,
@@ -25,8 +26,9 @@ import {
 } from "../../App/features/adminSlice";
 import Loader from "../subs/Loader";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const Users = () => {
+const Users = ({ role }) => {
   const { loading, users } = useSelector((s) => s.admin);
   const [columnFilters, setColumnFilters] = useState([]);
   const [newRole, setNewRole] = useState("");
@@ -39,7 +41,7 @@ const Users = () => {
     if (users.length < 1) {
       dispatch(getAllUsers());
     }
-  }, []);
+  }, [dispatch, users.length]);
 
   const handleDelete = (id) => {
     const updatedUsersList = users.filter((user) => user._id !== id);
@@ -85,6 +87,7 @@ const Users = () => {
           <img
             src={props.getValue().url}
             className="md:w-16 md:h-16 h-14 w-14 rounded-full border-[1px] border-black"
+            alt="user profile"
           />
         </Link>
       ),
@@ -101,7 +104,11 @@ const Users = () => {
       cell: (props) => (
         <p
           className={`${
-            props.getValue() === "admin" ? "font-semibold text-lg" : ""
+            props.getValue() === "admin"
+              ? "font-semibold text-lg"
+              : props.getValue() === "visitor"
+              ? "font-semibold"
+              : ""
           }`}
         >
           {props.getValue()}
@@ -115,10 +122,26 @@ const Users = () => {
       cell: (props) => (
         <div className="space-x-2">
           <button className="text-blue-500 hover:text-blue-700">
-            <FaEdit onClick={() => handleEdit(props.getValue())} />
+            {role === "admin" ? (
+              <FaEdit onClick={() => handleEdit(props.getValue())} />
+            ) : (
+              <FaEdit
+                onClick={() =>
+                  toast.warning("Visitor's not allowed this action.")
+                }
+              />
+            )}
           </button>
           <button className="text-red-500 hover:text-red-700">
-            <FaTrash onClick={() => handleDelete(props.getValue())} />
+            {role === "admin" ? (
+              <FaTrash onClick={() => handleDelete(props.getValue())} />
+            ) : (
+              <FaTrash
+                onClick={() =>
+                  toast.warning("Visitor's not allowed this action.")
+                }
+              />
+            )}
           </button>
         </div>
       ),
@@ -180,6 +203,7 @@ const Users = () => {
             >
               <option value="admin">Admin</option>
               <option value="user">User</option>
+              <option value="visitor">Visitor</option>
             </select>
             <input
               type="submit"

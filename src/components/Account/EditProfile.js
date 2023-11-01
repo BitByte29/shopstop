@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearProfileUpdate,
   updateProfile,
 } from "../../App/features/userSlice";
-import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 
 const EditProfile = ({ user, setModalClose }) => {
   const [editName, setEditName] = useState(user.name);
   const dispatch = useDispatch();
-  const naviagte = useNavigate();
-  const { loading, accountCreated } = useSelector((s) => s.users);
+  const { loading } = useSelector((s) => s.users);
   const [avatar, setAvatar] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(`${user.avatar.url}`);
+
+  // useEffect(() => {
+  //   if (user.role === "visitor") {
+  //     toast("Visitior not allowed to edit profile");
+  //     setModalClose(true);
+  //   }
+  // }, []);
 
   const handleUpdateSubmit = (e) => {
     e.preventDefault();

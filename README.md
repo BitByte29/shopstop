@@ -1,70 +1,86 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p style="text-align:center; font-size:30px; font-weight:bold;display:flex; align-items:center;justify-content:center;">ShopStop: &nbsp;<span style="font-size:30px">Full-Stack E-commerce App</span></p>
 
-## Available Scripts
 
-In the project directory, you can run:
+<p style="text-align:justify">ShopStop is a feature-rich e-commerce application for electronics goods. It is built using the MERN stack, providing a seamless shopping experience for users and a powerful admin panel for managing products, users, orders, reviews, and sales statistics.</p>
 
-### `npm start`
+<p>Try it here: <a href="https://shopstop.onrender.com/">https://shopstop.onrender.com/</a></p>
+Email id and password to try :  
+<pre>visitor@shopstop.com </pre> 
+<pre>qwerty1234</pre> 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Table of Contents
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Usage](#usage)
+- [Technologies Used](#technologies-used)
 
-### `npm test`
+<a name="features"></a>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+<ul>
+<li>Product search and filtering
+<li>User authentication with JWT and cookie-based sessions
+<li>User profile management
+<li>Secure payment processing using Stripe
+<li>Admin dashboard with 
+<ul>
+<li>Detailed sales statistics
+<li>Product management
+<li>User management
+<li>Order management
+<li>Reviews and ratings
+</ul>
+</ul>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<a name="usage"></a>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**User Section**
 
-### `npm run eject`
+<ol>
+<li>Sign up or log in to your ShopStop account.
+<li>Browse products by category, search, and add items to your cart.
+<li>Proceed to checkout and make payments: Demo card info: 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Card Info for testing:
+```
+Card number:  4242 4242 4242 4242
+Expiry: 12/34
+CVV: 567
+```
+<li>View your order history and update your profile.
+</ol>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Admin Panel**
+<ol>
+<li>Access the admin panel with appropriate credentials.
+<li>View sales and statistics, Manage products, users, orders, reviews.
+<li>Monitor the performance of your online store.
+</ol>
+Visitor's account has viewing access to dashboard.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+Email: visitor@shopstop.com
+Pass: qwerty1234
+```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<a name="technologies"></a>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<ul>
+<li>MongoDB with Mongoose</li>
+<li>Express.js/Node.js</li>
+<li>React with Redux Toolkit</li>
+<li>Tailwind CSS
+</ul>
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

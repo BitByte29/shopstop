@@ -53,7 +53,7 @@ const MyOrdersList = () => {
       enableSorting: false,
       cell: (props) => (
         <Link
-          to={`/order/${props.getValue()}`}
+          to={`/myorder/${props.getValue()}`}
           className="text-blue-700 underline text-sm"
         >
           View
@@ -96,6 +96,7 @@ const MyOrdersList = () => {
     if (orders.length === 0) {
       dispatch(myOrders());
     }
+    // eslint-disable-next-line
   }, []);
   const table = useReactTable({
     data: orders,

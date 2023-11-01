@@ -55,7 +55,7 @@ const UserOptions = ({ user }) => {
     },
   ];
 
-  if (user.role === "admin") {
+  if (user.role === "admin" || user.role === "visitor") {
     items.unshift({
       tooltip: "Dashboard",
       onClick: handleDashboardClick,
