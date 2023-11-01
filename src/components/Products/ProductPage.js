@@ -164,7 +164,9 @@ const ProductPage = () => {
             </div>
           </div>
           <div className="flex flex-col my-4 p-4 rounded-lg gap-4 bg-white lg:w-4/6">
-            <div className="text-5xl">{product.name}</div>
+            <div className="ld:text-5xl md:text-3xl text-xl">
+              {product.name}
+            </div>
             <div className="flex items-center gap-2" key={product._id}>
               <ReactStars
                 {...ratingOptions}
