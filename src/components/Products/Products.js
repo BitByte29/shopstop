@@ -8,6 +8,7 @@ import Loader from "../subs/Loader";
 import Product from "./Product";
 import Slider from "react-slider";
 import { setCategory } from "../../App/features/variablesSlice";
+import { FaFlask } from "react-icons/fa";
 const Products = () => {
   const MIN = 0;
   const MAX = 125000;
@@ -19,10 +20,15 @@ const Products = () => {
   const categories = useSelector((s) => s.vars.categories);
   const [currentPage, setCurrentPage] = useState(1);
   const [ratingValue, setRatingValue] = useState(0);
+  const [filtersBox, setFiltersBox] = useState(true);
   // const [category, setCategory] = useState("All");
   const category = useSelector((s) => s.vars.category);
   const [price, setPrice] = useState([MIN, MAX]);
   const [range, setRange] = useState([MIN, MAX]);
+
+  const toggleFilter = () => {
+    setFiltersBox(!filtersBox);
+  };
   useEffect(() => {
     const filters = {
       keyword: toSearch,
@@ -48,81 +54,92 @@ const Products = () => {
   };
   return (
     <>
-      <div className="flex flex-col gap-4 md:flex-row lg:px-[5vh]">
-        <div className="w-full p-4 md:w-[30%]">
+      <div className="flex flex-col gap-4 md:flex-row lg:px-[5vh] min-h-[90vh]">
+        <div className="w-full md:p-4 px-4 py-2 md:w-[30%]">
           <div className="sticky px-4 py-4 border-2 rounded-lg lg:px-14 top-20 bg-gray-100">
-            <h2 className="text-2xl font-semibold text-center mb-4">
-              Filter Products
+            <h2 className="text-2xl font-semibold text-center  flex-center gap-2">
+              {/* <span className="md:block hidden">Filter Products</span> */}
+              <button
+                className=" flex-center flex-row gap-2"
+                onClick={toggleFilter}
+              >
+                Filter <FaFlask />
+              </button>
             </h2>
-            <div className="">
-              <h3 className="text-xl font-semibold mb-2">Price</h3>
-              <div className="flex items-center gap-2 mb-4">
-                <span>&#8377;{price[0]}</span> to <span>&#8377;{price[1]}</span>
+            <div className={`${filtersBox ? "block" : "hidden"} `}>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Price</h3>
+                <div className="flex items-center gap-2 mb-4">
+                  <span>&#8377;{price[0]}</span> to{" "}
+                  <span>&#8377;{price[1]}</span>
+                </div>
+                <Slider
+                  className="price-slider"
+                  step={100}
+                  value={price}
+                  min={MIN}
+                  pearling
+                  max={MAX}
+                  onChange={setPrice}
+                  onAfterChange={() => {
+                    setRange(price);
+                  }}
+                />
               </div>
-              <Slider
-                className="price-slider"
-                step={100}
-                value={price}
-                min={MIN}
-                pearling
-                max={MAX}
-                onChange={setPrice}
-                onAfterChange={() => {
-                  setRange(price);
-                }}
-              />
-            </div>
-            <hr className="mt-3 mb-4" />
-            <div className="">
-              <h3 className="text-xl font-semibold">Ratings</h3>
-              <ReactStars
-                {...options}
-                value={ratingValue}
-                key={ratingValue === 0 ? "rating-key" : null}
-                onChange={(newRating) => {
-                  setRatingValue(newRating);
-                  setCurrentPage(1);
-                }}
-              />
-              <p>{ratingValue}+ and up.</p>
-            </div>
-            <hr className="mt-3 mb-4" />
-            <div className="">
-              <h3 className="text-xl font-semibold">Category</h3>
-              <ul>
-                {categories.map((val) => (
-                  <div
-                    key={val}
-                    className={`flex items-center gap-2 cursor-pointer hover:tracking-wider ${
-                      category === val ? "font-semibold" : ""
-                    }`}
-                  >
-                    <li
-                      onClick={() => {
-                        dispatch(setCategory(val));
-                      }}
-                      value={val}
-                    >
-                      {val}
-                    </li>
-                    <IoMdCheckmarkCircleOutline
-                      className={`w-[20px] h-[20px]  ${
-                        category === val ? "text-green-500" : "text-transparent"
+              <hr className="mt-3 mb-4" />
+              <div className="">
+                <h3 className="text-xl font-semibold">Ratings</h3>
+                <ReactStars
+                  {...options}
+                  value={ratingValue}
+                  key={ratingValue === 0 ? "rating-key" : null}
+                  onChange={(newRating) => {
+                    setRatingValue(newRating);
+                    setCurrentPage(1);
+                  }}
+                />
+                <p>{ratingValue}+ and up.</p>
+              </div>
+              <hr className="mt-3 mb-4" />
+              <div className="">
+                <h3 className="text-xl font-semibold">Category</h3>
+                <ul>
+                  {categories.map((val) => (
+                    <div
+                      key={val}
+                      className={`flex items-center gap-2 cursor-pointer hover:tracking-wider ${
+                        category === val ? "font-semibold" : ""
                       }`}
-                    />
-                  </div>
-                ))}
-              </ul>
+                    >
+                      <li
+                        onClick={() => {
+                          dispatch(setCategory(val));
+                        }}
+                        value={val}
+                      >
+                        {val}
+                      </li>
+                      <IoMdCheckmarkCircleOutline
+                        className={`w-[20px] h-[20px]  ${
+                          category === val
+                            ? "text-green-500"
+                            : "text-transparent"
+                        }`}
+                      />
+                    </div>
+                  ))}
+                </ul>
+              </div>
+              <button
+                className="w-full mt-3 py-3 text-white font-semibold bg-cyan-500 hover:bg-cyan-600 hover:-translate-y-2 rounded-lg"
+                onClick={resetFilters}
+              >
+                Clear all filters
+              </button>
             </div>
-            <button
-              className="w-full mt-3 py-3 text-white font-semibold bg-cyan-500 hover:bg-cyan-600 hover:-translate-y-2 rounded-lg"
-              onClick={resetFilters}
-            >
-              Clear all filters
-            </button>
           </div>
         </div>
-        <div className="relative flex flex-col items-center m-2 md:w-[75%] ">
+        <div className="relative flex flex-col items-center md:m-2 mx-3 md:w-[75%] ">
           {loading ? (
             <Loader />
           ) : products && products.length > 0 ? (
