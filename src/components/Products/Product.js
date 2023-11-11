@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const Product = ({ product }) => {
   const dispatch = useDispatch();
   const checkLength = (name) => {
-    let correctedName = name.length > 23 ? name.slice(0, 23) + "..." : name;
+    let correctedName = name.length > 20 ? name.slice(0, 20) + "..." : name;
     return correctedName;
   };
   const salePrice = (percent, price) => {
@@ -43,7 +43,7 @@ const Product = ({ product }) => {
         <FaCartPlus />
       </div>
       <Link
-        className=" flex flex-col items-center justify-center md:p-4 w-full h-full  border-2 rounded-lg  group-hover:shadow-lg"
+        className=" flex flex-col items-center justify-center md:p-4 w-full h-full border-2 rounded-lg  group-hover:shadow-lg"
         to={`/products/${product._id}`}
       >
         {product.onSale && (
@@ -52,7 +52,7 @@ const Product = ({ product }) => {
           </span>
         )}
 
-        <div className="w-full sm:w-[200px] p-4 sm:h-[250px] flex-center md:py-2 group-hover:scale-110 transition-all  ">
+        <div className="max-w-full sm:w-[200px] p-4 sm:h-[250px] flex-center md:py-2 group-hover:scale-110 transition-all  ">
           <img
             src={product.images[0].url}
             alt=""

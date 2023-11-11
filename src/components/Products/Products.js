@@ -23,7 +23,6 @@ const Products = () => {
   const category = useSelector((s) => s.vars.category);
   const [price, setPrice] = useState([MIN, MAX]);
   const [range, setRange] = useState([MIN, MAX]);
-  const cartSize = useSelector((s) => s.cart.cartSize);
   useEffect(() => {
     const filters = {
       keyword: toSearch,
@@ -123,13 +122,16 @@ const Products = () => {
             </button>
           </div>
         </div>
-        <div className="relative flex flex-col items-center m-4  md:w-[75%] ">
+        <div className="relative flex flex-col items-center m-2 md:w-[75%] ">
           {loading ? (
             <Loader />
           ) : products && products.length > 0 ? (
             <div className="text-center ">
               <div className="py-4 mb-4 text-3xl">Available Products</div>
-              <div className="flex flex-wrap items-center justify-center md:gap-4 gap-2 ">
+              <div
+                className="flex 
+               items-center flex-wrap justify-center md:gap-3 gap-2 "
+              >
                 {products.map((pro, index) => {
                   return <Product product={pro} key={index} />;
                 })}
