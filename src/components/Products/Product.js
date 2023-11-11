@@ -58,17 +58,6 @@ const Product = ({ product }) => {
               </div>
             </span>
           </span>
-
-          //    <span className="absolute top-0 right-0 px-4 py-1 w-[150px] text-right clip-path-polygon bg-gradient-to-r from-pink-500 to-purple-500  uppercase z-30 rotate-45 text-white ">
-          //    {/* <span className="">Sale</span> */}
-          //    <marquee behavior="" direction="">
-          //      sale
-          //    </marquee>
-          //  </span>
-
-          // <div className="absolute top-0 right-0 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-1 px-2 transform -rotate-45 font-bold border-2 border-white shadow-md animate-pulse">
-          //   Sale!
-          // </div>
         )}
 
         <div className="max-w-full sm:w-[200px] p-4 sm:h-[250px] flex-center md:py-2 group-hover:scale-110 transition-all  ">
