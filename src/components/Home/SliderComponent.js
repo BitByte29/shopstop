@@ -36,7 +36,7 @@ const SliderComponent = () => {
             Buy Now
           </Link>
         </div>
-        <img className="w-full" src="/assets/cone.png" alt="Headphones" />
+        <img className="w-full" src="/assets/cone.webp" alt="Headphones" />
       </div>
 
       <div className="relative">
@@ -60,7 +60,7 @@ const SliderComponent = () => {
             Buy Now
           </Link>
         </div>
-        <img className="w-full" src="/assets/ctwo.png" alt="tablet" />
+        <img className="w-full" src="/assets/ctwo.webp" alt="tablet" />
       </div>
 
       <div className="relative">
@@ -85,7 +85,7 @@ const SliderComponent = () => {
             Buy Now
           </Link>
         </div>
-        <img className="w-full" src="/assets/cthree.png" alt="mobile" />
+        <img className="w-full" src="/assets/cthree.webp" alt="mobile" />
       </div>
     </Slider>
   );

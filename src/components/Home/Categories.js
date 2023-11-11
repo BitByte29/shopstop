@@ -8,15 +8,15 @@ const Categories = () => {
   const cats = [
     {
       name: "Mobile",
-      url: "/assets/phones2.webp",
+      url: "https://res.cloudinary.com/duldmudqb/image/upload/v1699672449/categories/ttwb3zjiwztialo7b8z6.png",
     },
     {
       name: "Laptop",
-      url: "/assets/laptop.webp",
+      url: "https://res.cloudinary.com/duldmudqb/image/upload/v1699672396/categories/m2geagrar66fnkojmgaa.png",
     },
     {
       name: "Computer",
-      url: "/assets/computer.webp",
+      url: "https://res.cloudinary.com/duldmudqb/image/upload/v1699672183/categories/q7fxksenv5cabxcniz9l.png",
     },
     {
       name: "Television",
@@ -24,19 +24,19 @@ const Categories = () => {
     },
     {
       name: "Gaming",
-      url: "/assets/gaming.webp",
+      url: "https://res.cloudinary.com/duldmudqb/image/upload/v1699672084/categories/rvdsjftumkf95ev9o4lx.png",
     },
     {
       name: "Accessories",
-      url: "/assets/accessory.webp",
+      url: "https://res.cloudinary.com/duldmudqb/image/upload/v1699672007/categories/hudm11lrpauwv0jmhqt1.png",
     },
     {
       name: "Audio",
-      url: "/assets/headphones.webp",
+      url: "https://res.cloudinary.com/duldmudqb/image/upload/v1699671887/categories/erg3svnqnqonhlnwpqvb.png",
     },
     {
       name: "Others",
-      url: "/assets/camera.webp",
+      url: "https://res.cloudinary.com/duldmudqb/image/upload/v1699671695/categories/mbbpjgepuuzwkx9ckt2c.png",
     },
   ];
   const dispatch = useDispatch();
