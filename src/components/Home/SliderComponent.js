@@ -15,7 +15,7 @@ const SliderComponent = () => {
 
   return (
     <Slider {...settings} className="w-full lg:h-full h-auto">
-      <div className="relative">
+      <div className="relative" key={"one"}>
         <div className="absolute flex flex-col items-start justify-center top-[50%] left-[50%] md:left-[60%] lg:left-[70%]  translate-y-[-50%]  md:gap-2 ">
           <h2 className="text-xl font-bold md:text-3xl lg:text-6xl text-cyan-200">
             Nice Sound
@@ -39,7 +39,7 @@ const SliderComponent = () => {
         <img className="w-full" src="/assets/cone.webp" alt="Headphones" />
       </div>
 
-      <div className="relative">
+      <div className="relative" key={"two"}>
         <div className="absolute flex flex-col items-start text-white justify-center  top-[50%] left-[50%] md:left-[60%] lg:left-[70%]  translate-y-[-50%]  md:gap-2 ">
           <h2 className="text-xl font-bold md:text-3xl lg:text-6xl text-red2">
             Latest Tablets
@@ -63,7 +63,7 @@ const SliderComponent = () => {
         <img className="w-full" src="/assets/ctwo.webp" alt="tablet" />
       </div>
 
-      <div className="relative">
+      <div className="relative" key={"three"}>
         <div className="absolute flex flex-col items-start justify-center top-[50%] left-[50%] md:left-[60%] lg:left-[70%]   translate-y-[-50%]  md:gap-2 ">
           <h2 className="text-xl font-bold text-indigo-700 md:text-3xl lg:text-6xl">
             Flagship

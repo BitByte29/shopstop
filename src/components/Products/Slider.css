@@ -4,6 +4,34 @@
 border: 2px solid rgba(29, 78, 216, 1) !important;
 
 }
+
+@keyframes pulseScale {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.1);
+    }
+  }
+  
+  .animate-pulse-scale {
+    animation: pulseScale 1s infinite alternate;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .animate-marquee {
+    white-space: nowrap;
+    animation: marquee 2s linear infinite;
+  }
+  
 .carousel .thumb {
     border: 2px solid transparent !important;
     background: white;
