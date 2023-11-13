@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../App/features/productSlice";
+import Metadata from "../layout/Metadata";
 import { toast } from "react-toastify";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import ReactStars from "react-rating-stars-component";
@@ -54,6 +55,7 @@ const Products = () => {
   };
   return (
     <>
+      <Metadata title="All Products" />
       <div className="flex flex-col gap-4 md:flex-row lg:px-[5vh] min-h-[90vh]">
         <div className="w-full md:p-4 px-4 py-2 md:w-[30%]">
           <div className="sticky px-4 py-4 border-2 rounded-lg lg:px-14 top-20 bg-gray-100">

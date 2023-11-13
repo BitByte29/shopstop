@@ -1,3 +1,4 @@
+import Metadata from "../layout/Metadata";
 import React from "react";
 import { FaRegPaperPlane } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -5,6 +6,7 @@ import { Link } from "react-router-dom";
 const About = () => {
   return (
     <div className="bg-gray-200 p-8 rounded-lg shadow-lg text-gray-700 flex items-center justify-center min-h-[90vh] gap-10 flex-col md:flex-row">
+      <Metadata title={`About`} />
       <section className="mb-8 md:w-1/2 w-full flex-center text-center">
         <h2 className="text-3xl font-semibold mb-4">Welcome to ShopStop</h2>
         <p className="text-lg text-center">

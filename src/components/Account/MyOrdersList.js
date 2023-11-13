@@ -1,3 +1,4 @@
+import Metadata from "../layout/Metadata";
 import React, { useEffect, useState } from "react";
 import {
   flexRender,
@@ -113,6 +114,7 @@ const MyOrdersList = () => {
 
   return (
     <div className="md:px-24 px-4 min-h-[90vh]">
+      <Metadata title={`My orders`} />
       <h1 className="text-center text-4xl font-semibold  text-slate-700 py-4">
         Your Order's
       </h1>

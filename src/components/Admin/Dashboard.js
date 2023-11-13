@@ -11,6 +11,7 @@ import Products from "./Products";
 import AddProduct from "./AddProduct";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Metadata from "../layout/Metadata";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("Stats");
@@ -32,6 +33,7 @@ const Dashboard = () => {
 
   return (
     <>
+      <Metadata title="Dashboard" />
       {user && (user.role === "admin" || user.role === "visitor") ? (
         <div className="overflow-hidden ">
           <div className="fixed top-5 right-4 md:right-24 z-50 ">

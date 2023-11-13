@@ -3,6 +3,7 @@ import SliderComponent from "./SliderComponent";
 import Categories from "./Categories";
 import FeaturedProducts from "./FeaturedProducts";
 import Metadata from "../layout/Metadata";
+
 // import Loader from "../subs/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../App/features/productSlice";
@@ -25,7 +26,7 @@ const Home = () => {
 
   return (
     <>
-      <Metadata title="Welcome to ShopStop" />
+      <Metadata title="ShopStop - Home" />
       <div className="relative w-full bg-cyan-200 ">
         <SliderComponent />
         <Categories />

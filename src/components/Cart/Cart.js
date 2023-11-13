@@ -1,3 +1,4 @@
+import Metadata from "../layout/Metadata";
 import React from "react";
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
@@ -23,6 +24,7 @@ const Cart = () => {
 
   return (
     <>
+      <Metadata title="My Cart" />
       {cartItems.length > 0 ? (
         <div className="bg-lp  flex flex-col md:flex-row">
           <div className="flex flex-col py-5 px-4 w-full md:w-3/4 md:min-h-screen">

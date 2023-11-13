@@ -1,3 +1,4 @@
+import Metadata from "../layout/Metadata";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -13,6 +14,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#2E3192]  to-[#1BFFFF] flex flex-col items-center justify-center py-5">
+      <Metadata title={`Profile-${user.name}`} />
       {!modalClose && <EditProfile user={user} setModalClose={setModalClose} />}
       {!passModalClose && (
         <EditPassword setPassModalClose={setPassModalClose} />
