@@ -37,7 +37,7 @@ const Product = ({ product }) => {
     <div className="relative group  bg-white transition-all  rounded-lg ">
       {/* hover:border-slate-200 hover:-translate-y-2 hover:shadow-lg */}
       <div
-        className="z-50 absolute -top-4 -left-4 p-4 rounded-full bg-cyan-300  cursor-crosshair hover:scale-125 transition-all active:bg-yellow-300 backdrop-blur-70 hidden group-hover:block text-2xl "
+        className="z-20 absolute -top-4 -left-4 p-4 rounded-full bg-cyan-300  cursor-crosshair hover:scale-125 transition-all active:bg-yellow-300 backdrop-blur-70 hidden group-hover:block text-2xl "
         onClick={handleAddToCart}
       >
         <FaCartPlus />
@@ -47,7 +47,7 @@ const Product = ({ product }) => {
         to={`/products/${product._id}`}
       >
         {product.onSale && (
-          <span className="absolute top-0 right-0 w-[150px] h-[150px] flex overflow-hidden text-right uppercase text-white z-40">
+          <span className="absolute top-0 right-0 w-[150px] h-[150px] flex overflow-hidden text-right uppercase text-white z-20">
             <span className="w-[100%] rotate-45">
               <div className="bg-gradient-to-r from-pink-500 to-purple-500 text-lg shadow-lg overflow-hidden">
                 <div className="animate-marquee flex w-full justify-between">

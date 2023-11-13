@@ -144,10 +144,10 @@ const Products = () => {
             <Loader />
           ) : products && products.length > 0 ? (
             <div className="text-center ">
-              <div className="py-4 mb-4 text-3xl">Available Products</div>
+              {/* <div className="py-4 mb-4 text-3xl">Available Products</div> */}
               <div
                 className="flex 
-               items-center flex-wrap justify-center md:gap-3 gap-2 "
+               items-center flex-wrap justify-center md:gap-3 gap-2 mt-2"
               >
                 {products.map((pro, index) => {
                   return <Product product={pro} key={index} />;
