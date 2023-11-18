@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import "./sliderstyle.css";
 
 const SliderComponent = () => {
   const settings = {
@@ -12,10 +13,11 @@ const SliderComponent = () => {
     fade: true,
     pauseOnHover: false,
   };
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <Slider {...settings} className="w-full lg:h-full h-auto">
-      <div className="relative" key={"one"}>
+      <div className="relative bgimg" key={"one"}>
         <div className="absolute flex flex-col items-start justify-center top-[50%] left-[50%] md:left-[60%] lg:left-[70%]  translate-y-[-50%]  md:gap-2 ">
           <h2 className="text-xl font-bold md:text-3xl lg:text-6xl text-cyan-200">
             Nice Sound
@@ -36,10 +38,15 @@ const SliderComponent = () => {
             Buy Now
           </Link>
         </div>
-        <img className="w-full" src="/assets/cone.webp" alt="Headphones" />
+        <img
+          className={`w-full ${loaded ? "" : "pb-[50%]"}`}
+          onLoad={() => setLoaded(true)}
+          src="/assets/cone.webp"
+          alt="Headphones"
+        />
       </div>
 
-      <div className="relative" key={"two"}>
+      <div className="relative bgimg" key={"two"}>
         <div className="absolute flex flex-col items-start text-white justify-center  top-[50%] left-[50%] md:left-[60%] lg:left-[70%]  translate-y-[-50%]  md:gap-2 ">
           <h2 className="text-xl font-bold md:text-3xl lg:text-6xl text-red2">
             Latest Tablets
@@ -63,7 +70,7 @@ const SliderComponent = () => {
         <img className="w-full" src="/assets/ctwo.webp" alt="tablet" />
       </div>
 
-      <div className="relative" key={"three"}>
+      <div className="relative bgimg" key={"three"}>
         <div className="absolute flex flex-col items-start justify-center top-[50%] left-[50%] md:left-[60%] lg:left-[70%]   translate-y-[-50%]  md:gap-2 ">
           <h2 className="text-xl font-bold text-indigo-700 md:text-3xl lg:text-6xl">
             Flagship
@@ -85,7 +92,7 @@ const SliderComponent = () => {
             Buy Now
           </Link>
         </div>
-        <img className="w-full" src="/assets/cthree.webp" alt="mobile" />
+        <img className="w-full " src="/assets/cthree.webp" alt="mobile" />
       </div>
     </Slider>
   );

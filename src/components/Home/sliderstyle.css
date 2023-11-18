@@ -1,0 +1,8 @@
+
+.bgimg{
+    background: url('../../../public/assets/cone_10.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* width:100vw;
+    height: 50vh; */
+}
